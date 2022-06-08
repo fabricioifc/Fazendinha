@@ -3,10 +3,10 @@ Angelina's Farm
 
 ### Membros do Grupo
 
-> Fabricio Bizotto\
+> [Fabricio Bizotto](https://fabricioifc.github.io/horarios/)\
 > Matheus Wogt\
 > João Danielewicz\
-> Outro Membro\
+> Angelita Retore\
 
 ## ToDo List
 
