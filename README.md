@@ -2,7 +2,18 @@
 Angelina's Farm
 
 ### Membros do Grupo
-    [x] Fabricio Bizotto
-    [x] Matheus Wogt
-    [x] João Danielewicz
-    [x] Outro Membro
+
+> Fabricio Bizotto\
+> Matheus Wogt\
+> João Danielewicz\
+> Outro Membro\
+
+ToDo
+
+ - Criar uma tela de login para .....
+    - [ ] todo
+    - [ ] todo
+    - [ ] todo
+    - [ ] todo
+    - [ ] todo
+
