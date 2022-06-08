@@ -3,6 +3,6 @@ Angelina's Farm
 
 ### Membros do Grupo
     [x] Fabricio Bizotto
-    [x] Teste
-    [x] Outro Membro
+    [x] Matheus Wogt
+    [x] João Danielewicz
     [x] Outro Membro
