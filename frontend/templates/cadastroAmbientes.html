@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}C.E.I.F.A - Cadastrar um Ambiente{% endblock %}
+
+
+{% block content %}
+
+<div class="container w-50">
+    <div class="bg-info bg-opacity-25 p-3 rounded">
+        <div class="bg-white border border-info rounded p-3">
+            <div class="text-center fs-4">
+                <p class="m-0">Cadastrar um novo ambiente</p>
+                <hr class="w-100 m-0">
+            </div>
+
+            <form class="form-floating mt-3">
+                <input type="text" class="form-control" id="floatingInputValue" placeholder="name@example.com">
+                <label for="floatingInputValue">Nome do ambiente</label>
+
+                <div class="form-check-inline mt-2">
+                    <input class="form-check-input" type="radio" name="status" id="statusTrue" checked>
+                    <label class="form-check-label" for="statusTrue">
+                      Ativo
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="statusFalse">
+                    <label class="form-check-label" for="statusFalse">
+                      Inativo
+                    </label>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
