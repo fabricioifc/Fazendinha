@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}C.E.I.F.A - Cadastrar uma Instância{% endblock %}
+
+
+{% block content %}
+
+<div class="container w-50">
+    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+        <div class="bg-white border border-info rounded p-3">
+            <div class="text-center fs-4">
+                <p class="m-0">Cadastrar uma nova instância</p>
+                <hr class="w-100 m-0">
+            </div>
+
+            <form class="form-floating mt-3" action="#" method="post">
+
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="nomeInstancia" id="nmInst" placeholder="Nome da instância">
+                    <label for="nmInst">Nome da instância</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input type="number" min="1" class="form-control" name="instanciaNumero" id="instNmb" placeholder="Número desta instância">
+                    <label for="instNmb">Número desta instância</label>
+                </div>
+
+                <div class="form-floating mt-3">
+                    <input type="number" min="1" class="form-control" name="idAmbiente" id="idAmb" placeholder="ID do ambiente pai desta instância">
+                    <label for="idAmb">ID do Ambiente pai desta instância</label>
+                </div>
+
+                
+
+                <div class="mt-3 w-100 d-flex">
+                    <p class="m-0">Status da instância</p>
+                    <div class="ms-auto">
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativa"
+                                checked>
+                            <label class="form-check-label" for="statusTrue">
+                                Ativa
+                            </label>
+                        </div>
+
+
+                        <div class="form-check-inline me-0">
+                            <input class="form-check-input" type="radio" name="status" id="statusFalse" value="inativo">
+                            <label class="form-check-label" for="statusFalse">
+                                Inativa
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn w-100 mt-3 bg-info bg-opacity-50">Cadastrar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
