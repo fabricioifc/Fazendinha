@@ -1,1 +1,15 @@
 {%  extends "mainBase.html"  %}
+
+{%  block title  %}C.E.I.F.A - Visualização de Dados{%  endblock  %}
+
+{%  block content  %}
+
+{% for ambiente in  ambientes %}
+        <div class='ambiente'>
+            <p>{{ ambiente['id'] }}</p>
+            <h2>{{ ambiente['name'] }}</h2>
+            <p>{{ ambiente['status'] }}</p>
+        </div>
+    {% endfor %}
+
+{%  endblock  %}
