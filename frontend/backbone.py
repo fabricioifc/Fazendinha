@@ -31,7 +31,14 @@ def cadUser():
 def getCadUser():
     return render_template("cadastro.html")
 
+# visualizar dado
 
+@app.route('/visualizar/ambientes')
+def visAmbientes():
+    conn = get_db_connection()
+    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
+    conn.close()
+    return render_template('visualizarAmbientes.html', ambientes=ambientes)
 
 
 # páginas de cadastro
