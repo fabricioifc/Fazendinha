@@ -4,7 +4,7 @@ from flask import Flask, flash, redirect, url_for, render_template, request
 app = Flask(__name__)
 
 def get_db_connection():
-    conn = sqlite3.connect('../data/database/bancoDados.db')
+    conn = sqlite3.connect('bancoDados.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -48,6 +48,17 @@ def cadAmbiente():
     else:
         statusAmbiente=0
     
+    if not nomeAmbiente:
+        flash('É obrigatório inserir um nome')
+    elif not statusAmbiente:
+        flash('É obrigatório definir um status')
+    else:
+        conn = get_db_connection()
+        conn.execute('INSERT INTO ambientes (name, status) VALUES (?, ?)',
+                        (nomeAmbiente, statusAmbiente))
+        conn.commit()
+        conn.close()
+
     return redirect(url_for('verDados'))
 
 @app.route('/cadastro/ambiente', methods=["GET"])
