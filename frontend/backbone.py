@@ -33,12 +33,12 @@ def getCadUser():
 
 # visualizar dado
 
-@app.route('/visualizar/ambientes')
+@app.route('/verdados')
 def visAmbientes():
     conn = get_db_connection()
     ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
     conn.close()
-    return render_template('visualizarAmbientes.html', ambientes=ambientes)
+    return render_template('verDados.html', ambientes=ambientes)
 
 
 # páginas de cadastro
@@ -128,9 +128,8 @@ def getRecurso():
 
 
 # visualização de dados cadastrados
-@app.route('/verdados')
-def verDados():
-    return render_template("verDados.html")
+
+
 
 
 
