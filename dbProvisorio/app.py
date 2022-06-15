@@ -1,10 +1,6 @@
-
-from crypt import methods
 import sqlite3
 from flask import Flask, flash, render_template, redirect, request, url_for
 
-
-app = Flask(__name__)
 
 app = Flask(__name__)
 
@@ -21,29 +17,33 @@ def visAmbientes():
     conn.close()
     return render_template('visualizarAmbientes.html', ambientes=ambientes)
 
-@app.route('/cadastro/ambiente', methods=('GET', 'POST'))
+
+@app.route('/cadastro/ambiente', methods=['POST'])
 def cadAmbiente():
+    name = request.form['name']
+    status = request.form['status']
 
-    if request.method == 'POST':
-        name = request.form['name']
-        status = request.form['status']
-
-        if not name:#essa parte dos 'flash' não sei se é uma boa deixar, precisa alterar coisas no html para que funcione mas seria legal se funcionase.
-            flash('É obrigatório inserir um nome')
-        elif not status:
-            flash('É obrigatório definir um status')#acho irrelevante afinal já vem definido um status mas é melhor deixar
-        else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO ambientes (name, status) VALUES (?, ?)',
-                         (name, status))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('home'))
+    if not name:
+        flash('É obrigatório inserir um nome')
+    elif not status:
+        flash('É obrigatório definir um status')
+    else:
+        conn = get_db_connection()
+        conn.execute('INSERT INTO ambientes (name, status) VALUES (?, ?)',
+                        (name, status))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('home'))
 
     return render_template("cadastroAmbientes.html")    
 
-@app.route('/cadastro/recurso', methods=('GET', 'POST'))
-def cadAmbiente():
+@app.route('/cadastro/ambiente', methods=['GET'])    
+def getAmbiente():
+    return render_template("cadastroAmbientes.html")
+
+
+@app.route('/cadastro/recurso', methods=['POST'])
+def cadRecurso():
 
     if request.method == 'POST':
         name = request.form['name']
@@ -69,3 +69,11 @@ def cadAmbiente():
 
     return render_template("cadastroResource.html")    
 
+@app.route('/cadastro/recurso', methods=['GET'])
+def getRecurso():
+
+    return render_template("cadastroResource.html")    
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
