@@ -33,9 +33,7 @@ def cadAmbiente():
                         (name, status))
         conn.commit()
         conn.close()
-        return redirect(url_for('home'))
-
-    return render_template("cadastroAmbientes.html")    
+        return redirect(url_for('home'))  
 
 @app.route('/cadastro/ambiente', methods=['GET'])    
 def getAmbiente():
@@ -44,28 +42,26 @@ def getAmbiente():
 
 @app.route('/cadastro/recurso', methods=['POST'])
 def cadRecurso():
+    name = request.form['name']
+    resource_number = request.form['resource_numnber']
+    vlini = request.form['vlini']
+    vlfim = request.form['vlfim']
 
-    if request.method == 'POST':
-        name = request.form['name']
-        resource_number = request.form['resource_numnber']
-        vlini = request.form['vlini']
-        vlfim = request.form['vlfim']
-
-        if not name:
-            flash('É obrigatório inserir um nome')
-        elif not resource_number:
-            flash('É obrigatório definir um número de recurso')
-        elif not vlini:
-            flash('É obrigatório definir um valor inicial')
-        elif not vlfim:
-            flash('É obrigatório definir um valor final')
-        else:
-            conn = get_db_connection()
-            conn.execute('INSERT INTO resources (name, resource_number, vlini, vlfim) VALUES (?, ?, ?, ?)',
-                         (name, resource_number, vlini, vlfim))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('home'))
+    if not name:
+        flash('É obrigatório inserir um nome')
+    elif not resource_number:
+        flash('É obrigatório definir um número de recurso')
+    elif not vlini:
+        flash('É obrigatório definir um valor inicial')
+    elif not vlfim:
+        flash('É obrigatório definir um valor final')
+    else:
+        conn = get_db_connection()
+        conn.execute('INSERT INTO resources (name, resource_number, vlini, vlfim) VALUES (?, ?, ?, ?)',
+                        (name, resource_number, vlini, vlfim))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('home'))
 
     return render_template("cadastroResource.html")    
 
