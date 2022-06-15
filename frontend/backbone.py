@@ -17,8 +17,26 @@ def base():
 def home():
     return render_template("index.html")
 
+# páginas de usuário: login e cadastro
+
+@app.route('/cadastro', methods=["POST"])
+def cadUser():
+    nomeUsuario = request.form["nomeUsuario"]
+    emailUsuario = request.form["emailUsuario"]
+    senha = request.form["senha"]
+
+    return redirect(url_for('home'))
+
+@app.route('/cadastro', methods=["GET"])
+def getCadUser():
+    return render_template("cadastro.html")
+
+
+
+
 # páginas de cadastro
 
+# cadastro de ambientes
 @app.route('/cadastro/ambiente', methods=["POST"])
 def cadAmbiente():
 
@@ -30,14 +48,14 @@ def cadAmbiente():
     else:
         statusAmbiente=0
     
-    return redirect(url_for('verdados'))
+    return redirect(url_for('verDados'))
 
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
     return render_template("cadastroAmbientes.html")
 
 
-
+# cadastro de instâncias
 @app.route('/cadastro/instancias', methods=["POST"])
 def cadInstancia():
     nomeInstancia = request.form["nomeInstancia"]
@@ -48,7 +66,7 @@ def cadInstancia():
     else:
         statusInstancia=0
 
-    return redirect(url_for("verdados"))
+    return redirect(url_for("verDados"))
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
@@ -56,7 +74,7 @@ def getInstancia():
 
 
 
-
+# cadastro de recursos
 @app.route('/cadastro/recursos', methods=["POST"])
 def cadRecurso():
     valorInicial = request.form["vlIniAmb"]
@@ -84,16 +102,19 @@ def cadRecurso():
             conn.close()
             return redirect(url_for('home'))
 
-       
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
     return render_template("cadastroRecursos.html")
 
+# --------------------------------------------------------------
 
 
+# visualização de dados cadastrados
 @app.route('/verdados')
 def verDados():
     return render_template("verDados.html")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
