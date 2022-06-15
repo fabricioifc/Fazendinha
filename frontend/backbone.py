@@ -34,7 +34,7 @@ def getCadUser():
 # visualizar dado
 
 @app.route('/verdados')
-def visAmbientes():
+def verDadosx():
     conn = get_db_connection()
     ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
     conn.close()
@@ -88,7 +88,13 @@ def cadInstancia():
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
-    return render_template("cadastroInstancias.html")
+    
+    conn = get_db_connection()
+    id_ambiente = conn.execute('SELECT id FROM ambientes').fetchall()
+    conn.close()
+    return render_template('cadastroInstancias.html', id=id_ambiente)
+
+    # return render_template("cadastroInstancias.html")
 
 
 
