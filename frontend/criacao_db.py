@@ -24,6 +24,7 @@ CREATE TABLE resources (
 cur.execute("""
 CREATE TABLE instances (
     id integer PRIMARY KEY AUTOINCREMENT,
+    name text NOT NULL,
     ambiente_id integer NOT NULL,
     instance_number integer NOT NULL,
     status integer NOT NULL,
