@@ -12,9 +12,9 @@
         <hr class="w-100 m-0">
       </div>
 
-      <form class="form-floating mt-3" action="#" method="post">
+      <form class="form-floating mt-3 needs-validation" action="#" method="post">
         <div class="form-floating">
-          <input type="text" class="form-control" name="nomeAmbiente" id="nmAmb" placeholder="Nome do ambiente">
+          <input type="text" class="form-control" name="nomeAmbiente" id="nmAmb" placeholder="Nome do ambiente" required>
           <label for="nmAmb">Nome do ambiente</label>
         </div>
 
@@ -24,6 +24,7 @@
           <div class="ms-auto">
             <div class="form-check-inline">
               <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
+              
               <label class="form-check-label" for="statusTrue">
                 Ativo
               </label>

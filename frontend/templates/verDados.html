@@ -1,15 +1,88 @@
-{%  extends "mainBase.html"  %}
+{% extends "mainBase.html" %}
 
-{%  block title  %}C.E.I.F.A - Visualização de Dados{%  endblock  %}
+{% block title %}C.E.I.F.A - Visualização de Dados{% endblock %}
 
-{%  block content  %}
+{% block content %}
+<div class="container">
+    <p class="m-0 fs-3 text-center">Visualização provisória de dados</p>
+    <hr class="mt-2 mb-5">
 
-{% for ambiente in  ambientes %}
-        <div class='ambiente'>
-            <p>{{ ambiente['id'] }}</p>
-            <h2>{{ ambiente['name'] }}</h2>
-            <p>{{ ambiente['status'] }}</p>
+    <!-- ambientes -->
+    <div class="row row-cols-1 g-3 ">
+        <div class="col-12">
+            <p class="m-0 fs-4 text-center">Ambientes</p>
+            <hr class="m-0">
         </div>
-    {% endfor %}
 
-{%  endblock  %}
+        {% for ambiente in ambientes %}
+        <div class="col-3">
+            <div class="bg-info bg-opacity-25 p-3 rounded">
+                <div class="bg-white rounded border border-info p-3">
+                    <p class="m-0 text-center">ID: {{ ambiente['id'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ ambiente['name'] }}</p>
+                    <p class="m-0 text-center">
+                        {% if ambiente['status']==1 %}
+                        Status: <b>Ativo</b>
+                        {% elif ambiente['status']==0 %}
+                        Status: <b>Inativo</b>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        <!-- instâncias -->
+        <div class="col-12">
+            <p class="m-0 fs-4 text-center">Instâncias</p>
+            <hr class="m-0">
+        </div>
+
+        {% for instancia in instancias %}
+        <div class="col-3">
+            <div class="bg-info bg-opacity-25 p-3 rounded">
+                <div class="bg-white rounded border border-info p-3">
+                    <p class="m-0 text-center">ID: {{ instancia['id'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ instancia['name'] }}</p>
+                    <p class="m-0 text-center">Número: {{ instancia['instance_number'] }}</p>
+                    <p class="m-0 text-center">Pertence ao ambiente: {{ instancia['ambiente_id'] }}</p>
+                    <p class="m-0 text-center">
+                        {% if instancia['status']==1 %}
+                        Status: <b>Ativo</b>
+                        {% elif instancia['status']==0 %}
+                        Status: <b>Inativo</b>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        <!-- recursos -->
+        <div class="col-12">
+            <p class="m-0 fs-4 text-center">Recursos</p>
+            <hr class="m-0">
+        </div>
+
+        {% for recurso in recursos %}
+        <div class="col-3">
+            <div class="bg-info bg-opacity-25 p-3 rounded">
+                <div class="bg-white rounded border border-info p-3">
+                    <p class="m-0 text-center">ID: {{ recurso['id'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ recurso['name'] }}</p>
+                    <p class="m-0 text-center">Número: {{ recurso['resource_number'] }}</p>
+                    <p class="m-0 text-center">Parâmetro base: {{ recurso['vlini'] }}</p>
+                    <p class="m-0 text-center">Parâmetro teto: {{ recurso['vlfim'] }}</p>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+    {% endblock %}

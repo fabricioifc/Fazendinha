@@ -32,16 +32,6 @@ def cadUser():
 def getCadUser():
     return render_template("cadastro.html")
 
-# visualizar dado
-
-@app.route('/verdados')
-def verDadosx():
-    conn = get_db_connection()
-    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
-    conn.close()
-    return render_template('verDados.html', ambientes=ambientes)
-
-
 # páginas de cadastro
 
 # cadastro de ambientes
@@ -77,7 +67,7 @@ def getAmbiente():
 def cadInstancia():
     nomeInstancia = request.form["nomeInstancia"]
     instanciaNumero = request.form["instanciaNumero"]
-    idAmbienteInstancia = request.form["idAmbienteInstancia"]
+    idAmbienteInstancia = request.form["idAmbiente"]
 
     if request.form["status"]=="ativa":
         statusInstancia=1
@@ -96,7 +86,7 @@ def cadInstancia():
         conn.commit()
         conn.close()
 
-        return redirect('../home')
+        return redirect('../verdados')
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
@@ -115,7 +105,7 @@ def cadRecurso():
     valorFinal = request.form["vlFinAmb"]
 
     if valorInicial>valorFinal:
-        return render_template("cadastroRecursos.html", aviso="O valor final não pode ser maior que o inicial. Tente novamente.")
+        return render_template("cadastroRecursos.html", aviso="O valor final deve ser maior que o inicial. Tente novamente.")
     else:
 
         name = request.form['nomeRecurso']
@@ -135,7 +125,7 @@ def cadRecurso():
             conn.commit()
             conn.close()
 
-            return redirect('../home')
+            return redirect('../verdados')
 
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
@@ -167,7 +157,7 @@ def cadInstanciaRecurso():
         conn.commit()
         conn.close()
 
-        return redirect('../home')
+        return redirect('../verdados')
 
 @app.route('/cadastro/instancias_recursos', methods=["GET"])
 def getInstanciaRecurso():
@@ -185,7 +175,14 @@ def getInstanciaRecurso():
 
 # visualização de dados cadastrados
 
-
+@app.route('/verdados')
+def verDadosx():
+    conn = get_db_connection()
+    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
+    instancias = conn.execute('SELECT * FROM instances').fetchall()
+    recursos = conn.execute('SELECT * FROM resources').fetchall()
+    conn.close()
+    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos)
 
 
 
