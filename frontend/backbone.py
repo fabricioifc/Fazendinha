@@ -163,10 +163,10 @@ def cadInstanciaRecurso():
 def getInstanciaRecurso():
 
     conn = get_db_connection()
-    id_ambiente = conn.execute('SELECT id FROM ambientes').fetchall()
-    id_instancia = conn.execute('SELECT id FROM instances').fetchall()    
+    resources = conn.execute('SELECT * FROM resources').fetchall()
+    instances = conn.execute('SELECT * FROM instances').fetchall()    
     conn.close()
-    return render_template('cadastroInstanciasRecursos.html', id_ambiente=id_ambiente, id_instancia=id_instancia )
+    return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances )
 
     #return render_template("cadastroRecursos.html")
 
