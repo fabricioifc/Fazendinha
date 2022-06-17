@@ -134,8 +134,8 @@ def getRecurso():
 # cadastro de instancia_recursos
 @app.route('/cadastro/instancias_recursos', methods=["POST"])
 def cadInstanciaRecurso():
-    resource_id = request.form["resource_id"]
-    instance_id = request.form["instance_id"]
+    resource_id = request.form["idResourceFK"]
+    instance_id = request.form["idInstanceFK"]
 
     if request.form["status"]=="ativa":
         status=1
@@ -147,17 +147,12 @@ def cadInstanciaRecurso():
     else:
         normal=0
 
-    if not resource_id:
-        flash('É obrigatório inserir um nome')
-    elif not instance_id:
-        flash('É obrigatório definir um número de recurso')
-    else:
-        conn = get_db_connection()
-        conn.execute('INSERT INTO instance_resource (status, resource_id, instance_id, normal) VALUES (?, ?, ?, ?)', (status, resource_id, instance_id, normal))
-        conn.commit()
-        conn.close()
+    conn = get_db_connection()
+    conn.execute('INSERT INTO instance_resource (status, resource_id, instance_id, normal) VALUES (?, ?, ?, ?)', (status, resource_id, instance_id, normal))
+    conn.commit()
+    conn.close()
 
-        return redirect('../verdados')
+    return redirect('../verdados')
 
 @app.route('/cadastro/instancias_recursos', methods=["GET"])
 def getInstanciaRecurso():
@@ -181,8 +176,9 @@ def verDadosx():
     ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
     instancias = conn.execute('SELECT * FROM instances').fetchall()
     recursos = conn.execute('SELECT * FROM resources').fetchall()
+    instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
     conn.close()
-    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos)
+    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos)
 
 
 

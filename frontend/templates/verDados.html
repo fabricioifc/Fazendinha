@@ -82,6 +82,36 @@
         {% endfor %}
 
 
+        <div class="col-12">
+            <p class="m-0 fs-4 text-center">instâncias_recursos</p>
+            <hr class="m-0">
+        </div>
+        {% for instance_resource in instancias_recursos %}
+        <div class="col-3">
+            <div class="bg-info bg-opacity-25 p-3 rounded">
+                <div class="bg-white rounded border border-info p-3">
+                    <p class="m-0 text-center">ID: {{ instance_resource['id'] }}</p>
+                    <p class="m-0 text-center">ID do recurso: {{ instance_resource['resource_id'] }}</p>
+                    <p class="m-0 text-center">ID da instancia: {{ instance_resource['instance_id'] }}</p>
+                    <p class="m-0 text-center">
+                        {% if instance_resource['status']==1 %}
+                        Status: <b>Ativo</b>
+                        {% elif instance_resource['status']==0 %}
+                        Status: <b>Inativo</b>
+                        {% endif %}
+                    </p>
+                    <p class="m-0 text-center">
+                        {% if instance_resource['normal']==1 %}
+                        normal: <b>Normal</b>
+                        {% elif instance_resource['normal']==0 %}
+                        normal: <b>Defeituoso</b>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
     </div>
 
 
