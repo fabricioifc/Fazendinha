@@ -27,7 +27,7 @@ def cadUser():
     senha = request.form["senha"]
 
     return redirect(url_for('home'))
-
+  
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
     return render_template("cadastro.html")
@@ -90,11 +90,11 @@ def cadInstancia():
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
-    
     conn = get_db_connection()
-    id_ambiente = conn.execute('SELECT id FROM ambientes').fetchall()
+    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
     conn.close()
-    return render_template('cadastroInstancias.html', id=id_ambiente)
+    return render_template('cadastroInstancias.html', ambientes=ambientes)
+
 
 
 
