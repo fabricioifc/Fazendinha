@@ -91,7 +91,7 @@ def cadInstancia():
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
     conn = get_db_connection()
-    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
+    ambientes = conn.execute('SELECT * FROM ambientes WHERE status==1').fetchall()
     conn.close()
     return render_template('cadastroInstancias.html', ambientes=ambientes)
 
@@ -159,7 +159,7 @@ def getInstanciaRecurso():
 
     conn = get_db_connection()
     resources = conn.execute('SELECT * FROM resources').fetchall()
-    instances = conn.execute('SELECT * FROM instances').fetchall()    
+    instances = conn.execute('SELECT * FROM instances  WHERE status==1').fetchall()    
     conn.close()
     return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances )
 
