@@ -1,8 +1,12 @@
 import sqlite3
-from flask import Flask, flash, redirect, url_for, render_template, request
+from flask import Flask, flash, redirect, session, url_for, render_template, request
+from flask_session import Session
 
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 app.config['SECRET_KEY'] = ''
+Session(app)
 
 def get_db_connection():
     conn = sqlite3.connect('bancoDados.db')
@@ -25,11 +29,53 @@ def cadUser():
     nomeUsuario = request.form["nomeUsuario"]
     emailUsuario = request.form["emailUsuario"]
     senha = request.form["senha"]
+    
 
     return redirect(url_for('home'))
   
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
+    return render_template("cadastro.html")
+
+@app.route('/login', methods=["POST"])
+def postLogUser():
+    nomeUsuario = request.form["nomeUsuario"]
+    emailUsuario = request.form["emailUsuario"]
+    senha = request.form["senha"]
+    tipoUsuario = request.form["tipoUsuario"]
+    conn = get_db_connection()
+
+    if (tipoUsuario==1):#adm
+        adm = conn.execute("SELECT * FROM adm WHERE login=='{nomeUsuario}'").fetchall()
+        for login in adm:
+            if ({senha}==senha in adm):
+                session["nomeUsuario"] = request.form.get("nomeUsuario")
+                session["senha"] = request.form.get("senha")
+            else:
+                flash('Senha ou Login errados!')
+
+    elif (tipoUsuario==2):#usuario comum
+        usuario_comum = conn.execute("SELECT * FROM usuario_comum WHERE login=='{nomeUsuario}'").fetchall()
+        for login in usuario_comum:
+            if ({senha}==senha in usuario_comum):
+                session["nomeUsuario"] = request.form.get("nomeUsuario")
+                session["senha"] = request.form.get("senha")
+            else:
+                flash('Senha ou Login errados!')
+    else: #visitante
+        visitante = conn.execute("SELECT * FROM visitante WHERE login=='{nomeUsuario}'").fetchall()
+        for login in visitante:
+            if ({senha}==senha in visitante):
+                session["nomeUsuario"] = request.form.get("nomeUsuario")
+                session["senha"] = request.form.get("senha")
+            else:
+                flash('Senha ou Login errados!')        
+    
+
+    return redirect(url_for('home'))
+
+@app.route('/login', methods=["GET"])
+def getLogUser():
     return render_template("cadastro.html")
 
 # páginas de cadastro
