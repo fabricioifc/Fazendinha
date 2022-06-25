@@ -5,8 +5,18 @@
 
 <div class="bg-info bg-opacity-25 p-3 shadow-sm rounded">
     <div class="p-3 bg-white border border-info rounded">
-        <form class="row g-3 needs-validation align-items-center" novalidate>
+        <form class="row g-3 needs-validation align-items-center" method="post" novalidate>
             <!--  tipo de usuário  -->
+            <div class="col-3">
+                <label for="tipo_usuarioId">Tipo de usuario</label>
+            </div>
+            <div class="col-9">
+                <select name="tipoUsuario" id="tipo_usuarioId" class="form-select">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Usuario comum">Usuario comum</option>
+                    <option value="Visitante">Visitante</option>
+                </select>
+            </div>
 
             <!-- nome -->
             <div class="col-3">
@@ -21,12 +31,12 @@
             
             <!-- login -->
             <div class="col-3">
-                <label for="nomeUser" class="form-label m-0">Nome completo</label>
+                <label for="loginId" class="form-label m-0">Usuário para login</label>
             </div>
             <div class="col-9">
-                <input type="text" class="form-control" name="nomeUsuario" id="nomeUser" required>
+                <input type="text" class="form-control" name="login" id="loginId" required>
                 <div class="invalid-feedback">
-                    Insira um nome de usuário.
+                    Insira um login.
                 </div>
             </div>
 
@@ -38,6 +48,17 @@
                 <input type="email" class="form-control" name="emailUsuario" id="emailUser" required>
                 <div class="invalid-feedback">
                     Insira um e-mail.
+                </div>
+            </div>
+
+            <!-- contato -->
+            <div class="col-3">
+                <label for="contatoUser" class="form-label m-0">Contato</label>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="contatoUsuario" id="contatoUser" required>
+                <div class="invalid-feedback">
+                    Insira um número válido.
                 </div>
             </div>
 
@@ -53,6 +74,7 @@
             </div>
 
             <!-- repita a senha -->
+
             <div class="col-3 text-center">
                 <label for="senha2" class="form-label m-0">Repita a senha</label>
             </div>

@@ -1,0 +1,56 @@
+{% extends "cadBase.html" %}
+{% block title %}C.E.I.F.A - Cadastre-se{% endblock %}
+
+{% block content %}
+
+<div class="bg-info bg-opacity-25 p-3 shadow-sm rounded">
+    <div class="p-3 bg-white border border-info rounded">
+        <form class="row g-3 needs-validation align-items-center" method="post" novalidate>
+            <!-- nome, tipo de usuário -->
+
+            <div class="col-3">
+                <label for="tipo_usuarioId">Tipo de usuario</label>
+            </div>
+            <div class="col-9">
+                <select name="tipoUsuario" id="tipo_usuarioId" class="form-select">
+                    <option value="Administrador">Administrador</option>
+                    <option value="Usuario comum">Usuario comum</option>
+                    <option value="Visitante">Visitante</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="loginId" class="form-label m-0">Login</label>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="login" id="loginId" required>
+                <div class="invalid-feedback">
+                    Insira um login.
+                </div>
+            </div>
+
+            <div class="col-3">
+                <label for="senha1" class="form-label m-0">Senha</label>
+            </div>
+            <div class="col-9">
+                <input type="password" class="form-control"  id="senha1" required>
+                <div class="invalid-feedback">
+                    ####
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Logar</button>
+                <a href="/home" class="btn btn-light mt-3 w-100">Cancelar</a>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+
+{% endblock %}
