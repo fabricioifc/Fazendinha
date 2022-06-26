@@ -28,34 +28,36 @@ def home():
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
     tipoUsuario = request.form.get("tipoUsuario")
-    nomeUsuario = request.form.get("nomeUsuario")
     loginUsuario = request.form.get("login")
-    emailUsuario = request.form.get("emailUsuario")
     senha = request.form.get("senha")
+
+    if (request.form.get("habilitado")=="habilitado"):
+        habilitado = 1
+    elif (request.form.get("habilitado")=="desabilitado"):
+        habilitado = 0
+
     conn = get_db_connection()
 
-    if (tipoUsuario=='Administrador'):#adm
-        conn.execute('INSERT INTO adm (nome, login, email, contato, ) VALUES (?, ?)',
-                        (nomeAmbiente, statusAmbiente))
+    if ((tipoUsuario=='Administrador') or (tipoUsuario=='Usuario comum')):
+        nomeUsuario = request.form.get("nomeUsuario")
+        contatoUsuario = request.form.get("contatoUsuario")
+        emailUsuario = request.form.get("emailUsuario")
+        if (tipoUsuario=='Administrador'):#adm
+            conn.execute('INSERT INTO adm (nome, login, senha, email, contato, habilitado) VALUES (?, ?, ?, ?, ?, ?)',
+                            (nomeUsuario, loginUsuario, senha, emailUsuario, contatoUsuario, habilitado))
+            conn.commit()
+            conn.close()
+
+        elif (tipoUsuario=='Usuario comum'):#usuario comum
+            conn.execute('INSERT INTO usuario_comum (nome, login, senha, email, contato, habilitado) VALUES (?, ?, ?, ?, ?, ?)',
+                            (nomeUsuario, loginUsuario, senha, emailUsuario, contatoUsuario, habilitado))
+            conn.commit()
+            conn.close()
+    elif(tipoUsuario=='Visitante'): #visitante
+        conn.execute('INSERT INTO visitante (login, senha, habilitado) VALUES (?, ?, ?)',
+                        (loginUsuario, senha, habilitado))
         conn.commit()
         conn.close()
-
-    elif (tipoUsuario=='Usuario comum'):#usuario comum
-        usuario_comum = conn.execute("SELECT * FROM usuario_comum WHERE login=='{login}'").fetchall()
-        for login in usuario_comum:
-            if ({senha}==senha in usuario_comum):
-                session["login"] = request.form.get("login")
-                session["id_user"] = {id}
-            else:
-                flash('Senha ou Login incorretos!')
-    elif(tipoUsuario=='Visitante'): #visitante
-        visitante = conn.execute("SELECT * FROM visitante WHERE login=='{login}'").fetchall()
-        for login in visitante:
-            if ({senha}==senha in visitante):
-                session["login"] = request.form.get("login")
-                session["id_user"] = {id}
-            else:
-                flash('Senha ou Login incorretos!')        
 
     return redirect(url_for('home'))
   
