@@ -1,5 +1,4 @@
 import sqlite3
-from click import echo
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from flask_session import Session
 
@@ -73,18 +72,20 @@ def postLogUser():
     """ tipoUsuario = request.form.get("tipoUsuario") """
     session["tipoUsuario"] = request.form.get("tipoUsuario")
     conn = get_db_connection()
-
-    if (session.get['tipoUsuario']=='Administrador'):#adm
-        adm = conn.execute("SELECT * FROM adm WHERE login=='{login}'").fetchall()
+    if (session.get('tipoUsuario')=='Administrador'):#adm
+        adm = conn.execute("SELECT * FROM adm WHERE login='"+login+"'").fetchall()
         for login in adm:
-            if ({senha}==senha in adm):
-                session["login"] = request.form.get("login")
-                session["id_user"] = {id}
+            print (adm)
+            if (request.form.get("senha")==1):
+                session["login"] = login
+                """ session["id_user"] = id in adm """
+                return redirect ('/home')
             else:
-                flash('Senha ou Login incorretos!')
+                flash('Senha ou Login incorretos!', 'ERRO') 
+                return render_template('login.html')
 
     elif (session.get['tipoUsuario']=='Usuario comum'):#usuario comum
-        usuario_comum = conn.execute("SELECT * FROM usuario_comum WHERE login=='{login}'").fetchall()
+        usuario_comum = conn.execute("SELECT * FROM usuario_comum WHERE login='"+login+"'").fetchall()
         for login in usuario_comum:
             if ({senha}==senha in usuario_comum):
                 session["login"] = request.form.get("login")
@@ -92,7 +93,7 @@ def postLogUser():
             else:
                 flash('Senha ou Login incorretos!')
     elif(session.get['tipoUsuario']=='Visitante'): #visitante
-        visitante = conn.execute("SELECT * FROM visitante WHERE login=='{login}'").fetchall()
+        visitante = conn.execute("SELECT * FROM visitante WHERE login='"+login+"'").fetchall()
         for login in visitante:
             if ({senha}==senha in visitante):
                 session["login"] = request.form.get("login")
@@ -102,7 +103,7 @@ def postLogUser():
     
 
 
-    return redirect(url_for('home'))
+    return redirect('/login')
 
 @app.route('/login', methods=["GET"])
 def getLogUser():
@@ -259,8 +260,9 @@ def verDadosx():
     instancias = conn.execute('SELECT * FROM instances').fetchall()
     recursos = conn.execute('SELECT * FROM resources').fetchall()
     instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
+    adm = conn.execute('SELECT * FROM adm').fetchall()
     conn.close()
-    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos)
+    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, adm=adm)
 
 
 
