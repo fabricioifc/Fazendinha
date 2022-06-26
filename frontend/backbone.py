@@ -131,7 +131,7 @@ def cadAmbiente():
         conn.commit()
         conn.close()
 
-    return redirect('../verdados')
+    return redirect('/cadastro/ambiente')
 
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
@@ -203,7 +203,7 @@ def cadRecurso():
             conn.commit()
             conn.close()
 
-            return redirect('../verdados')
+            return redirect('/cadastro/recursos')
 
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
