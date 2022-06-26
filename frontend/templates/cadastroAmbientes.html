@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="container w-50">
-  <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+<section class="container d-flex justify-content-center my-5">
+  <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm  w-50">
     <div class="bg-white border border-info rounded p-3">
       <div class="text-center fs-4">
         <p class="m-0">Cadastrar um novo ambiente</p>
@@ -14,7 +14,8 @@
 
       <form class="form-floating mt-3 needs-validation" action="#" method="post">
         <div class="form-floating">
-          <input type="text" class="form-control" name="nomeAmbiente" id="nmAmb" placeholder="Nome do ambiente" required>
+          <input type="text" class="form-control" name="nomeAmbiente" id="nmAmb" placeholder="Nome do ambiente"
+            required>
           <label for="nmAmb">Nome do ambiente</label>
         </div>
 
@@ -24,7 +25,7 @@
           <div class="ms-auto">
             <div class="form-check-inline">
               <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
-              
+
               <label class="form-check-label" for="statusTrue">
                 Ativo
               </label>
@@ -45,8 +46,36 @@
       </form>
     </div>
   </div>
-</div>
+</section>
 
+<section class="container d-flex justify-content-center my-5">
+  <div class="w-50">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ambiente in ambiente %}
+        <tr>
+          <th scope="row">{{ambiente['id']}}</th>
+          <td>{{ambiente['name']}}</td>
+          <td>
+            {% if ambiente['status']==1 %}
+            Ativo
+            {% elif ambiente['status']==0%}
+            Desativo
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
 
+      </tbody>
+    </table>
+  </div>
+</section>
 
 {% endblock %}

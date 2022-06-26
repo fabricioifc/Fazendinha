@@ -42,27 +42,17 @@
                         <li class="nav-item">
                             <a class="nav-link ps-0" href="/home">Página Inicial</a>
                         </li>
-
-                        <li class="nav-item dropdown ms-3">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Cadastros
-                            </a>
-                            <ul class="dropdown-menu py-0" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/cadastro/ambiente">Ambiente</a></li>
-                                <li>
-                                    <hr class="dropdown-divider m-0">
-                                </li>
-                                <li><a class="dropdown-item" href="/cadastro/instancias">Instâncias</a></li>
-                                <li>
-                                    <hr class="dropdown-divider m-0">
-                                </li>
-                                <li><a class="dropdown-item" href="/cadastro/recursos">Recursos</a></li>
-                                <li>
-                                    <hr class="dropdown-divider m-0">
-                                </li>
-                                <li><a class="dropdown-item" href="/cadastro/instancias_recursos">Instâncias_recursos</a></li> 
-                            </ul>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link ps-0" href="/cadastro/ambiente">Ambiente</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link ps-0" href="/cadastro/instancias">Instâncias</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link ps-0" href="/cadastro/recursos">Recursos</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="nav-link ps-0" href="/cadastro/instancias_recursos">Instâncias_Recursos</a>
                         </li>
 
                         <li class="nav-item">
@@ -80,7 +70,7 @@
 
     </header>
 
-    <main style="min-height: calc(100vh - 193.69px);" class="d-flex align-items-center py-3">
+    <main style="min-height: calc(100vh - 193.69px);" class="py-3">
         {% block content %}{% endblock %}
     </main>
 

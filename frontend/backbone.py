@@ -135,7 +135,9 @@ def cadAmbiente():
 
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
-    return render_template("cadastroAmbientes.html")
+    conn = get_db_connection()
+    ambiente = conn.execute('SELECT * FROM ambientes').fetchall()
+    return render_template("cadastroAmbientes.html", ambiente=ambiente)
 
 
 # cadastro de instâncias
