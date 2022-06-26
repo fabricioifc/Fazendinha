@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="container w-50">
-    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+<section class="container d-flex justify-content-center my-5">
+    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm w-50">
         <div class="bg-white border border-info rounded p-3">
             <div class="text-center fs-4">
                 <p class="m-0">Cadastrar um novo recurso</p>
@@ -45,7 +45,34 @@
             </form>
         </div>
     </div>
-</div>
+</section>
 
+<section class="container d-flex justify-content-center my-5">
+    <div class="w-50">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Número do Recurso</th>
+            <th scope="col">Valor Inicial</th>
+            <th scope="col">Valor Final</th>
+          </tr>
+        </thead>
+        <tbody><!-- id, name, resource_number, vlini, vlfim -->
+          {% for resource in resource %}
+          <tr>
+            <th scope="row">{{resource['id']}}</th>
+            <td>{{resource['name']}}</td>
+            <td>{{resource['resource_number']}}</td>
+            <td>{{resource['vlini']}}</td>
+            <td>{{resource['vlfim']}}</td>
+          </tr>
+          {% endfor %}
+  
+        </tbody>
+      </table>
+    </div>
+  </section>
 
 {% endblock %}

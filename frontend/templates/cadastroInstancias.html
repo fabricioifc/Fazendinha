@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="container w-50">
-    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+<section class="container d-flex justify-content-center my-5">
+    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm w-50">
         <div class="bg-white border border-info rounded p-3">
             <div class="text-center fs-4">  
                 <p class="m-0">Cadastrar uma nova instância</p>
@@ -63,7 +63,41 @@
             </form>
         </div>
     </div>
-</div>
+</section>
+
+<section class="container d-flex justify-content-center my-5">
+    <div class="w-50">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Ambiente_id</th>
+            <th scope="col">Instance_number</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody> <!-- id, name, ambiente_id, instance_number, status -->
+          {% for instance in instance %}
+          <tr>
+            <th scope="row">{{instance['id']}}</th>
+            <td>{{instance['name']}}</td>
+            <td>{{instance['ambiente_id']}}</td>
+            <td>{{instance['instance_number']}}</td>
+            <td>
+              {% if instance['status']==1 %}
+              Ativo
+              {% elif instance['status']==0%}
+              Desativo
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+  
+        </tbody>
+      </table>
+    </div>
+  </section>
 
 
 {% endblock %}

@@ -164,14 +164,15 @@ def cadInstancia():
         conn.commit()
         conn.close()
 
-        return redirect('../verdados')
+        return redirect('/cadastro/instancias')
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
     conn = get_db_connection()
     ambientes = conn.execute('SELECT * FROM ambientes WHERE status==1').fetchall()
+    instance = conn.execute('SELECT * FROM instances').fetchall()
     conn.close()
-    return render_template('cadastroInstancias.html', ambientes=ambientes)
+    return render_template('cadastroInstancias.html', ambientes=ambientes, instance=instance)
 
 
 
@@ -207,7 +208,9 @@ def cadRecurso():
 
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
-    return render_template("cadastroRecursos.html")
+    conn = get_db_connection()
+    resource = conn.execute('SELECT * FROM resources').fetchall()  
+    return render_template("cadastroRecursos.html", resource=resource)
 
 # cadastro de instancia_recursos
 @app.route('/cadastro/instancias_recursos', methods=["POST"])
@@ -230,16 +233,17 @@ def cadInstanciaRecurso():
     conn.commit()
     conn.close()
 
-    return redirect('../verdados')
+    return redirect('/cadastro/instancias_recursos')
 
 @app.route('/cadastro/instancias_recursos', methods=["GET"])
 def getInstanciaRecurso():
 
     conn = get_db_connection()
     resources = conn.execute('SELECT * FROM resources').fetchall()
-    instances = conn.execute('SELECT * FROM instances  WHERE status==1').fetchall()    
+    instances = conn.execute('SELECT * FROM instances  WHERE status==1').fetchall()  
+    instance_resource = conn.execute('SELECT * FROM instance_resource').fetchall()  
     conn.close()
-    return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances )
+    return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances, instance_resource=instance_resource )
 
     #return render_template("cadastroRecursos.html")
 
