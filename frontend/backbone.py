@@ -1,4 +1,5 @@
 import sqlite3
+from this import s
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from flask_session import Session
 
@@ -31,7 +32,11 @@ def cadUser():
     senhaRep = request.form.get("senhaRep")
     conn = get_db_connection()
 
-    if ((conn.execute('SELECT * FROM users WHERE login='+login+'')) is None):
+    try:
+        conn.execute('SELECT * FROM users WHERE login=$s', (login))
+        flash('Login já existente, tente outro', 'ERRO! ') 
+        return render_template('cadastro.html')
+    except:
         if (senha==senhaRep):
             nomeUsuario = request.form.get("nomeUsuario")
             emailUsuario = request.form.get("emailUsuario")
@@ -40,15 +45,11 @@ def cadUser():
                                 (emailUsuario, contatoUsuario, login, nomeUsuario, senha))
             conn.commit()
             return redirect(url_for('home'))
+            conn.close()
         else:
             flash('Senha ou Login incorretos!', 'ERRO! ') 
             return render_template('cadastro.html')
-    else:
-            flash('Login já existente, tente outro', 'ERRO! ') 
-            return render_template('cadastro.html')
 
-
-    conn.close()
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
     return render_template("cadastro.html")
@@ -57,8 +58,15 @@ def getCadUser():
 def postLogUser():
     login = request.form.get("login")
     senha = request.form.get("senha")
-    
+    conn = get_db_connection()
 
+    try:
+        user= conn.execute(f'SELECT senha FROM users WHERE login={login}')
+        if (senha==user):
+            return redirect(url_for('home'))
+    except:
+        flash('Usuário não existente!', 'ERRO! ') 
+        return redirect('login')
     
 
 

@@ -4,7 +4,7 @@ conn = sqlite3.connect("bancoDados.db")
 cur=conn.cursor()
 
 cur.execute("""
-CREATE TABLE adm (
+CREATE TABLE users (
     id integer PRIMARY KEY AUTOINCREMENT,
     email text NOT NULL,
     contact text NOT NULL,
