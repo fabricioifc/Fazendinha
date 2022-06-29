@@ -26,50 +26,33 @@ def home():
 
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
-    tipoUsuario = request.form.get("tipoUsuario")
-    loginUsuario = request.form.get("login")
     senha = request.form.get("senha")
+    senhaRep = request.form.get("senhaRep")
 
-    if (request.form.get("habilitado")=="habilitado"):
-        habilitado = 1
-    elif (request.form.get("habilitado")=="desabilitado"):
-        habilitado = 0
-
-    conn = get_db_connection()
-
-    if ((tipoUsuario=='Administrador') or (tipoUsuario=='Usuario comum')):
+    if (senha==senhaRep):
         nomeUsuario = request.form.get("nomeUsuario")
-        contatoUsuario = request.form.get("contatoUsuario")
+        login = request.form.get("login")
         emailUsuario = request.form.get("emailUsuario")
-        if (tipoUsuario=='Administrador'):#adm
-            conn.execute('INSERT INTO adm (nome, login, senha, email, contato, habilitado) VALUES (?, ?, ?, ?, ?, ?)',
-                            (nomeUsuario, loginUsuario, senha, emailUsuario, contatoUsuario, habilitado))
-            conn.commit()
-            conn.close()
-
-        elif (tipoUsuario=='Usuario comum'):#usuario comum
-            conn.execute('INSERT INTO usuario_comum (nome, login, senha, email, contato, habilitado) VALUES (?, ?, ?, ?, ?, ?)',
-                            (nomeUsuario, loginUsuario, senha, emailUsuario, contatoUsuario, habilitado))
-            conn.commit()
-            conn.close()
-    elif(tipoUsuario=='Visitante'): #visitante
-        conn.execute('INSERT INTO visitante (login, senha, habilitado) VALUES (?, ?, ?)',
-                        (loginUsuario, senha, habilitado))
+        contatoUsuario = request.form.get("contatoUsuario")
+        conn = get_db_connection()
+        conn.execute('INSERT INTO users (email, contact, login, nome, password) VALUES (?, ?, ?, ?, ?)',
+                            (emailUsuario, contatoUsuario, login, nomeUsuario, senha))
         conn.commit()
         conn.close()
-
-    return redirect(url_for('home'))
+        return redirect(url_for('home'))
+    else:
+        flash('Senha ou Login incorretos!', 'ERRO! ') 
+        return render_template('cadastro.html')
   
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
-
     return render_template("cadastro.html")
 
 @app.route('/login', methods=["POST"])
 def postLogUser():
     login = request.form.get("login")
     senha = request.form.get("senha")
-    """ tipoUsuario = request.form.get("tipoUsuario") """
+    tipoUsuario = request.form.get("tipoUsuario")
     session["tipoUsuario"] = request.form.get("tipoUsuario")
     conn = get_db_connection()
     if (session.get('tipoUsuario')=='Administrador'):#adm
@@ -260,9 +243,8 @@ def verDadosx():
     instancias = conn.execute('SELECT * FROM instances').fetchall()
     recursos = conn.execute('SELECT * FROM resources').fetchall()
     instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
-    adm = conn.execute('SELECT * FROM adm').fetchall()
     conn.close()
-    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, adm=adm)
+    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos)
 
 
 
