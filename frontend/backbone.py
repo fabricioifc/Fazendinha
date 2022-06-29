@@ -26,24 +26,29 @@ def home():
 
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
+    login = request.form.get("login")
     senha = request.form.get("senha")
     senhaRep = request.form.get("senhaRep")
+    conn = get_db_connection()
 
-    if (senha==senhaRep):
-        nomeUsuario = request.form.get("nomeUsuario")
-        login = request.form.get("login")
-        emailUsuario = request.form.get("emailUsuario")
-        contatoUsuario = request.form.get("contatoUsuario")
-        conn = get_db_connection()
-        conn.execute('INSERT INTO users (email, contact, login, nome, password) VALUES (?, ?, ?, ?, ?)',
-                            (emailUsuario, contatoUsuario, login, nomeUsuario, senha))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('home'))
+    if ((conn.execute('SELECT * FROM users WHERE login='+login+'')) is None):
+        if (senha==senhaRep):
+            nomeUsuario = request.form.get("nomeUsuario")
+            emailUsuario = request.form.get("emailUsuario")
+            contatoUsuario = request.form.get("contatoUsuario")
+            conn.execute('INSERT INTO users (email, contact, login, nome, password) VALUES (?, ?, ?, ?, ?)',
+                                (emailUsuario, contatoUsuario, login, nomeUsuario, senha))
+            conn.commit()
+            return redirect(url_for('home'))
+        else:
+            flash('Senha ou Login incorretos!', 'ERRO! ') 
+            return render_template('cadastro.html')
     else:
-        flash('Senha ou Login incorretos!', 'ERRO! ') 
-        return render_template('cadastro.html')
-  
+            flash('Login já existente, tente outro', 'ERRO! ') 
+            return render_template('cadastro.html')
+
+
+    conn.close()
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
     return render_template("cadastro.html")
@@ -52,37 +57,8 @@ def getCadUser():
 def postLogUser():
     login = request.form.get("login")
     senha = request.form.get("senha")
-    tipoUsuario = request.form.get("tipoUsuario")
-    session["tipoUsuario"] = request.form.get("tipoUsuario")
-    conn = get_db_connection()
-    if (session.get('tipoUsuario')=='Administrador'):#adm
-        adm = conn.execute("SELECT * FROM adm WHERE login='"+login+"'").fetchall()
-        for login in adm:
-            print (adm)
-            if (request.form.get("senha")==1):
-                session["login"] = login
-                """ session["id_user"] = id in adm """
-                return redirect ('/home')
-            else:
-                flash('Senha ou Login incorretos!', 'ERRO') 
-                return render_template('login.html')
+    
 
-    elif (session.get['tipoUsuario']=='Usuario comum'):#usuario comum
-        usuario_comum = conn.execute("SELECT * FROM usuario_comum WHERE login='"+login+"'").fetchall()
-        for login in usuario_comum:
-            if ({senha}==senha in usuario_comum):
-                session["login"] = request.form.get("login")
-                session["id_user"] = {id}
-            else:
-                flash('Senha ou Login incorretos!')
-    elif(session.get['tipoUsuario']=='Visitante'): #visitante
-        visitante = conn.execute("SELECT * FROM visitante WHERE login='"+login+"'").fetchall()
-        for login in visitante:
-            if ({senha}==senha in visitante):
-                session["login"] = request.form.get("login")
-                session["id_user"] = {id}
-            else:
-                flash('Senha ou Login incorretos!')        
     
 
 
