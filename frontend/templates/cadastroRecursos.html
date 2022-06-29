@@ -4,75 +4,94 @@
 
 {% block content %}
 
-<section class="container d-flex justify-content-center my-5">
-    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm w-50">
-        <div class="bg-white border border-info rounded p-3">
+<section class="container mt-3">
+  <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+    <div class="bg-white border border-info rounded p-3">
+      <div class="row row-cols-1 g-3 align-items-center">
+        <div class="col-6">
+          <div class="border-end border-dark pe-3">
             <div class="text-center fs-4">
-                <p class="m-0">Cadastrar um novo recurso</p>
-                <hr class="w-100 m-0">
+              <p class="m-0">Cadastrar um novo recurso</p>
+              <hr class="w-100 m-0">
             </div>
 
             <form class="form-floating mt-3" action="#" method="post">
 
-                <div class="form-floating">
-                    <input type="text" class="form-control" name="nomeRecurso" id="nmRsc" placeholder="Nome do recurso" required>
-                    <label for="nmRsc">Nome do recurso</label>
+              <div class="form-floating">
+                <input type="text" class="form-control" name="nomeRecurso" id="nmRsc" placeholder="Nome do recurso"
+                  required>
+                <label for="nmRsc">Nome do recurso</label>
+              </div>
+
+              <div class="form-floating mt-3">
+                <input type="number" min="1" class="form-control" name="recursoNumero" id="rscNmb"
+                  placeholder="Número deste recurso" required>
+                <label for="rscNmb">Número do recurso</label>
+              </div>
+
+              <div class="w-100 d-flex justify-content-between">
+
+                <div class="form-floating mt-3 w-100 me-3">
+                  <input type="number" class="form-control" name="vlIniAmb" id="vliAmb"
+                    placeholder="Valor base de leitura" required>
+                  <label for="vliAmb">Valor base de leitura</label>
                 </div>
-
-                <div class="form-floating mt-3">
-                    <input type="number" min="1" class="form-control" name="recursoNumero" id="rscNmb"
-                        placeholder="Número deste recurso" required>
-                    <label for="rscNmb">Número do recurso</label>
+                <div class="form-floating mt-3 w-100">
+                  <input type="number" class="form-control" name="vlFinAmb" id="vlfAmb"
+                    placeholder="Valor limite de leitura" required>
+                  <label for="vlfAmb">Valor limite de leitura</label>
                 </div>
+              </div>
 
-                <div class="w-100 d-flex justify-content-between">
-
-                    <div class="form-floating mt-3 w-100 me-3">
-                        <input type="number" class="form-control" name="vlIniAmb" id="vliAmb"
-                            placeholder="Valor base de leitura" required>
-                        <label for="vliAmb">Valor base de leitura</label>
-                    </div>
-                    <div class="form-floating mt-3 w-100">
-                        <input type="number" class="form-control" name="vlFinAmb" id="vlfAmb"
-                            placeholder="Valor limite de leitura" required>
-                        <label for="vlfAmb">Valor limite de leitura</label>
-                    </div>
-                </div>
-
-                <p class="my-3 text-danger text-center">{{aviso}}</p>
-                <button type="submit" class="btn w-100 bg-info bg-opacity-50">Cadastrar</button>
+              <p class="my-3 text-danger text-center">{{aviso}}</p>
+              <div class="d-flex">
+                <button type="submit" class="btn w-75 mt-3 bg-info bg-opacity-50">Cadastrar</button>
+                <input type="reset" class="btn w-25 ms-3 mt-3 bg-light">
+              </div>
 
             </form>
+          </div>
         </div>
-    </div>
-</section>
 
-<section class="container d-flex justify-content-center my-5">
-    <div class="w-50">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Número do Recurso</th>
-            <th scope="col">Valor Inicial</th>
-            <th scope="col">Valor Final</th>
-          </tr>
-        </thead>
-        <tbody><!-- id, name, resource_number, vlini, vlfim -->
-          {% for resource in resource %}
-          <tr>
-            <th scope="row">{{resource['id']}}</th>
-            <td>{{resource['name']}}</td>
-            <td>{{resource['resource_number']}}</td>
-            <td>{{resource['vlini']}}</td>
-            <td>{{resource['vlfim']}}</td>
-          </tr>
-          {% endfor %}
-  
-        </tbody>
-      </table>
+
+        <div class="col-6">
+          <div class="w-100">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Número do Recurso</th>
+                  <th scope="col">Valor Inicial</th>
+                  <th scope="col">Valor Final</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- id, name, resource_number, vlini, vlfim -->
+                {% for resource in resource %}
+                <tr>
+                  <th scope="row">{{resource['id']}}</th>
+                  <td>{{resource['name']}}</td>
+                  <td>{{resource['resource_number']}}</td>
+                  <td>{{resource['vlini']}}</td>
+                  <td>{{resource['vlfim']}}</td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+
+      </div>
     </div>
-  </section>
+  </div>
+
+
+  </div>
+  </div>
+</section>
 
 {% endblock %}

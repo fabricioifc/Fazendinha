@@ -4,127 +4,142 @@
 
 {% block content %}
 
-<section class="container d-flex justify-content-center my-5">
-    <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm w-50">
-        <div class="bg-white border border-info rounded p-3">
+
+<section class="container mt-3">
+  <div class="bg-info bg-opacity-25 p-3 rounded shadow-sm">
+    <div class="bg-white border border-info rounded p-3">
+      <div class="row row-cols-1 g-3 align-items-center">
+        <div class="col-6">
+          <div class="border-end border-dark pe-3">
             <div class="text-center fs-4">
-                <p class="m-0">Cadastrar uma nova instância_recurso</p>
-                <hr class="w-100 m-0">
+              <p class="m-0">Cadastrar uma nova instância_recurso</p>
+              <hr class="w-100 m-0">
             </div>
 
             <form class="form-floating mt-3" action="#" method="post">
-                <!-- status, resource_id, instance_id, normal -->
-                <div class="mt-3 w-100 d-flex">
-                    <p class="m-0">Status do instância_recurso</p>
-                    <div class="ms-auto">
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
-                        
-                        <label class="form-check-label" for="statusTrue">
-                          Ativo
-                        </label>
-                      </div>
-          
-          
-                      <div class="form-check-inline me-0">
-                        <input class="form-check-input" type="radio" name="status" id="statusFalse" value="inativo">
-                        <label class="form-check-label" for="statusFalse">
-                          Inativo
-                        </label>
-                      </div>
-                    </div>
+              <!-- status, resource_id, instance_id, normal -->
+              <div class="mt-3 w-100 d-flex">
+                <p class="m-0">Status do instância_recurso</p>
+                <div class="ms-auto">
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
+
+                    <label class="form-check-label" for="statusTrue">
+                      Ativo
+                    </label>
+                  </div>
+
+
+                  <div class="form-check-inline me-0">
+                    <input class="form-check-input" type="radio" name="status" id="statusFalse" value="inativo">
+                    <label class="form-check-label" for="statusFalse">
+                      Inativo
+                    </label>
+                  </div>
                 </div>
+              </div>
 
-                <div class="form-floating mt-3">
+              <div class="form-floating mt-3">
 
-                    <select class="form-select py-3" aria-label="Default select example" name="idResourceFK" id="idResourceFK" required>
-                        <option value="" disabled selected>ID do recurso pai desta instância_recurso</option>
-                        {% for resouce in resources %}
-                            <option value="ID: {{ resouce['id'] }}">{{ resouce['id'] }}</option>
-                        {% endfor %}
-                      </select>
+                <select class="form-select py-3" aria-label="Default select example" name="idResourceFK"
+                  id="idResourceFK" required>
+                  <option value="" disabled selected>ID do recurso pai desta instância_recurso</option>
+                  {% for resouce in resources %}
+                  <option value="ID: {{ resouce['id'] }}">{{ resouce['id'] }}</option>
+                  {% endfor %}
+                </select>
 
+              </div>
+
+              <div class="form-floating mt-3">
+
+                <select class="form-select py-3" aria-label="Default select example" name="idInstanceFK"
+                  id="idInstanceFK" required>
+                  <option value="" disabled selected>ID da instância pai desta instância_recurso</option>
+                  {% for instance in instances %}
+                  <option value="ID: {{ instance['id'] }}">{{ instance['id'] }}</option>
+                  {% endfor %}
+                </select>
+
+              </div>
+
+              <div class="mt-3 w-100 d-flex">
+                <p class="m-0">Situação do instância_recurso</p>
+                <div class="ms-auto">
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="normal" id="normalTrue" value="ativo" checked>
+
+                    <label class="form-check-label" for="normalTrue">
+                      normal
+                    </label>
+                  </div>
+
+
+                  <div class="form-check-inline me-0">
+                    <input class="form-check-input" type="radio" name="normal" id="normalFalse" value="inativo">
+                    <label class="form-check-label" for="normalFalse">
+                      defeituoso
+                    </label>
+                  </div>
                 </div>
+              </div>
 
-                <div class="form-floating mt-3">
 
-                    <select class="form-select py-3" aria-label="Default select example" name="idInstanceFK" id="idInstanceFK" required>
-                        <option value="" disabled selected>ID da instância pai desta instância_recurso</option>
-                        {% for instance in instances %}
-                            <option value="ID: {{ instance['id'] }}">{{ instance['id'] }}</option>
-                        {% endfor %}
-                      </select>
-
-                </div>
-
-                <div class="mt-3 w-100 d-flex">
-                    <p class="m-0">Situação do instância_recurso</p>
-                    <div class="ms-auto">
-                      <div class="form-check-inline">
-                        <input class="form-check-input" type="radio" name="normal" id="normalTrue" value="ativo" checked>
-                        
-                        <label class="form-check-label" for="normalTrue">
-                          normal
-                        </label>
-                      </div>
-          
-          
-                      <div class="form-check-inline me-0">
-                        <input class="form-check-input" type="radio" name="normal" id="normalFalse" value="inativo">
-                        <label class="form-check-label" for="normalFalse">
-                          defeituoso
-                        </label>
-                      </div>
-                    </div>
-                </div>
-
-                
-
-                <button type="submit" class="btn w-100 mt-3 bg-info bg-opacity-50">Cadastrar</button>
+              <div class="d-flex">
+                <button type="submit" class="btn w-75 mt-3 bg-info bg-opacity-50">Cadastrar</button>
+                <input type="reset" class="btn w-25 ms-3 mt-3 bg-light">
+              </div>
 
             </form>
+          </div>
+
+
         </div>
+
+        <div class="col-6">
+          <div class="w-100">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Resource_id</th>
+                  <th scope="col">Instance_id</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Normalidade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- id, resouce_id, instance_id, status, normal -->
+                {% for instance_resource in instance_resource %}
+                <tr>
+                  <th scope="row">{{instance_resource['id']}}</th>
+                  <td>{{instance_resource['resource_id']}}</td>
+                  <td>{{instance_resource['instance_id']}}</td>
+                  <td>
+                    {% if instance_resource['status']==1 %}
+                    Ativo
+                    {% elif instance_resource['status']==0%}
+                    Desativo
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if instance_resource['normal']==1 %}
+                    Funcional
+                    {% elif instance_resource['normal']==0%}
+                    Defeituoso
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
     </div>
-</section>
-
-<section class="container d-flex justify-content-center my-5">
-  <div class="w-50">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Resource_id</th>
-          <th scope="col">Instance_id</th>
-          <th scope="col">Status</th>
-          <th scope="col">Normalidade</th>
-        </tr>
-      </thead>
-      <tbody><!-- id, resouce_id, instance_id, status, normal -->
-        {% for instance_resource in instance_resource %}
-        <tr>
-          <th scope="row">{{instance_resource['id']}}</th>
-          <td>{{instance_resource['resource_id']}}</td>
-          <td>{{instance_resource['instance_id']}}</td>
-          <td>
-            {% if instance_resource['status']==1 %}
-            Ativo
-            {% elif instance_resource['status']==0%}
-            Desativo
-            {% endif %}
-          </td>
-          <td>
-            {% if instance_resource['normal']==1 %}
-            Funcional
-            {% elif instance_resource['normal']==0%}
-            Defeituoso
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-
-      </tbody>
-    </table>
   </div>
 </section>
-
 {% endblock %}
