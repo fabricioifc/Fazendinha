@@ -1,5 +1,4 @@
 import sqlite3
-from this import s
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from flask_session import Session
 
@@ -12,7 +11,7 @@ Session(app)
 
 def get_db_connection():
     conn = sqlite3.connect('bancoDados.db')
-    conn.row_factory = sqlite3.Row
+    """ conn.row_factory = sqlite3.Row """
     return conn
 
 
@@ -67,11 +66,14 @@ def postLogUser():
     conn = get_db_connection()
 
     try:
-        senha_user = conn.execute(f'SELECT password FROM users WHERE login="{login}"')
-        print ("senha usar passou")
-        if (senha == senha_user):
-            id_user = conn.execute(f'SELECT id FROM users WHERE login="{login}"')
-            session["id_user"] = id_user
+        senha_user =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
+        senha_user_str = ''.join(filter(str.isalnum, senha_user[0]))
+        print (senha_user_str," = ",senha)
+        if (senha == senha_user_str):  
+            id_user = conn.execute(f'SELECT id FROM users WHERE login="{login}"').fetchall()
+            id_user_str = ''.join(filter(str.isalnum, id_user[0]))
+            print (id_user_str)
+            session["id_user"] = id_user_str
             conn.close
             return redirect('user')
         else:
@@ -100,12 +102,11 @@ def getUser():
     if "id_user" in session:
         id_user = session["id_user"]
         conn = get_db_connection()
-        nome_user = conn.execute(f'SELECT name FROM users WHERE id={id_user}')
+        nome_user = conn.execute(f'SELECT nome FROM users WHERE id={id_user}').fetchall()
         conn.close
         return render_template("user.html", id=id_user, nome=nome_user)
     else:
-        flash('Por favor insira suas credenciais',
-              'NENHUM USUÁRIO CONECTADO! ')
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
 
 # página de logout
@@ -151,6 +152,7 @@ def cadAmbiente():
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     ambiente = conn.execute('SELECT * FROM ambientes').fetchall()
     return render_template("cadastroAmbientes.html", ambiente=ambiente)
 
@@ -187,6 +189,7 @@ def cadInstancia():
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     ambientes = conn.execute(
         'SELECT * FROM ambientes WHERE status==1').fetchall()
     instance = conn.execute('SELECT * FROM instances').fetchall()
@@ -228,6 +231,7 @@ def cadRecurso():
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     resource = conn.execute('SELECT * FROM resources').fetchall()
     return render_template("cadastroRecursos.html", resource=resource)
 
@@ -262,6 +266,7 @@ def cadInstanciaRecurso():
 def getInstanciaRecurso():
 
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     resources = conn.execute('SELECT * FROM resources').fetchall()
     instances = conn.execute(
         'SELECT * FROM instances  WHERE status==1').fetchall()
@@ -280,6 +285,7 @@ def getInstanciaRecurso():
 @app.route('/verdados')
 def verDadosx():
     conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
     ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
     instancias = conn.execute('SELECT * FROM instances').fetchall()
     recursos = conn.execute('SELECT * FROM resources').fetchall()
