@@ -1,3 +1,4 @@
+from array import array
 import sqlite3
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from flask_session import Session
@@ -64,22 +65,18 @@ def postLogUser():
     login = request.form.get("login")
     senha = request.form.get("senha")
     conn = get_db_connection()
-
+    
     try:
         senha_user =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
-        senha_user_str = ''.join(filter(str.isalnum, senha_user[0]))
-        print (senha_user_str," = ",senha)
-        if (senha == senha_user_str):  
-            id_user = conn.execute(f'SELECT id FROM users WHERE login="{login}"').fetchall()
-            id_user_str = ''.join(filter(str.isalnum, id_user[0]))
-            print (id_user_str)
-            session["id_user"] = id_user_str
+        if (senha == senha_user[0][0]):  
+            id_user = (conn.execute('SELECT id FROM users WHERE login=?', (login,)).fetchall())
+            session["id_user"] = id_user[0][0]
             conn.close
             return redirect('user')
         else:
             flash('Senha incorreta tente outra!', 'ERRO! ')
             conn.close
-            return redirect(url_for('login'))
+            return redirect('login')
     except:
         flash('Usuário não existente!', 'ERRO! ')
         conn.close
@@ -101,8 +98,10 @@ def postUser():
 def getUser():
     if "id_user" in session:
         id_user = session["id_user"]
+        print (id_user,"é do tipo",type(id_user))
         conn = get_db_connection()
-        nome_user = conn.execute(f'SELECT nome FROM users WHERE id={id_user}').fetchall()
+        nome_user = conn.execute('SELECT nome FROM users WHERE id=?', (id_user,)).fetchall()
+        nome_user = nome_user[0][0]
         conn.close
         return render_template("user.html", id=id_user, nome=nome_user)
     else:
