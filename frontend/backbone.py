@@ -16,18 +16,23 @@ def get_db_connection():
     return conn
 
 
-@app.route('/base')
+@app.route('/base')#?deletar essa rota, é inútil?
 def base():
     return render_template("base.html")
 
 
 @app.route('/home')
 def home():
-    return render_template("index.html")
+    if "id_user" in session:
+        return render_template("index.html")
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
 
-# páginas de usuário: login e cadastro
 
+# --- páginas de usuário: login, cadastro e user ---
 
+# cadastro de usuario
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
     login = request.form.get("login")
@@ -52,12 +57,14 @@ def cadUser():
         else:
             flash('Senhas não batem!', 'ERRO! ')
             return render_template('cadastro.html')
-            
-
 
 @app.route('/cadastro', methods=["GET"])
-def getCadUser(): 
-    return render_template("cadastro.html")
+def getCadUser():
+    if "id_user" in session:
+        return render_template("cadastro.html")
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login") 
 
 
 @app.route('/login', methods=["POST"])
@@ -86,13 +93,11 @@ def postLogUser():
 def getLogUser():
     return render_template("login.html")
 
+
 # página de usuário
-
-
 @app.route('/user', methods=["POST"])
 def postUser():
     return
-
 
 @app.route('/user', methods=["GET"])
 def getUser():
@@ -108,9 +113,8 @@ def getUser():
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
 
+
 # página de logout
-
-
 @app.route('/logout')
 def logout():
     if "id_user" in session:
@@ -120,11 +124,10 @@ def logout():
     else:
         return redirect("login")
 
-# páginas de cadastro
+
+# --- páginas de cadastro ---
 
 # cadastro de ambientes
-
-
 @app.route('/cadastro/ambiente', methods=["POST"])
 def cadAmbiente():
 
@@ -147,13 +150,13 @@ def cadAmbiente():
 
     return redirect('/cadastro/ambiente')
 
-
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
-    conn = get_db_connection()
-    conn.row_factory = sqlite3.Row
-    ambiente = conn.execute('SELECT * FROM ambientes').fetchall()
-    return render_template("cadastroAmbientes.html", ambiente=ambiente)
+    if "id_user" in session:
+        return render_template("cadastroAmbientes.html")
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
 
 
 # cadastro de instâncias
@@ -184,16 +187,19 @@ def cadInstancia():
 
         return redirect('/cadastro/instancias')
 
-
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
-    conn = get_db_connection()
-    conn.row_factory = sqlite3.Row
-    ambientes = conn.execute(
-        'SELECT * FROM ambientes WHERE status==1').fetchall()
-    instance = conn.execute('SELECT * FROM instances').fetchall()
-    conn.close()
-    return render_template('cadastroInstancias.html', ambientes=ambientes, instance=instance)
+    if "id_user" in session:
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        ambientes = conn.execute(
+            'SELECT * FROM ambientes WHERE status==1').fetchall()
+        instance = conn.execute('SELECT * FROM instances').fetchall()
+        conn.close()
+        return render_template('cadastroInstancias.html', ambientes=ambientes, instance=instance)
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
 
 
 # cadastro de recursos
@@ -226,17 +232,19 @@ def cadRecurso():
 
             return redirect('/cadastro/recursos')
 
-
 @app.route('/cadastro/recursos', methods=["GET"])
 def getRecurso():
-    conn = get_db_connection()
-    conn.row_factory = sqlite3.Row
-    resource = conn.execute('SELECT * FROM resources').fetchall()
-    return render_template("cadastroRecursos.html", resource=resource)
+    if "id_user" in session:
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        resource = conn.execute('SELECT * FROM resources').fetchall()
+        return render_template("cadastroRecursos.html", resource=resource)
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
+
 
 # cadastro de instancia_recursos
-
-
 @app.route('/cadastro/instancias_recursos', methods=["POST"])
 def cadInstanciaRecurso():
     resource_id = request.form["idResourceFK"]
@@ -260,21 +268,21 @@ def cadInstanciaRecurso():
 
     return redirect('/cadastro/instancias_recursos')
 
-
 @app.route('/cadastro/instancias_recursos', methods=["GET"])
 def getInstanciaRecurso():
-
-    conn = get_db_connection()
-    conn.row_factory = sqlite3.Row
-    resources = conn.execute('SELECT * FROM resources').fetchall()
-    instances = conn.execute(
-        'SELECT * FROM instances  WHERE status==1').fetchall()
-    instance_resource = conn.execute(
-        'SELECT * FROM instance_resource').fetchall()
-    conn.close()
-    return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances, instance_resource=instance_resource)
-
-    # return render_template("cadastroRecursos.html")
+    if "id_user" in session:
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        resources = conn.execute('SELECT * FROM resources').fetchall()
+        instances = conn.execute(
+            'SELECT * FROM instances  WHERE status==1').fetchall()
+        instance_resource = conn.execute(
+            'SELECT * FROM instance_resource').fetchall()
+        conn.close()
+        return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances, instance_resource=instance_resource)
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
 
 # --------------------------------------------------------------
 
@@ -283,15 +291,19 @@ def getInstanciaRecurso():
 
 @app.route('/verdados')
 def verDadosx():
-    conn = get_db_connection()
-    conn.row_factory = sqlite3.Row
-    ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
-    instancias = conn.execute('SELECT * FROM instances').fetchall()
-    recursos = conn.execute('SELECT * FROM resources').fetchall()
-    instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
-    users = conn.execute('SELECT * FROM users').fetchall()
-    conn.close()
-    return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users)
+    if "id_user" in session:
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
+        instancias = conn.execute('SELECT * FROM instances').fetchall()
+        recursos = conn.execute('SELECT * FROM resources').fetchall()
+        instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
+        users = conn.execute('SELECT * FROM users').fetchall()
+        conn.close()
+        return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users)
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
 
 
 if __name__ == "__main__":
