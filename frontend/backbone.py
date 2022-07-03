@@ -67,6 +67,7 @@ def getCadUser():
         return redirect("login") 
 
 
+# Login de Usuário
 @app.route('/login', methods=["POST"])
 def postLogUser():
     login = request.form.get("login")
@@ -76,8 +77,11 @@ def postLogUser():
     try:
         senha_user =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
         if (senha == senha_user[0][0]):  
-            id_user = (conn.execute('SELECT id FROM users WHERE login=?', (login,)).fetchall())
-            session["id_user"] = id_user[0][0]
+            user = (conn.execute('SELECT id, nome FROM users WHERE login=?', (login,)).fetchall())
+            session["id_user"] = user[0][0]
+            session["name_user"] = user[0][1]
+            print ("id: ",user[0][0])
+            print ("name: ",user[0][1])
             conn.close
             return redirect('user')
         else:
@@ -91,6 +95,9 @@ def postLogUser():
 
 @app.route('/login', methods=["GET"])
 def getLogUser():
+    if "id_user" in session:
+        name_user = session["name_user"]
+        flash('Você já está logado no usuário '+ name_user +' se continuar será deslogado!', 'USUARIO JÁ LOGADO! ')
     return render_template("login.html")
 
 
@@ -103,12 +110,11 @@ def postUser():
 def getUser():
     if "id_user" in session:
         id_user = session["id_user"]
-        print (id_user,"é do tipo",type(id_user))
         conn = get_db_connection()
-        nome_user = conn.execute('SELECT nome FROM users WHERE id=?', (id_user,)).fetchall()
-        nome_user = nome_user[0][0]
+        conn.row_factory = sqlite3.Row
+        user = conn.execute('SELECT * FROM users WHERE id=?', (id_user,)).fetchall()
         conn.close
-        return render_template("user.html", id=id_user, nome=nome_user)
+        return render_template("user.html", user=user)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")

@@ -3,9 +3,21 @@
 
 {% block content %}
 
-
-<p>{{nome}}</p>
-<p>{{id}}</p>
+<main>
+    <div class="container border border-rounded">
+        <div class="text-">
+            {% for user in user %}
+            <div class="mb-3">
+                <p>Nome: {{ user['nome'] }}</p>
+                <p>Login: {{ user['login'] }}</p>
+                <p>E-mail: {{ user['email'] }}</p>
+                <p>Contato: {{ user['contact'] }}</p>
+                <p>Papel: {{ user['role'] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
 
 
 {% endblock %}
