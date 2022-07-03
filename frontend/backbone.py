@@ -153,7 +153,11 @@ def cadAmbiente():
 @app.route('/cadastro/ambiente', methods=["GET"])
 def getAmbiente():
     if "id_user" in session:
-        return render_template("cadastroAmbientes.html")
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        ambientes = conn.execute('SELECT * FROM ambientes WHERE status==1').fetchall()
+        conn.close()
+        return render_template("cadastroAmbientes.html", ambiente=ambientes)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
