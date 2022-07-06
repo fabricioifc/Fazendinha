@@ -42,7 +42,7 @@ def cadUser():
 
 
     try:
-        conn.execute(f'SELECT * FROM users WHERE login={login}')
+        conn.execute('SELECT * FROM users WHERE login=?', (login))
         flash('Login já existente, tente outro', 'ERRO! ')
         return render_template('cadastro.html')
     except:
@@ -50,7 +50,8 @@ def cadUser():
             nomeUsuario = request.form.get("nomeUsuario")
             emailUsuario = request.form.get("emailUsuario")
             contatoUsuario = request.form.get("contatoUsuario")
-            conn.execute(f'INSERT INTO users (email, contact, login, nome, password) VALUES (?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha))
+            roleUsuario = request.form.get("roleUsuario")
+            conn.execute('INSERT INTO users (email, contact, login, nome, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
             conn.commit()
             conn.close()
             return redirect(url_for('home'))
@@ -61,7 +62,16 @@ def cadUser():
 @app.route('/cadastro', methods=["GET"])
 def getCadUser():
     if "id_user" in session:
-        return render_template("cadastro.html")
+        conn = get_db_connection()
+        id_user = session["id_user"]
+        print (id_user)
+        role = conn.execute('SELECT role FROM users WHERE id=?', (id_user,)).fetchall()
+        role = role[0][0]
+        if role == "ADMIN":
+            return render_template("cadastro.html" )
+        else:
+            flash('Usuario sem privilégio de cadastrar','PERMISSÃO NEGADA! ')
+            return redirect("home") 
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login") 
@@ -76,12 +86,13 @@ def postLogUser():
     
     try:
         senha_user =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
-        if (senha == senha_user[0][0]):  
-            user = (conn.execute('SELECT id, nome FROM users WHERE login=?', (login,)).fetchall())
+        if (senha == senha_user[0][0]):
+            if "id_user" in session:
+                session.pop("id_user", None)
+                session.pop("nome_user", None)
+            user = conn.execute('SELECT id, nome FROM users WHERE login=?', (login,)).fetchall()
             session["id_user"] = user[0][0]
             session["name_user"] = user[0][1]
-            print ("id: ",user[0][0])
-            print ("name: ",user[0][1])
             conn.close
             return redirect('user')
         else:
@@ -309,8 +320,20 @@ def verDadosx():
         recursos = conn.execute('SELECT * FROM resources').fetchall()
         instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
         users = conn.execute('SELECT * FROM users').fetchall()
+        leituras = conn.execute('SELECT * FROM leituras').fetchall()
         conn.close()
-        return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users)
+        return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users, leituras=leituras)
+    else:
+        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
+        return redirect("login")
+
+@app.route('/verleituras', methods=["GET"])
+def getVerLeituras():
+    if "id_user" in session:
+        conn = get_db_connection()
+        conn.row_factory = sqlite3.Row
+        leituras = conn.execute('SELECT * FROM leituras').fetchall()
+        return render_template('verLeituras.html', leituras=leituras)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
@@ -318,3 +341,9 @@ def verDadosx():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+import sqlite3
+conn = sqlite3.connect("bancoDados.db")
+cur=conn.cursor()
+cur.execute("""INSERT INTO leituras (2020-06-21 00:00:32, 3, 3303, 21.8 """) 

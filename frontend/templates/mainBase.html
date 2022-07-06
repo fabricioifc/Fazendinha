@@ -20,13 +20,16 @@
         <div class="container">
             <div class="d-flex py-3">
                 <div>
-                    <h1 class="m-0">Logo</h1>
+                    <a href="/home" class="text-decoration-none text-muted">
+                        <h1 class="m-0">Logo</h1>
+                    </a>
                 </div>
 
                 <div class="ms-auto d-flex justify-content-around align-items-center">
-                    <a href="/logout" class="btn btn-info me-3" >Logout</a href="/logout">
+                    <a href="/user" class="btn btn-info me-3">Usuario</a>
+                    <a href="/logout" class="btn btn-info me-3">Logout</a>
                     <a href="/login" class="btn btn-info me-3">Login</a>
-                    <a href="/cadastro" class="btn btn-info">Cadastre-se</a>
+                    <a href="/cadastro" class="btn btn-info">Cadastro</a>
                 </div>
             </div>
         </div>
@@ -60,6 +63,10 @@
                             <a class="nav-link ps-0 ms-3" href="/verdados">Visualização de Dados</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link ps-0 ms-3" href="/verleituras">Visualização de leituras</a>
+                        </li>
+                        
                         <li class="nav-item ms-auto">
                             <a class="nav-link pe-0" href="/sobre">Sobre</a>
                         </li>
@@ -68,6 +75,15 @@
             </div>
         </nav>
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="alert alert-primary" style="background-color: rgba(255, 0, 0, 0.10); " role="alert">
+            {% for category, message in messages %}
+            <p class="text-danger">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
 
     </header>
 

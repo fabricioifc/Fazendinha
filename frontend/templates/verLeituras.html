@@ -1,0 +1,36 @@
+{% extends "mainBase.html" %}
+{% block title %}C.E.I.F.A - Cadastrar um Recurso{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="">
+    <div class="w-50 mx-auto">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Momento da leitura</th>
+            <th scope="col">Id Instancia pai</th>
+            <th scope="col">Número do recurso</th>
+            <th scope="col">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for leituras in leituras %}
+          <tr>
+            <th scope="row">{{leituras['hora_leitura']}}</th>
+            <td>{{leituras['id_instance']}}</td>
+            <td>{{leituras['resource_number']}}</td>
+            <td>{{leituras['value']}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+  {% endblock %}

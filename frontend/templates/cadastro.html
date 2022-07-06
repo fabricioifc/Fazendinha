@@ -16,7 +16,7 @@
                     Insira um nome de usuário.
                 </div>
             </div>
-            
+
             <!-- login -->
             <div class="col-2">
                 <label for="loginId" class="form-label m-0">Login</label>
@@ -55,7 +55,7 @@
                 <label for="senha1" class="form-label m-0">Senha</label>
             </div>
             <div class="col-4">
-                <input type="password" class="form-control" name="senha"  id="senha1" required>
+                <input type="password" class="form-control" name="senha" id="senha1" required>
                 <div class="invalid-feedback">
                     ####
                 </div>
@@ -72,10 +72,23 @@
                     ####
                 </div>
             </div>
+            
+            <div class="col-2">
+                <label for="roleId" class="form-label m-0">Insira o papel</label>
+            </div>
+            <div class="col-10">
+                <select class="form-select" name="roleUsuario" id="roleId" aria-label="Default select example">
+                    <option value="USER" selected>User</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+                <div class="invalid-feedback">
+                    ####
+                </div>
+            </div>
 
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-            <div class="alert alert-primary" style="background-color: rgba(255, 0, 0, 0.10); " role="alert">
+            <div class="alert alert-primary" style="background-color: rgba(147, 0, 0, 0.1); " role="alert">
                 {% for category, message in messages %}
                 <p class="text-danger">{{ message }}</p>
                 {% endfor %}

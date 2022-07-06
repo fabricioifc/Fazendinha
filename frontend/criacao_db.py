@@ -44,6 +44,17 @@ CREATE TABLE instance_resource (
 )
 """)
 
+cur.execute("""
+CREATE TABLE leituras (
+    hora_leitura text,
+    id_instance integer,
+    resource_number integer,
+    value real,
+    foreign key (id_instance) references instaces (id),
+    foreign key (resource_number) references resource_number (resource_number)
+)
+""")
+
 conn.commit()
 
 cur.close()
