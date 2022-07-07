@@ -51,10 +51,13 @@ def cadUser():
             emailUsuario = request.form.get("emailUsuario")
             contatoUsuario = request.form.get("contatoUsuario")
             roleUsuario = request.form.get("roleUsuario")
-            conn.execute('INSERT INTO users (email, contact, login, nome, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('home'))
+            if (roleUsuario=="USER" or roleUsuario=="ADMIN"):
+                conn.execute('INSERT INTO users (email, contact, login, nome, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
+                conn.commit()
+                conn.close()
+                return redirect(url_for('home'))
+            else:
+                flash ('Por favor atualize a página e tente novamente', 'ERRO! ')
         else:
             flash('Senhas não batem!', 'ERRO! ')
             return render_template('cadastro.html')
