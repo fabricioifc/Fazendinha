@@ -3,37 +3,96 @@
 
 
 {% block content %}
-<section>
-  
-</section>
+
+
 
 <section class="container">
-  <div class="">
-    <div class="w-50 mx-auto">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Momento da leitura</th>
-            <th scope="col">Id Instancia pai</th>
-            <th scope="col">Número do recurso</th>
-            <th scope="col">Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for leituras in leituras %}
-          <tr>
-            <th scope="row">{{leituras['hora_leitura']}}</th>
-            <td>{{leituras['id_instance']}}</td>
-            <td>{{leituras['resource_number']}}</td>
-            <td>{{leituras['value']}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+  <div class="bg-info bg-opacity-25 p-3 rounded w-100 shadow-sm">
+    <div class="bg-white p-3 rounded border border-info">
+      <div class="d-flex">
+        <input type="text" class="form-control mb-3 me-3" id="numeroRecurso" onkeyup="filtroInstancia()"
+          placeholder="Pesquisar por instância">
+
+
+        <input type="text" class="form-control mb-3 " id="data" onkeyup="filtroData()"
+          placeholder="Pesquisar por data">
+
+      </div>
+
+      <div class="border border-dark rounded">
+        <table class="table table-striped m-0 text-center" id="tabela">
+          <thead>
+            <tr>
+              <th scope="col">Id Instancia pai</th>
+              <th scope="col">Momento da leitura</th>
+              <th scope="col">Número do recurso</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for leituras in leituras %}
+            <tr>
+              <td class="fw-bold">{{leituras['resource_number']}}</td>
+              <td>{{leituras['hora_leitura']}}</td>
+              <td>{{leituras['id_instance']}}</td>
+              <td>{{leituras['value']}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
     </div>
+
   </div>
 </section>
 
 
+<script>
+  function filtroInstancia() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("numeroRecurso");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tabela");
+    tr = table.getElementsByTagName("tr");
 
-  {% endblock %}
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function filtroData() {
+    // Declare variables
+    var input, td, i, txtValue;
+    input = document.getElementById("data");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tabela");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+
+
+{% endblock %}
