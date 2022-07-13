@@ -344,9 +344,3 @@ def getVerLeituras():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-import sqlite3
-conn = sqlite3.connect("bancoDados.db")
-cur=conn.cursor()
-cur.execute("""INSERT INTO leituras (2020-06-21 00:00:32, 3, 3303, 21.8 """) 
