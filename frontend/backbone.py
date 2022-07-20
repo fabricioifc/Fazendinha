@@ -1,5 +1,8 @@
 from array import array
+from ast import For
 import sqlite3
+import pygal
+from pygal.style import Style
 from flask import Flask, flash, redirect, session, url_for, render_template, request
 from flask_session import Session
 
@@ -8,6 +11,18 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = 'filesystem'
 app.config['SECRET_KEY'] = 'asd'
 Session(app)
+
+
+custom_style = Style(
+  background='transparent',
+  transition='400ms ease-in',
+  legend_font_size=30,
+  tooltip_font_size=30,
+  major_label_font_size=30,
+  label_font_size=30,
+  title_font_size=30,
+  font_family='arial')
+
 
 
 def get_db_connection():
@@ -23,11 +38,22 @@ def base():
 
 @app.route('/home')
 def home():
+    chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style)
+    chart.title='Média de temperatura semanal'
+    chart.add('Horta 1', [22, 20, 21])
+    chart.add('Horta 2', [19, 20, 18])
+    chart.add('Plantação 1', [17, 12, 15])
+    chart.add('Plantação 2', [24, 22, 21])
+    
+    
+    chart = chart.render_data_uri()
     if "id_user" in session:
-        return render_template("index.html")
+        return render_template("index.html", chart = chart, chart2=chart)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
+
+
 
 
 # --- páginas de usuário: login, cadastro e user ---

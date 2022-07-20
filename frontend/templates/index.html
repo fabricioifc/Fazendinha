@@ -1,9 +1,24 @@
-{%  extends "mainBase.html"  %}
-{%  block title  %}C.E.I.F.A - Página Principal{%  endblock  %}
+{% extends "mainBase.html" %}
+{% block title %}C.E.I.F.A - Página Principal{% endblock %}
 
 
-{%  block content  %}
+{% block content %}
+<div class="container">
+    <div class="p-3 bg-info bg-opacity-25 rounded shadow-sm">
+        <div class="p-3 bg-white rounded">
+            <div class="row row-cols-1 g-3">
+                <div class="col-6">
+                    {% if chart != null %}
+                    <embed type="image/svg+xml" src="{{ chart|safe }}" />
+                    {% else %}
+                    <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                    {% endif %}
+                </div>
 
+            </div>
+        </div>
+    </div>
 
-{%  endblock  %}
+</div>
 
+{% endblock %}
