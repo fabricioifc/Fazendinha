@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # flask session
-flask_session/*
+.flask_session/*
