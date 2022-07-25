@@ -4,8 +4,8 @@ conn = sqlite3.connect("bancoDados.db")
 cur=conn.cursor()
 
 cur.execute("""
-CREATE TABLE ambientes (
-    id integer PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE environment (
+    id_environment integer PRIMARY KEY AUTOINCREMENT,
     name text NOT NULL,
     status integer NOT NULL
 )
@@ -13,45 +13,45 @@ CREATE TABLE ambientes (
 
 cur.execute("""
 CREATE TABLE resources (
-    id integer PRIMARY KEY AUTOINCREMENT,
+    id_resource integer PRIMARY KEY AUTOINCREMENT,
     name text NOT NULL,
-    resource_number integer NOT NULL,
-    vlini real NOT NULL,
-    vlfim real NOT NULL
+    number_resource integer NOT NULL,
+    val_start real NOT NULL,
+    val_end real NOT NULL
 )
 """)
 
 cur.execute("""
 CREATE TABLE instances (
-    id integer PRIMARY KEY AUTOINCREMENT,
+    id_instance integer PRIMARY KEY AUTOINCREMENT,
     name text NOT NULL,
-    ambiente_id integer NOT NULL,
-    instance_number integer NOT NULL,
+    id_environment_FK integer NOT NULL,
+    number_instance integer NOT NULL,
     status integer NOT NULL,
-    foreign key (ambiente_id) references ambientes (id)
+    foreign key (id_environment_FK) references environment (id_environment)
 )
 """)
 
 cur.execute("""
-CREATE TABLE instance_resource (
-    id integer PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE instances_resources (
+    id_instance_resource integer PRIMARY KEY AUTOINCREMENT,
     status integer NOT NULL,
-    resource_id integer NOT NULL,
-    instance_id integer NOT NULL,
+    id_resource_FK integer NOT NULL,
+    id_instance_FK integer NOT NULL,
     normal integer NOT NULL,
-    foreign key (resource_id) references resources (id)
-    foreign key (instance_id) references instances (id)
+    foreign key (id_resource_FK) references resources (id_resource)
+    foreign key (id_instance_FK) references instances (id_instance)
 )
 """)
 
 cur.execute("""
-CREATE TABLE leituras (
-    hora_leitura text,
-    id_instance integer,
-    resource_number integer,
-    value real,
-    foreign key (id_instance) references instaces (id),
-    foreign key (resource_number) references resource_number (resource_number)
+CREATE TABLE readings (
+    id_reading integer PRIMARY KEY AUTOINCREMENT,
+    id_instance_FK integer NOT NULL,
+    number_resource_FK integer NOT NULL,
+    value real NOT NULL,
+    foreign key (id_instance_FK) references instances (id_instance),
+    foreign key (number_resource_FK) references resources (number_resource)
 )
 """)
 

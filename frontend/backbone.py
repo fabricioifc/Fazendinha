@@ -78,7 +78,7 @@ def cadUser():
             contatoUsuario = request.form.get("contatoUsuario")
             roleUsuario = request.form.get("roleUsuario")
             if (roleUsuario=="USER" or roleUsuario=="ADMIN"):
-                conn.execute('INSERT INTO users (email, contact, login, nome, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
+                conn.execute('INSERT INTO users (email, contact, login, name, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
                 conn.commit()
                 conn.close()
                 return redirect(url_for('home'))
