@@ -255,28 +255,28 @@ def getInstancia():
 # cadastro de recursos
 @app.route('/cadastro/recursos', methods=["POST"])
 def cadRecurso():
-    valorInicial = request.form["vlIniAmb"]
-    valorFinal = request.form["vlFinAmb"]
+    val_start = request.form["val_start"]
+    val_end = request.form["val_end"]
 
-    if valorInicial > valorFinal:
+    if val_start > val_end:
         return render_template("cadastroRecursos.html", aviso="O valor final deve ser maior que o inicial. Tente novamente.")
     else:
 
-        name = request.form['nomeRecurso']
-        resource_number = request.form['recursoNumero']
+        name = request.form['name']
+        number = request.form['number']
 
         if not name:
             flash('É obrigatório inserir um nome')
-        elif not resource_number:
+        elif not number:
             flash('É obrigatório definir um número de recurso')
-        elif not valorInicial:
+        elif not val_start:
             flash('É obrigatório definir um valor inicial')
-        elif not valorFinal:
+        elif not val_end:
             flash('É obrigatório definir um valor final')
         else:
             conn = get_db_connection()
             conn.execute('INSERT INTO resources (name, number_resource, val_start, val_end) VALUES (?, ?, ?, ?)',
-                         (name, resource_number, valorInicial, valorFinal))
+                         (name, number, val_start, val_end))
             conn.commit()
             conn.close()
 

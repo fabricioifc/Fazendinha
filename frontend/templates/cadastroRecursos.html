@@ -18,28 +18,28 @@
             <form class="form-floating mt-3" action="#" method="post">
 
               <div class="form-floating">
-                <input type="text" class="form-control" name="nomeRecurso" id="nmRsc" placeholder="Nome do recurso"
+                <input type="text" class="form-control" name="name" id="name_id" placeholder="Nome do recurso"
                   required>
-                <label for="nmRsc">Nome do recurso</label>
+                <label for="name_id">Nome do recurso</label>
               </div>
 
               <div class="form-floating mt-3">
-                <input type="number" min="1" class="form-control" name="recursoNumero" id="rscNmb"
+                <input type="number" min="1" class="form-control" name="number" id="number_id"
                   placeholder="Número deste recurso" required>
-                <label for="rscNmb">Número do recurso</label>
+                <label for="number_id">Número do recurso</label>
               </div>
 
               <div class="w-100 d-flex justify-content-between">
 
                 <div class="form-floating mt-3 w-100 me-3">
-                  <input type="number" class="form-control" name="vlIniAmb" id="vliAmb"
+                  <input type="number" class="form-control" name="val_start" id="val_start_id"
                     placeholder="Valor base de leitura" required>
-                  <label for="vliAmb">Valor base de leitura</label>
+                  <label for="val_start_id">Valor base de leitura</label>
                 </div>
                 <div class="form-floating mt-3 w-100">
-                  <input type="number" class="form-control" name="vlFinAmb" id="vlfAmb"
+                  <input type="number" class="form-control" name="val_end" id="val_end_id"
                     placeholder="Valor limite de leitura" required>
-                  <label for="vlfAmb">Valor limite de leitura</label>
+                  <label for="val_end_id">Valor limite de leitura</label>
                 </div>
               </div>
 
@@ -70,11 +70,11 @@
                 <!-- id, name, resource_number, vlini, vlfim -->
                 {% for resource in resource %}
                 <tr>
-                  <th scope="row">{{resource['id']}}</th>
+                  <th scope="row">{{resource['id_resource']}}</th>
                   <td>{{resource['name']}}</td>
-                  <td>{{resource['resource_number']}}</td>
-                  <td>{{resource['vlini']}}</td>
-                  <td>{{resource['vlfim']}}</td>
+                  <td>{{resource['number_resource']}}</td>
+                  <td>{{resource['val_start']}}</td>
+                  <td>{{resource['val_end']}}</td>
                 </tr>
                 {% endfor %}
 
