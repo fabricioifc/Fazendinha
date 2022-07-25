@@ -300,12 +300,12 @@ def cadInstanciaRecurso():
     id_resource_fk = request.form["id_resource_fk"]
     id_instance_fk = request.form["id_instance_fk"]
 
-    if request.form["status"] == "ativa":
+    if request.form["status"] == "ativo":
         status = 1
     else:
         status = 0
 
-    if request.form["normal"] == "ativa":
+    if request.form["normal"] == "ativo":
         normal = 1
     else:
         normal = 0
