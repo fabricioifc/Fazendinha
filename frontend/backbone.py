@@ -297,8 +297,8 @@ def getRecurso():
 # cadastro de instancia_recursos
 @app.route('/cadastro/instancias_recursos', methods=["POST"])
 def cadInstanciaRecurso():
-    resource_id = request.form["idResourceFK"]
-    instance_id = request.form["idInstanceFK"]
+    id_resource_fk = request.form["id_resource_fk"]
+    id_instance_fk = request.form["id_instance_fk"]
 
     if request.form["status"] == "ativa":
         status = 1
@@ -312,7 +312,7 @@ def cadInstanciaRecurso():
 
     conn = get_db_connection()
     conn.execute('INSERT INTO instances_resources (status, id_resource_FK, id_instance_FK, normal) VALUES (?, ?, ?, ?)',
-                 (status, resource_id, instance_id, normal))
+                 (status, id_resource_fk, id_instance_fk, normal))
     conn.commit()
     conn.close()
 

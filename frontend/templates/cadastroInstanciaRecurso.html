@@ -41,11 +41,11 @@
 
               <div class="form-floating mt-3">
 
-                <select class="form-select py-3" aria-label="Default select example" name="idResourceFK"
-                  id="idResourceFK" required>
+                <select class="form-select py-3" aria-label="Default select example" name="id_resource_fk"
+                  id="resource_fk_id" required>
                   <option value="" disabled selected>ID do recurso pai desta instância_recurso</option>
-                  {% for resouce in resources %}
-                  <option value="ID: {{ resouce['id'] }}">{{ resouce['id'] }}</option>
+                  {% for resource in resources %}
+                  <option value="ID: {{ resource['id_resource'] }}">{{ resource['id_resource'] }}</option>
                   {% endfor %}
                 </select>
 
@@ -53,11 +53,11 @@
 
               <div class="form-floating mt-3">
 
-                <select class="form-select py-3" aria-label="Default select example" name="idInstanceFK"
-                  id="idInstanceFK" required>
+                <select class="form-select py-3" aria-label="Default select example" name="id_instance_fk"
+                  id="instance_fk_id" required>
                   <option value="" disabled selected>ID da instância pai desta instância_recurso</option>
                   {% for instance in instances %}
-                  <option value="ID: {{ instance['id'] }}">{{ instance['id'] }}</option>
+                  <option value="ID: {{ instance['id_instance'] }}">{{ instance['id_instance'] }}</option>
                   {% endfor %}
                 </select>
 
@@ -112,9 +112,9 @@
                 <!-- id, resouce_id, instance_id, status, normal -->
                 {% for instance_resource in instance_resource %}
                 <tr>
-                  <th scope="row">{{instance_resource['id']}}</th>
-                  <td>{{instance_resource['resource_id']}}</td>
-                  <td>{{instance_resource['instance_id']}}</td>
+                  <th scope="row">{{instance_resource['id_instance_resource']}}</th>
+                  <td>{{instance_resource['id_resource_FK']}}</td>
+                  <td>{{instance_resource['id_instance_FK']}}</td>
                   <td>
                     {% if instance_resource['status']==1 %}
                     Ativo
