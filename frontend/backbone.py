@@ -62,8 +62,8 @@ def home():
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
     login = request.form.get("login")
-    senha = request.form.get("senha")
-    senhaRep = request.form.get("senhaRep")
+    password = request.form.get("password")
+    password_repet = request.form.get("password_repet")
     conn = get_db_connection()
 
 
@@ -72,13 +72,13 @@ def cadUser():
         flash('Login já existente, tente outro', 'ERRO! ')
         return render_template('cadastro.html')
     except:
-        if (senha == senhaRep):
-            nomeUsuario = request.form.get("nomeUsuario")
-            emailUsuario = request.form.get("emailUsuario")
-            contatoUsuario = request.form.get("contatoUsuario")
-            roleUsuario = request.form.get("roleUsuario")
-            if (roleUsuario=="USER" or roleUsuario=="ADMIN"):
-                conn.execute('INSERT INTO users (email, contact, login, name, password, role) VALUES (?, ?, ?, ?, ?, ?)',(emailUsuario, contatoUsuario, login, nomeUsuario, senha, roleUsuario))
+        if (password == password_repet):
+            name = request.form.get("name")
+            email = request.form.get("email")
+            contact = request.form.get("contact")
+            role = request.form.get("role")
+            if (role=="USER" or role=="ADMIN"):
+                conn.execute('INSERT INTO users (email, contact, login, name, password, role) VALUES (?, ?, ?, ?, ?, ?)',(email, contact, login, name, password, role))
                 conn.commit()
                 conn.close()
                 return redirect(url_for('home'))

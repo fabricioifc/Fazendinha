@@ -8,10 +8,10 @@
         <form class="row g-3 needs-validation align-items-center" method="post" novalidate>
             <!-- nome -->
             <div class="col-2">
-                <label for="nomeUser" class="form-label m-0">Nome</label>
+                <label for="name_id" class="form-label m-0">Nome</label>
             </div>
             <div class="col-10">
-                <input type="text" class="form-control" name="nomeUsuario" id="nomeUser" required>
+                <input type="text" class="form-control" name="name" id="name_id" required>
                 <div class="invalid-feedback">
                     Insira um nome de usuário.
                 </div>
@@ -19,10 +19,10 @@
 
             <!-- login -->
             <div class="col-2">
-                <label for="loginId" class="form-label m-0">Login</label>
+                <label for="login_id" class="form-label m-0">Login</label>
             </div>
             <div class="col-10">
-                <input type="text" class="form-control" name="login" id="loginId" required>
+                <input type="text" class="form-control" name="login" id="login_id" required>
                 <div class="invalid-feedback">
                     Insira um login.
                 </div>
@@ -30,10 +30,10 @@
 
             <!-- e-mail -->
             <div class="col-2">
-                <label for="emailUser" class="form-label m-0">E-mail</label>
+                <label for="email_id" class="form-label m-0">E-mail</label>
             </div>
             <div class="col-10">
-                <input type="email" class="form-control" name="emailUsuario" id="emailUser" required>
+                <input type="email" class="form-control" name="email" id="email_id" required>
                 <div class="invalid-feedback">
                     Insira um e-mail.
                 </div>
@@ -41,10 +41,10 @@
 
             <!-- contato -->
             <div class="col-2">
-                <label for="contatoUser" class="form-label m-0">Contato</label>
+                <label for="contact_id" class="form-label m-0">Contato</label>
             </div>
             <div class="col-10">
-                <input type="text" class="form-control" name="contatoUsuario" id="contatoUser" required>
+                <input type="text" class="form-control" name="contact" id="contact_id" required>
                 <div class="invalid-feedback">
                     Insira um número válido.
                 </div>
@@ -52,10 +52,10 @@
 
             <!-- senha -->
             <div class="col-2">
-                <label for="senha1" class="form-label m-0">Senha</label>
+                <label for="password_id" class="form-label m-0">Senha</label>
             </div>
             <div class="col-4">
-                <input type="password" class="form-control" name="senha" id="senha1" required>
+                <input type="password" class="form-control" name="password" id="password_id" required>
                 <div class="invalid-feedback">
                     ####
                 </div>
@@ -64,20 +64,20 @@
             <!-- repita a senha -->
 
             <div class="col-2 text-center">
-                <label for="senha2" class="form-label m-0">Repita-a</label>
+                <label for="password_repet_id" class="form-label m-0">Repita-a</label>
             </div>
             <div class="col-4">
-                <input type="password" class="form-control" name="senhaRep" id="senha2" required>
+                <input type="password" class="form-control" name="password_repet" id="password_repet_id" required>
                 <div class="invalid-feedback">
                     ####
                 </div>
             </div>
             
             <div class="col-2">
-                <label for="roleId" class="form-label m-0">Insira o papel</label>
+                <label for="role_id" class="form-label m-0">Insira o papel</label>
             </div>
             <div class="col-10">
-                <select class="form-select" name="roleUsuario" id="roleId" aria-label="Default select example">
+                <select class="form-select" name="role" id="role_id" aria-label="Default select example">
                     <option value="USER" selected>User</option>
                     <option value="ADMIN">Admin</option>
                 </select>
