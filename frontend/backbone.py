@@ -1,6 +1,7 @@
 from array import array
 from ast import For
 import sqlite3
+from unicodedata import name
 import pygal
 from pygal.style import Style
 from flask import Flask, flash, redirect, session, url_for, render_template, request
@@ -177,20 +178,20 @@ def logout():
 @app.route('/cadastro/ambiente', methods=["POST"])
 def cadAmbiente():
 
-    nomeAmbiente = request.form["nomeAmbiente"]
-    statusAmbiente = 2
+    name = request.form["name"]
+    status = 2
 
     if request.form["status"] == "ativo":
-        statusAmbiente = 1
+        status = 1
     else:
-        statusAmbiente = 0
+        status = 0
 
-    if not nomeAmbiente:
+    if not name:
         flash('É obrigatório inserir um nome')
     else:
         conn = get_db_connection()
         conn.execute('INSERT INTO environment (name, status) VALUES (?, ?)',
-                     (nomeAmbiente, statusAmbiente))
+                     (name, status))
         conn.commit()
         conn.close()
 
@@ -201,9 +202,9 @@ def getAmbiente():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        ambientes = conn.execute('SELECT * FROM environment WHERE status==1').fetchall()
+        environment = conn.execute('SELECT * FROM environment WHERE status==1').fetchall()
         conn.close()
-        return render_template("cadastroAmbientes.html", ambiente=ambientes)
+        return render_template("cadastroAmbientes.html", environment=environment)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")

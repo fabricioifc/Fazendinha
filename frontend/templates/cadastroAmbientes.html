@@ -18,9 +18,9 @@
 
             <form class="form-floating mt-3 needs-validation" action="#" method="post">
               <div class="form-floating">
-                <input type="text" class="form-control" name="nomeAmbiente" id="nmAmb" placeholder="Nome do ambiente"
+                <input type="text" class="form-control" name="name" id="name_id" placeholder="Nome do ambiente"
                   required>
-                <label for="nmAmb">Nome do ambiente</label>
+                <label for="name_id">Nome do ambiente</label>
               </div>
 
 
@@ -67,14 +67,14 @@
                 </tr>
               </thead>
               <tbody>
-                {% for ambiente in ambiente %}
+                {% for environment in environment %}
                 <tr>
-                  <th scope="row">{{ambiente['id']}}</th>
-                  <td>{{ambiente['name']}}</td>
+                  <th scope="row">{{environment['id_environment']}}</th>
+                  <td>{{environment['name']}}</td>
                   <td>
-                    {% if ambiente['status']==1 %}
+                    {% if environment['status']==1 %}
                     Ativo
-                    {% elif ambiente['status']==0%}
+                    {% elif environment['status']==0%}
                     Inativo
                     {% endif %}
                   </td>
