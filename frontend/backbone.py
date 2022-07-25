@@ -179,7 +179,6 @@ def logout():
 def cadAmbiente():
 
     name = request.form["name"]
-    status = 2
 
     if request.form["status"] == "ativo":
         status = 1
@@ -213,26 +212,26 @@ def getAmbiente():
 # cadastro de instâncias
 @app.route('/cadastro/instancias', methods=["POST"])
 def cadInstancia():
-    nomeInstancia = request.form["nomeInstancia"]
-    instanciaNumero = request.form["instanciaNumero"]
-    idAmbienteInstancia = request.form["idAmbiente"]
+    name = request.form["name"]
+    number = request.form["number"]
+    id_environment_fk = request.form["id_environment_fk"]
 
     if request.form["status"] == "ativa":
-        statusInstancia = 1
+        status = 1
     else:
-        statusInstancia = 0
+        status = 0
 
-    if not nomeInstancia:
+    if not name:
         flash('É obrigatório inserir um nome')
-    elif not instanciaNumero:
+    elif not number:
         flash('É obrigatório definir um número de instância')
-    elif not idAmbienteInstancia:
+    elif not id_environment_fk:
         # talvez esse seja redundante
         flash('É obrigatório definir um id de ambiente')
     else:
         conn = get_db_connection()
         conn.execute('INSERT INTO instances (name, id_environment_FK, number_instance, status) VALUES (?, ?, ?, ?)',
-                     (nomeInstancia, idAmbienteInstancia, instanciaNumero, statusInstancia))
+                     (name, id_environment_fk, number, status))
         conn.commit()
         conn.close()
 
@@ -243,11 +242,11 @@ def getInstancia():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        ambientes = conn.execute(
+        environment = conn.execute(
             'SELECT * FROM environment WHERE status==1').fetchall()
         instance = conn.execute('SELECT * FROM instances').fetchall()
         conn.close()
-        return render_template('cadastroInstancias.html', ambientes=ambientes, instance=instance)
+        return render_template('cadastroInstancias.html', environment=environment, instance=instance)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")

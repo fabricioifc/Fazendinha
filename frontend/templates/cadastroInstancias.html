@@ -19,24 +19,24 @@
             <form class="form-floating mt-3" action="#" method="post">
 
               <div class="form-floating">
-                <input type="text" class="form-control" name="nomeInstancia" id="nmInst" placeholder="Nome da instância"
+                <input type="text" class="form-control" name="name" id="name_id" placeholder="Nome da instância"
                   required>
-                <label for="nmInst">Nome da instância</label>
+                <label for="name_id">Nome da instância</label>
               </div>
 
               <div class="form-floating mt-3">
-                <input type="number" min="1" class="form-control" name="instanciaNumero" id="instNmb"
+                <input type="number" min="1" class="form-control" name="number" id="number_id"
                   placeholder="Número desta instância" required>
-                <label for="instNmb">Número desta instância</label>
+                <label for="number_id">Número desta instância</label>
               </div>
 
               <div class="form-floating mt-3">
 
-                <select class="form-select py-3" aria-label="Default select example" name="idAmbiente" id="idAmbiente"
+                <select class="form-select py-3" aria-label="Default select example" name="id_environment_fk" id="environment_id"
                   required>
                   <option value="" disabled selected>ID do ambiente pai desta instância</option>
-                  {% for ambiente in ambientes %}
-                  <option value="ID: {{ ambiente['id'] }}">{{ ambiente['id'] }}</option>
+                  {% for environment in environment %}
+                  <option value="ID: {{ environment['id_environment'] }}">{{ environment['id_environment'] }}</option>
                   {% endfor %}
                 </select>
 
@@ -90,10 +90,10 @@
                 <!-- id, name, ambiente_id, instance_number, status -->
                 {% for instance in instance %}
                 <tr>
-                  <th scope="row">{{instance['id']}}</th>
+                  <th scope="row">{{instance['id_instance']}}</th>
                   <td>{{instance['name']}}</td>
-                  <td>{{instance['ambiente_id']}}</td>
-                  <td>{{instance['instance_number']}}</td>
+                  <td>{{instance['id_environment_FK']}}</td>
+                  <td>{{instance['number_instance']}}</td>
                   <td>
                     {% if instance['status']==1 %}
                     Ativo
