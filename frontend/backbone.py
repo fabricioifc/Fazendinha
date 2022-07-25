@@ -110,12 +110,12 @@ def getCadUser():
 @app.route('/login', methods=["POST"])
 def postLogUser():
     login = request.form.get("login")
-    senha = request.form.get("senha")
+    password = request.form.get("password")
     conn = get_db_connection()
     
     try:
-        senha_user =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
-        if (senha == senha_user[0][0]):
+        password_db =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
+        if (password == password_db[0][0]):
             if "id_user" in session:
                 session.pop("id_user", None)
                 session.pop("nome_user", None)
