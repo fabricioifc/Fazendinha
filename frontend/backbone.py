@@ -344,14 +344,14 @@ def verDadosx():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        ambientes = conn.execute('SELECT * FROM environment').fetchall()
-        instancias = conn.execute('SELECT * FROM instances').fetchall()
-        recursos = conn.execute('SELECT * FROM resources').fetchall()
-        instancias_recursos = conn.execute('SELECT * FROM instances_resources').fetchall()
+        environment = conn.execute('SELECT * FROM environment').fetchall()
+        instance = conn.execute('SELECT * FROM instances').fetchall()
+        resource = conn.execute('SELECT * FROM resources').fetchall()
+        instance_resource = conn.execute('SELECT * FROM instances_resources').fetchall()
         users = conn.execute('SELECT * FROM users').fetchall()
-        leituras = conn.execute('SELECT * FROM readings').fetchall()
+        reading = conn.execute('SELECT * FROM readings').fetchall()
         conn.close()
-        return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users, leituras=leituras)
+        return render_template('verDados.html', environment=environment, instance=instance, resource=resource, instance_resource=instance_resource, user=users, reading=reading)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")

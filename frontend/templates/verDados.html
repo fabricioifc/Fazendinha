@@ -14,16 +14,16 @@
             <hr class="m-0">
         </div>
 
-        {% for ambiente in ambientes %}
+        {% for environment in environment %}
         <div class="col-3">
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
-                    <p class="m-0 text-center">ID: {{ ambiente['id'] }}</p>
-                    <p class="m-0 text-center">Nome: {{ ambiente['name'] }}</p>
+                    <p class="m-0 text-center">ID: {{ environment['id_environment'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ environment['name'] }}</p>
                     <p class="m-0 text-center">
-                        {% if ambiente['status']==1 %}
+                        {% if environment['status']==1 %}
                         Status: <b>Ativo</b>
-                        {% elif ambiente['status']==0 %}
+                        {% elif environment['status']==0 %}
                         Status: <b>Inativo</b>
                         {% endif %}
                     </p>
@@ -39,18 +39,18 @@
             <hr class="m-0">
         </div>
 
-        {% for instancia in instancias %}
+        {% for instance in instance %}
         <div class="col-3">
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
-                    <p class="m-0 text-center">ID: {{ instancia['id'] }}</p>
-                    <p class="m-0 text-center">Nome: {{ instancia['name'] }}</p>
-                    <p class="m-0 text-center">Número: {{ instancia['instance_number'] }}</p>
-                    <p class="m-0 text-center">Pertence ao ambiente: {{ instancia['ambiente_id'] }}</p>
+                    <p class="m-0 text-center">ID: {{ instance['id_instance'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ instance['name'] }}</p>
+                    <p class="m-0 text-center">Número: {{ instance['number_instance'] }}</p>
+                    <p class="m-0 text-center">Pertence ao ambiente: {{ instance['id_environment_FK'] }}</p>
                     <p class="m-0 text-center">
-                        {% if instancia['status']==1 %}
+                        {% if instance['status']==1 %}
                         Status: <b>Ativo</b>
-                        {% elif instancia['status']==0 %}
+                        {% elif instance['status']==0 %}
                         Status: <b>Inativo</b>
                         {% endif %}
                     </p>
@@ -66,15 +66,15 @@
             <hr class="m-0">
         </div>
 
-        {% for recurso in recursos %}
+        {% for resource in resource %}
         <div class="col-3">
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
-                    <p class="m-0 text-center">ID: {{ recurso['id'] }}</p>
-                    <p class="m-0 text-center">Nome: {{ recurso['name'] }}</p>
-                    <p class="m-0 text-center">Número: {{ recurso['resource_number'] }}</p>
-                    <p class="m-0 text-center">Parâmetro base: {{ recurso['vlini'] }}</p>
-                    <p class="m-0 text-center">Parâmetro teto: {{ recurso['vlfim'] }}</p>
+                    <p class="m-0 text-center">ID: {{ resource['id_resource'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ resource['name'] }}</p>
+                    <p class="m-0 text-center">Número: {{ resource['number_resource'] }}</p>
+                    <p class="m-0 text-center">Parâmetro base: {{ resource['val_start'] }}</p>
+                    <p class="m-0 text-center">Parâmetro teto: {{ resource['val_end'] }}</p>
 
                 </div>
             </div>
@@ -86,13 +86,13 @@
             <p class="m-0 fs-4 text-center">instâncias_recursos</p>
             <hr class="m-0">
         </div>
-        {% for instance_resource in instancias_recursos %}
+        {% for instance_resource in instance_resource %}
         <div class="col-3">
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
-                    <p class="m-0 text-center">ID: {{ instance_resource['id'] }}</p>
-                    <p class="m-0 text-center">ID do recurso: {{ instance_resource['resource_id'] }}</p>
-                    <p class="m-0 text-center">ID da instancia: {{ instance_resource['instance_id'] }}</p>
+                    <p class="m-0 text-center">ID: {{ instance_resource['id_instance_resource'] }}</p>
+                    <p class="m-0 text-center">ID do recurso: {{ instance_resource['id_resource_FK'] }}</p>
+                    <p class="m-0 text-center">ID da instancia: {{ instance_resource['id_instance_FK'] }}</p>
                     <p class="m-0 text-center">
                         {% if instance_resource['status']==1 %}
                         Status: <b>Ativo</b>
@@ -122,7 +122,7 @@
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
                     <p class="m-0 text-center">ID: {{ user['id'] }}</p>
-                    <p class="m-0 text-center">Nome: {{ user['nome'] }}</p>
+                    <p class="m-0 text-center">Nome: {{ user['name'] }}</p>
                     <p class="m-0 text-center">Login: {{ user['login'] }}</p>
                     <p class="m-0 text-center">Senha: {{ user['password'] }}</p>
                     <p class="m-0 text-center">E-mail: {{ user['email'] }}</p>
@@ -138,14 +138,14 @@
             <p class="m-0 fs-4 text-center">Leituras</p>
             <hr class="m-0">
         </div>
-        {% for leituras in leituras %}
+        {% for reading in reading %}
         <div class="col-3">
             <div class="bg-info bg-opacity-25 p-3 rounded">
                 <div class="bg-white rounded border border-info p-3">
-                    <p class="m-0 text-center">momento da leitura: {{ leituras['hora_leitura'] }}</p>
-                    <p class="m-0 text-center">id da instancia pai: {{ leituras['id_instance'] }}</p>
-                    <p class="m-0 text-center">número de recurso: {{ leituras['resource_number'] }}</p>
-                    <p class="m-0 text-center">valor da leitura: {{ leituras['value'] }}</p>
+                    <p class="m-0 text-center">momento da leitura: {{ reading['hour_reading'] }}</p>
+                    <p class="m-0 text-center">id da instancia pai: {{ reading['id_instance_FK'] }}</p>
+                    <p class="m-0 text-center">número de recurso: {{ reading['number_resource'] }}</p>
+                    <p class="m-0 text-center">valor da leitura: {{ reading['value'] }}</p>
                 </div>
             </div>
         </div>
