@@ -47,6 +47,7 @@ CREATE TABLE instances_resources (
 cur.execute("""
 CREATE TABLE readings (
     id_reading integer PRIMARY KEY AUTOINCREMENT,
+    hour_reading text NOT NULL,
     id_instance_FK integer NOT NULL,
     number_resource_FK integer NOT NULL,
     value real NOT NULL,

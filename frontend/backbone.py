@@ -94,7 +94,7 @@ def getCadUser():
         conn = get_db_connection()
         id_user = session["id_user"]
         print (id_user)
-        role = conn.execute('SELECT role FROM users WHERE id=?', (id_user,)).fetchall()
+        role = conn.execute('SELECT role FROM users WHERE id_user=?', (id_user,)).fetchall()
         role = role[0][0]
         if role == "ADMIN":
             return render_template("cadastro.html" )
@@ -119,7 +119,7 @@ def postLogUser():
             if "id_user" in session:
                 session.pop("id_user", None)
                 session.pop("nome_user", None)
-            user = conn.execute('SELECT id, nome FROM users WHERE login=?', (login,)).fetchall()
+            user = conn.execute('SELECT id_user, name FROM users WHERE login=?', (login,)).fetchall()
             session["id_user"] = user[0][0]
             session["name_user"] = user[0][1]
             conn.close
@@ -152,7 +152,7 @@ def getUser():
         id_user = session["id_user"]
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        user = conn.execute('SELECT * FROM users WHERE id=?', (id_user,)).fetchall()
+        user = conn.execute('SELECT * FROM users WHERE id_user=?', (id_user,)).fetchall()
         conn.close
         return render_template("user.html", user=user)
     else:
@@ -189,7 +189,7 @@ def cadAmbiente():
         flash('É obrigatório inserir um nome')
     else:
         conn = get_db_connection()
-        conn.execute('INSERT INTO ambientes (name, status) VALUES (?, ?)',
+        conn.execute('INSERT INTO environment (name, status) VALUES (?, ?)',
                      (nomeAmbiente, statusAmbiente))
         conn.commit()
         conn.close()
@@ -201,7 +201,7 @@ def getAmbiente():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        ambientes = conn.execute('SELECT * FROM ambientes WHERE status==1').fetchall()
+        ambientes = conn.execute('SELECT * FROM environment WHERE status==1').fetchall()
         conn.close()
         return render_template("cadastroAmbientes.html", ambiente=ambientes)
     else:
@@ -230,7 +230,7 @@ def cadInstancia():
         flash('É obrigatório definir um id de ambiente')
     else:
         conn = get_db_connection()
-        conn.execute('INSERT INTO instances (name, ambiente_id, instance_number, status) VALUES (?, ?, ?, ?)',
+        conn.execute('INSERT INTO instances (name, id_environment_FK, number_instance, status) VALUES (?, ?, ?, ?)',
                      (nomeInstancia, idAmbienteInstancia, instanciaNumero, statusInstancia))
         conn.commit()
         conn.close()
@@ -243,7 +243,7 @@ def getInstancia():
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
         ambientes = conn.execute(
-            'SELECT * FROM ambientes WHERE status==1').fetchall()
+            'SELECT * FROM environment WHERE status==1').fetchall()
         instance = conn.execute('SELECT * FROM instances').fetchall()
         conn.close()
         return render_template('cadastroInstancias.html', ambientes=ambientes, instance=instance)
@@ -275,7 +275,7 @@ def cadRecurso():
             flash('É obrigatório definir um valor final')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO resources (name, resource_number, vlini, vlfim) VALUES (?, ?, ?, ?)',
+            conn.execute('INSERT INTO resources (name, number_resource, val_start, val_end) VALUES (?, ?, ?, ?)',
                          (name, resource_number, valorInicial, valorFinal))
             conn.commit()
             conn.close()
@@ -311,7 +311,7 @@ def cadInstanciaRecurso():
         normal = 0
 
     conn = get_db_connection()
-    conn.execute('INSERT INTO instance_resource (status, resource_id, instance_id, normal) VALUES (?, ?, ?, ?)',
+    conn.execute('INSERT INTO instances_resources (status, id_resource_FK, id_instance_FK, normal) VALUES (?, ?, ?, ?)',
                  (status, resource_id, instance_id, normal))
     conn.commit()
     conn.close()
@@ -327,7 +327,7 @@ def getInstanciaRecurso():
         instances = conn.execute(
             'SELECT * FROM instances  WHERE status==1').fetchall()
         instance_resource = conn.execute(
-            'SELECT * FROM instance_resource').fetchall()
+            'SELECT * FROM instances_resources').fetchall()
         conn.close()
         return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances, instance_resource=instance_resource)
     else:
@@ -344,12 +344,12 @@ def verDadosx():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        ambientes = conn.execute('SELECT * FROM ambientes').fetchall()
+        ambientes = conn.execute('SELECT * FROM environment').fetchall()
         instancias = conn.execute('SELECT * FROM instances').fetchall()
         recursos = conn.execute('SELECT * FROM resources').fetchall()
-        instancias_recursos = conn.execute('SELECT * FROM instance_resource').fetchall()
+        instancias_recursos = conn.execute('SELECT * FROM instances_resources').fetchall()
         users = conn.execute('SELECT * FROM users').fetchall()
-        leituras = conn.execute('SELECT * FROM leituras').fetchall()
+        leituras = conn.execute('SELECT * FROM readings').fetchall()
         conn.close()
         return render_template('verDados.html', ambientes=ambientes, instancias=instancias, recursos=recursos, instancias_recursos=instancias_recursos, user=users, leituras=leituras)
     else:
@@ -361,7 +361,7 @@ def getVerLeituras():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        leituras = conn.execute('SELECT * FROM leituras ORDER BY hora_leitura DESC LIMIT 50').fetchall()
+        leituras = conn.execute('SELECT * FROM readings ORDER BY hour_reading DESC LIMIT 50').fetchall()
         return render_template('verLeituras.html', leituras=leituras)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
