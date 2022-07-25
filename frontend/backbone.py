@@ -119,7 +119,7 @@ def postLogUser():
         if (password == password_db[0][0]):
             if "id_user" in session:
                 session.pop("id_user", None)
-                session.pop("nome_user", None)
+                session.pop("name_user", None)
             user = conn.execute('SELECT id_user, name FROM users WHERE login=?', (login,)).fetchall()
             session["id_user"] = user[0][0]
             session["name_user"] = user[0][1]
@@ -166,7 +166,7 @@ def getUser():
 def logout():
     if "id_user" in session:
         session.pop("id_user", None)
-        session.pop("nome_user", None)
+        session.pop("name_user", None)
         return redirect("login")
     else:
         return redirect("login")
