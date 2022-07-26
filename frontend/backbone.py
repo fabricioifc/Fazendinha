@@ -1,5 +1,6 @@
 from array import array
 from ast import For
+import itertools
 import sqlite3
 from unicodedata import name
 import pygal
@@ -41,6 +42,18 @@ def base():
 def home():
     chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style)
     chart.title='Média de temperatura semanal'
+
+    conn = get_db_connection()
+    
+    instance = conn.execute("SELECT * FROM instances WHERE status='1'").fetchall()
+    environment = conn.execute("SELECT * FROM environment WHERE status='1'").fetchall()
+    """ em relação a uma hora específica, pegar todas as leituras de todas as instancias naquele determinado ambiente, soma-las e dividi-las pela sua quantidade e então passar o resultado para o chart.add. pra isso preciso de 
+    environment (id_environment, name, status),
+    resources (id_resource, number_resource),
+    instances (id_instance, id_environmente_FK, status),
+    instances_resources (id_instance_resource, status, id_resource_FK, id_instance_FK),
+    readings (id_reading, hour_reading, id_instance_FK, number_resource_FK, value) """
+    
     chart.add('Horta 1', [22, 20, 21])
     chart.add('Horta 2', [19, 20, 18])
     chart.add('Plantação 1', [17, 12, 15])
@@ -120,9 +133,11 @@ def postLogUser():
             if "id_user" in session:
                 session.pop("id_user", None)
                 session.pop("name_user", None)
-            user = conn.execute('SELECT id_user, name FROM users WHERE login=?', (login,)).fetchall()
+                session.pop("role_user", None)
+            user = conn.execute('SELECT id_user, name, role FROM users WHERE login=?', (login,)).fetchall()
             session["id_user"] = user[0][0]
             session["name_user"] = user[0][1]
+            session["role_user"] = user[0][2]
             conn.close
             return redirect('user')
         else:
@@ -167,6 +182,7 @@ def logout():
     if "id_user" in session:
         session.pop("id_user", None)
         session.pop("name_user", None)
+        session.pop("role_user", None)
         return redirect("login")
     else:
         return redirect("login")
