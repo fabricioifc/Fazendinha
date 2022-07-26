@@ -32,9 +32,9 @@
           <tbody>
             {% for leituras in leituras %}
             <tr>
-              <td class="fw-bold">{{leituras['resource_number']}}</td>
-              <td>{{leituras['hora_leitura']}}</td>
-              <td>{{leituras['id_instance']}}</td>
+              <td class="fw-bold">{{leituras['id_instance_FK']}}</td>
+              <td>{{leituras['hour_reading']}}</td>
+              <td>{{leituras['number_resource_FK']}}</td>
               <td>{{leituras['value']}}</td>
             </tr>
             {% endfor %}
