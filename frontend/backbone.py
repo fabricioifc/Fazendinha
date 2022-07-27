@@ -40,24 +40,21 @@ def base():
 
 @app.route('/home')
 def home():
-    chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style)
-    chart.title='Média de temperatura semanal'
-
     conn = get_db_connection()
-    
-    instance = conn.execute("SELECT * FROM instances WHERE status='1'").fetchall()
-    environment = conn.execute("SELECT * FROM environment WHERE status='1'").fetchall()
-    """ em relação a uma hora específica, pegar todas as leituras de todas as instancias naquele determinado ambiente, soma-las e dividi-las pela sua quantidade e então passar o resultado para o chart.add. pra isso preciso de 
-    environment (id_environment, name, status),
-    resources (id_resource, number_resource),
-    instances (id_instance, id_environmente_FK, status),
-    instances_resources (id_instance_resource, status, id_resource_FK, id_instance_FK),
-    readings (id_reading, hour_reading, id_instance_FK, number_resource_FK, value) """
-    
-    chart.add('Horta 1', [22, 20, 21])
-    chart.add('Horta 2', [19, 20, 18])
-    chart.add('Plantação 1', [17, 12, 15])
-    chart.add('Plantação 2', [24, 22, 21])
+    readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading ASC LIMIT 50").fetchall()
+    """ como não tem duas ou mais instancias (caixas cheias de sensores) com hora de leitura se sobrepondo devo colocar tudo no gráfico em ordem decrescente com limite de 50 """
+    chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+    chart.title='Média de temperatura semanal'    
+    hour = []
+    temp = []
+    for row in readings:
+        hour.append(row[0])
+        temp.append(row[1])
+    chart.add(row[3], temp )
+    max_temp = int(max(temp)+10)
+    min_temp = int(min(temp)-10)
+    chart.y_labels = map(int, range(min_temp, max_temp, +5))
+    chart.x_labels = hour
     
     
     chart = chart.render_data_uri()
