@@ -67,7 +67,7 @@ def home():
 
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
-    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance ORDER BY readings.hour_reading ASC LIMIT 1").fetchall()
+    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance ORDER BY readings.hour_reading DESC LIMIT 1").fetchall()
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
 
