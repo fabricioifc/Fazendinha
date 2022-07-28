@@ -41,25 +41,39 @@ def base():
 @app.route('/home')
 def home():
     conn = get_db_connection()
+    """ ---gráfico das leituras--- """
     readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading ASC LIMIT 50").fetchall()
     """ como não tem duas ou mais instancias (caixas cheias de sensores) com hora de leitura se sobrepondo devo colocar tudo no gráfico em ordem decrescente com limite de 50 """
     chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
     chart.title='Média de temperatura semanal'    
     hour = []
     temp = []
+    qtd_val = 0
+    average_temp = 0
+    
     for row in readings:
         hour.append(row[0])
         temp.append(row[1])
+        average_temp+=row[1]
+        qtd_val+=1
+    average_temp/=qtd_val
+    average_temp = round(average_temp, 2)
     chart.add(row[3], temp )
     max_temp = int(max(temp)+10)
     min_temp = int(min(temp)-10)
     chart.y_labels = map(int, range(min_temp, max_temp, +5))
     chart.x_labels = hour
     
-    
+
+    """ ---tabela da ultima leitura de cada ambiente--- """
+    conn.row_factory = sqlite3.Row
+    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance ORDER BY readings.hour_reading ASC LIMIT 1").fetchall()
+
+    """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
+
     chart = chart.render_data_uri()
     if "id_user" in session:
-        return render_template("index.html", chart = chart, chart2=chart)
+        return render_template("index.html", chart = chart, chart2=chart, last_reading=last_reading, average_temp=average_temp)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
@@ -136,7 +150,7 @@ def postLogUser():
             session["name_user"] = user[0][1]
             session["role_user"] = user[0][2]
             conn.close
-            return redirect('user')
+            return redirect('home')
         else:
             flash('Senha incorreta tente outra!', 'ERRO! ')
             conn.close

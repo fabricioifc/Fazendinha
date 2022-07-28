@@ -36,7 +36,7 @@
                   required>
                   <option value="" disabled selected>ID do ambiente pai desta instância</option>
                   {% for environment in environment %}
-                  <option value="ID: {{ environment['id_environment'] }}">{{ environment['id_environment'] }}</option>
+                  <option value="{{ environment['id_environment'] }}">{{ environment['id_environment'] }}</option>
                   {% endfor %}
                 </select>
 
