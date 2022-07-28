@@ -42,7 +42,8 @@ def base():
 def home():
     conn = get_db_connection()
     """ ---gráfico das leituras--- """
-    readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading ASC LIMIT 50").fetchall()
+    readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+    readings.reverse()
     """ como não tem duas ou mais instancias (caixas cheias de sensores) com hora de leitura se sobrepondo devo colocar tudo no gráfico em ordem decrescente com limite de 50 """
     chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
     chart.title='Média de temperatura semanal'    
@@ -67,7 +68,7 @@ def home():
 
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
-    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance ORDER BY readings.hour_reading DESC LIMIT 1").fetchall()
+    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance AND readings.number_resource_FK=3303 ORDER BY readings.hour_reading DESC LIMIT 1").fetchall()
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
 
