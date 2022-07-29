@@ -25,13 +25,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for environment in environment %}
                             <tr>
-                                {% for last_reading in last_reading %}
-                                <th>{{last_reading['name']}}</th>
-                                <th>{{last_reading['value']}} Cº</th>
-                                <th>{{last_reading['number_resource']}}</th>
+                                <th>{{environment['name']}}</th>
+                                {% for last_temp in last_temp %}
+                                {% if last_temp['id_environment'] == environment['id'] %}
+                                <th>{{last_temp['value']}} Cº</th>
+                                {% endif %}
+                                {% endfor %}
+                                {% for last_humi in last_humi %}
+                                {% if last_humi['id_environment'] == environment['id'] %}
+                                <th>{{last_humi['value']}} %</th>
+                                {% endif %}
                                 {% endfor %}
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

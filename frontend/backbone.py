@@ -68,13 +68,23 @@ def home():
 
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
-    last_reading = conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name, environment.status FROM readings, instances, environment WHERE readings.id_instance_FK=instances.id_instance AND readings.number_resource_FK=3303 ORDER BY readings.hour_reading DESC LIMIT 1").fetchall()
+    environment_readings = conn.execute("SELECT * FROM environment WHERE status=1").fetchall()
+    print (environment_readings)
+    last_temp = list()
+    last_humi = list()
+    for environment in environment_readings:
+        id_environment = environment['id_environment']
+        last_temp.append(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+
+        last_humi.append(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment='{}' ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+    """ for last_temp in last_temp: """
+    print (last_temp)
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
 
     chart = chart.render_data_uri()
     if "id_user" in session:
-        return render_template("index.html", chart = chart, chart2=chart, last_reading=last_reading, average_temp=average_temp)
+        return render_template("index.html", chart = chart, chart2=chart, average_temp=average_temp, environment=environment, last_temp=last_temp, last_humi=last_humi)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
@@ -119,7 +129,6 @@ def getCadUser():
     if "id_user" in session:
         conn = get_db_connection()
         id_user = session["id_user"]
-        print (id_user)
         role = conn.execute('SELECT role FROM users WHERE id_user=?', (id_user,)).fetchall()
         role = role[0][0]
         if role == "ADMIN":
