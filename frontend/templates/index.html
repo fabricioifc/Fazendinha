@@ -16,6 +16,7 @@
                     {% endif %}
                 </div>
                 <div class="col-4">
+                    <h6 class="text-center">Ultima leitura de cada ambiente</h6>
                     <table class="table">
                         <thead>
                             <tr>
@@ -28,15 +29,15 @@
                             {% for environment_readings in environment_readings %}
                             <tr>
                                 <th>{{environment_readings['name']}}</th>
-                                {% for last_temp in last_temp %}
-                                    {% if last_temp['id_environment'] == environment_readings['id_environment'] %}
-                                        <th>{{last_temp['value']}} Cº</th>
-                                    {% endif %}
+                                {% for last_temp in last_temp if last_temp['id_environment'] == environment_readings['id_environment'] %}            
+                                    <th>{{last_temp['value']}} Cº</th>
+                                {% else %}
+                                    <th>Nenhuma leitura</th>
                                 {% endfor %}
-                                {% for last_humi in last_humi %}
-                                    {% if last_humi['id_environment'] == environment_readings['id_environment'] %}
-                                        <th>{{last_humi['value']}} %</th>
-                                    {% endif %}
+                                {% for last_humi in last_humi if last_humi['id_environment'] == environment_readings['id_environment'] %}
+                                    <th>{{last_humi['value']}} %</th>
+                                {% else %}
+                                    <th>Nenhuma leitura</th>
                                 {% endfor %}
                             </tr>
                             {% endfor %}

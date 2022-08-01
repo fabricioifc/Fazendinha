@@ -44,7 +44,6 @@ def home():
     """ ---gráfico das leituras--- """
     readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
     readings.reverse()
-    """ como não tem duas ou mais instancias (caixas cheias de sensores) com hora de leitura se sobrepondo devo colocar tudo no gráfico em ordem decrescente com limite de 50 """
     chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
     chart.title='Média de temperatura semanal'    
     hour = []
