@@ -29,7 +29,9 @@
                     <a href="/user" class="btn btn-info me-3">Usuario</a>
                     <a href="/logout" class="btn btn-info me-3">Logout</a>
                     <a href="/login" class="btn btn-info me-3">Login</a>
-                    <a href="/cadastro" class="btn btn-info">Cadastro</a>
+                    {% if session['role_user'] == 'ADMIN' %}
+                        <a href="/cadastro" class="btn btn-info">Cadastro</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -69,22 +69,22 @@ def home():
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
     environment_readings = conn.execute("SELECT * FROM environment WHERE status=1").fetchall()
-    print (environment_readings)
     last_temp = list()
     last_humi = list()
     for environment in environment_readings:
         id_environment = environment['id_environment']
-        last_temp.append(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+        last_temp.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
 
-        last_humi.append(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment='{}' ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
-    """ for last_temp in last_temp: """
-    print (last_temp)
+        last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment='{}' ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+
+    print (environment)
+    
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
 
     chart = chart.render_data_uri()
     if "id_user" in session:
-        return render_template("index.html", chart = chart, chart2=chart, average_temp=average_temp, environment=environment, last_temp=last_temp, last_humi=last_humi)
+        return render_template("index.html", chart = chart, chart2=chart, average_temp=average_temp, environment_readings=environment_readings, last_temp=last_temp, last_humi=last_humi)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
@@ -386,7 +386,7 @@ def verDadosx():
         resource = conn.execute('SELECT * FROM resources').fetchall()
         instance_resource = conn.execute('SELECT * FROM instances_resources').fetchall()
         users = conn.execute('SELECT * FROM users').fetchall()
-        reading = conn.execute('SELECT * FROM readings').fetchall()
+        reading = conn.execute('SELECT * FROM readings ORDER BY hour_reading DESC LIMIT 4').fetchall()
         conn.close()
         return render_template('verDados.html', environment=environment, instance=instance, resource=resource, instance_resource=instance_resource, user=users, reading=reading)
     else:
