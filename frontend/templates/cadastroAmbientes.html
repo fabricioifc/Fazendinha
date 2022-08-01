@@ -56,7 +56,7 @@
 
         </div>
 
-        <div class="col-6"> 
+        <div class="col-6">
           <div class="w-100">
             <table class="table table-striped">
               <thead>
@@ -64,6 +64,7 @@
                   <th scope="col">Id</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Status</th>
+                  <th scope="col" style="width: 10%;">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,6 +78,11 @@
                     {% elif environment['status']==0%}
                     Inativo
                     {% endif %}
+                  </td>
+                  <td>
+                    <a href="#">
+                      <img src="../static/img/hammer.svg" alt="">
+                    </a>
                   </td>
                 </tr>
                 {% endfor %}
