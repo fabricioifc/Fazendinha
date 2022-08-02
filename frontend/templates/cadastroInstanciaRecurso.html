@@ -57,7 +57,7 @@
                   id="instance_fk_id" required>
                   <option value="" disabled selected>ID da instância pai desta instância_recurso</option>
                   {% for instance in instances %}
-                  <option value="ID: {{ instance['id_instance'] }}">{{ instance['id_instance'] }}</option>
+                  <option value="{{ instance['id_instance'] }}">{{ instance['id_instance'] }}</option>
                   {% endfor %}
                 </select>
 

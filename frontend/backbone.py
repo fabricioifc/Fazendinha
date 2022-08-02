@@ -275,18 +275,25 @@ def cadInstancia():
 
 @app.route('/cadastro/instancias', methods=["GET"])
 def getInstancia():
+
     if "id_user" in session:
+        id_env = int(request.args.get('id'))
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        environment = conn.execute(
-            'SELECT * FROM environment WHERE status==1').fetchall()
         instance = conn.execute('SELECT * FROM instances').fetchall()
-        conn.close()
-        return render_template('cadastroInstancias.html', environment=environment, instance=instance)
+        environment = conn.execute('SELECT * FROM environment WHERE status==1').fetchall()
+        if id_env == None:
+            return render_template('cadastroInstancias.html', environment=environment, instance=instance, id_env=None)
+        else:
+            for environment_item in environment:
+                if environment_item['id_environment'] == id_env:
+                    conn.close()
+                    return render_template('cadastroInstancias.html', environment=environment, instance=instance, id_env=id_env)
+            print ("aids2")
+            return render_template('cadastroInstancias.html', environment=environment, instance=instance, id_env=None)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
-
 
 # cadastro de recursos
 @app.route('/cadastro/recursos', methods=["POST"])

@@ -34,10 +34,22 @@
 
                 <select class="form-select py-3" aria-label="Default select example" name="id_environment_fk" id="environment_id"
                   required>
-                  <option value="" disabled selected>ID do ambiente pai desta instância</option>
-                  {% for environment in environment %}
-                  <option value="{{ environment['id_environment'] }}">{{ environment['id_environment'] }}</option>
-                  {% endfor %}
+
+                  {% if id_env == None %}
+                    <option value="" disabled selected>ID | nome do ambiente pai desta instância</option>
+                    {% for environment in environment %}
+                      <option value="{{ environment['id_environment'] }}">{{ environment['id_environment'] }} | {{ environment['name'] }}</option>
+                    {% endfor %}
+                  {% else %}
+                    <option value="" disabled>ID | nome do ambiente pai desta instância</option>
+                    {% for environment in environment %}
+                      {% if environment['id_environment'] == id_env %}
+                        <option value="{{ environment['id_environment'] }}" selected>{{ environment['id_environment'] }} | {{ environment['name'] }}</option>
+                      {% else %}
+                        <option value="{{ environment['id_environment'] }}">{{ environment['id_environment'] }} | {{ environment['name'] }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
                 </select>
 
               </div>
