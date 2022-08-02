@@ -237,7 +237,7 @@ def getAmbiente():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        environment = conn.execute('SELECT * FROM environment WHERE status==1').fetchall()
+        environment = conn.execute('SELECT * FROM environment').fetchall()
         conn.close()
         return render_template("cadastroAmbientes.html", environment=environment)
     else:
@@ -277,7 +277,10 @@ def cadInstancia():
 def getInstancia():
 
     if "id_user" in session:
-        id_env = int(request.args.get('id'))
+        try:
+            id_env = int(request.args.get('id'))
+        except:
+            id_env = None
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
         instance = conn.execute('SELECT * FROM instances').fetchall()

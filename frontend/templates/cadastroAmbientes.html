@@ -75,14 +75,20 @@
                   <td>
                     {% if environment['status']==1 %}
                     Ativo
-                    {% elif environment['status']==0%}
+                    {% elif environment['status']==0 %}
                     Inativo
                     {% endif %}
                   </td>
                   <td>
-                    <a href="/cadastro/instancias?id={{environment['id_environment']}}">
-                      <img src="../static/img/hammer.svg" alt="">
-                    </a>
+                    {% if environment['status'] == 1%}
+                      <a href="/cadastro/instancias?id={{environment['id_environment']}}">
+                        <img src="../static/img/hammer.svg" alt="">
+                      </a>
+                    {% else %}
+                      <a href="/cadastro/instancias?id={{environment['id_environment']}}" style="pointer-events: none">
+                        <img src="../static/img/hammer.svg" alt="" style="opacity: 0.4; filter: alpha(opacity=40);">
+                      </a>
+                    {% endif %}
                   </td>
                 </tr>
                 {% endfor %}
