@@ -292,7 +292,6 @@ def getInstancia():
                 if environment_item['id_environment'] == id_env:
                     conn.close()
                     return render_template('cadastroInstancias.html', environment=environment, instance=instance, id_env=id_env)
-            print ("aids2")
             return render_template('cadastroInstancias.html', environment=environment, instance=instance, id_env=None)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
@@ -389,9 +388,32 @@ def getInstanciaRecurso():
         instance_resource = conn.execute(
             'SELECT * FROM instances_resources').fetchall()
         conn.close()
-        return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=id_ins, id_res=id_res)
-    else:
 
+        id_ins_data = None
+        id_res_data = None
+        if id_res == None and id_ins != None:
+            for instance_item in instance:
+                if instance_item['id_instance'] == id_res:
+                    id_ins_data = id_ins
+                    break
+            return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=id_ins_data, id_res=None)
+        elif id_res != None and id_ins == None:
+            for resource_item in resource:
+                if resource_item['id_resource'] == id_res:
+                    id_res_data = id_res
+                    break
+            return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=None, id_res=id_res_data)
+        elif id_res != None and id_ins != None:
+            for instance_item in instance:
+                if instance_item['id_instance'] == id_res:
+                    id_ins_data = id_ins
+            for resource_item in resource:
+                if resource_item['id_resource'] == id_res:
+                    id_res_data = id_res
+            return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=id_ins_data, id_res=id_res_data)
+        else:
+            return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=None, id_res=None)
+    else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
 
