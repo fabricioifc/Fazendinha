@@ -41,12 +41,22 @@
 
               <div class="form-floating mt-3">
 
-                <select class="form-select py-3" aria-label="Default select example" name="id_resource_fk"
-                  id="resource_fk_id" required>
-                  <option value="" disabled selected>ID do recurso pai desta instância_recurso</option>
-                  {% for resource in resources %}
-                  <option value="ID: {{ resource['id_resource'] }}">{{ resource['id_resource'] }}</option>
-                  {% endfor %}
+                <select class="form-select py-3" aria-label="Default select example" name="id_resource_fk" id="resource_fk_id" required>
+                  {% if id_res == None %}
+                    <option value="" disabled selected>ID | nome do recurso pai desta instância_recurso</option>
+                    {% for resource in resource %}
+                      <option value="{{ resource['id_resource'] }}">{{ resource['id_resource'] }} | {{ resource['name'] }}</option>
+                    {% endfor %}
+                  {% else %}
+                    <option value="" disabled>ID | nome do recurso pai desta instância_recurso</option>
+                    {% for resource in resource %}
+                      {% if resource['id_resource'] == id_res %}
+                        <option value="{{ resource['id_resource'] }}" selected>{{ resource['id_resource'] }} | {{ resource['name'] }}</option>
+                      {% else %}
+                        <option value="{{ resource['id_resource'] }}">{{ resource['id_resource'] }} | {{ resource['name'] }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
                 </select>
 
               </div>
@@ -55,10 +65,23 @@
 
                 <select class="form-select py-3" aria-label="Default select example" name="id_instance_fk"
                   id="instance_fk_id" required>
-                  <option value="" disabled selected>ID da instância pai desta instância_recurso</option>
-                  {% for instance in instances %}
-                  <option value="{{ instance['id_instance'] }}">{{ instance['id_instance'] }}</option>
-                  {% endfor %}
+
+                  {% if id_ins == None %}
+                    <option value="" disabled selected>ID | nome do instância pai desta instância_recurso</option>
+                    {% for instance in instance %}
+                      <option value="{{ instance['id_instance'] }}">{{ instance['id_instance'] }} | {{ instance['name'] }}</option>
+                    {% endfor %}
+                  {% else %}
+                    <option value="" disabled>ID | nome do instância pai desta instância_recurso</option>
+                    {% for instance in instance %}
+                      {% if instance['id_instance'] == id_ins %}
+                        <option value="{{ instance['id_instance'] }}" selected>{{ instance['id_instance'] }} | {{ instance['name'] }}</option>
+                      {% else %}
+                        <option value="{{ instance['id_instance'] }}">{{ instance['id_instance'] }} | {{ instance['name'] }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+
                 </select>
 
               </div>

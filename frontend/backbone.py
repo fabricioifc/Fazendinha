@@ -366,19 +366,35 @@ def cadInstanciaRecurso():
 
 @app.route('/cadastro/instancias_recursos', methods=["GET"])
 def getInstanciaRecurso():
+
+
     if "id_user" in session:
+
+        
+        try:
+            id_ins = int(request.args.get('id_ins'))
+        except:
+            id_ins = None
+        
+        try:
+            id_res = int(request.args.get('id_res'))
+        except:
+            id_res = None
+            
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        resources = conn.execute('SELECT * FROM resources').fetchall()
-        instances = conn.execute(
+        resource = conn.execute('SELECT * FROM resources').fetchall()
+        instance = conn.execute(
             'SELECT * FROM instances  WHERE status==1').fetchall()
         instance_resource = conn.execute(
             'SELECT * FROM instances_resources').fetchall()
         conn.close()
-        return render_template('cadastroInstanciaRecurso.html', resources=resources, instances=instances, instance_resource=instance_resource)
+        return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=id_ins, id_res=id_res)
     else:
+
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
+
 
 # --------------------------------------------------------------
 

@@ -64,6 +64,7 @@
                   <th scope="col">Número do Recurso</th>
                   <th scope="col">Valor Inicial</th>
                   <th scope="col">Valor Final</th>
+                  <th scope="col" style="width: 10%;">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,6 +76,11 @@
                   <td>{{resource['number_resource']}}</td>
                   <td>{{resource['val_start']}}</td>
                   <td>{{resource['val_end']}}</td>
+                  <td>
+                    <a href="/cadastro/instancias_recursos?id_res={{resource['id_resource']}}">
+                      <img src="../static/img/hammer.svg" alt="">
+                    </a>
+                  </td>
                 </tr>
                 {% endfor %}
 

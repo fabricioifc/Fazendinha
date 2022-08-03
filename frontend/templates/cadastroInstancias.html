@@ -96,6 +96,7 @@
                   <th scope="col">Ambiente_id</th>
                   <th scope="col">Instance_number</th>
                   <th scope="col">Status</th>
+                  <th scope="col" style="width: 10%;">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
@@ -111,6 +112,17 @@
                     Ativo
                     {% elif instance['status']==0%}
                     Inativo
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if instance['status'] == 1%}
+                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}">
+                        <img src="../static/img/hammer.svg" alt="">
+                      </a>
+                    {% else %}
+                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}" style="pointer-events: none">
+                        <img src="../static/img/hammer.svg" alt="" style="opacity: 0.4; filter: alpha(opacity=40);">
+                      </a>
                     {% endif %}
                   </td>
                 </tr>
