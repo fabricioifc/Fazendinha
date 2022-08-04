@@ -41,29 +41,51 @@ def base():
 @app.route('/home')
 def home():
     conn = get_db_connection()
-    """ ---gráfico das leituras--- """
-    readings = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
-    readings.reverse()
-    chart = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
-    chart.title='Média de temperatura semanal'    
-    hour = []
+    """ ---gráfico das leituras de temperatura--- """
+    readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+    readings_temp.reverse()
+    chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+    chart_temp.title='Média de temperatura'    
+    hour_temp = []
     temp = []
     qtd_val = 0
     average_temp = 0
     
-    for row in readings:
-        hour.append(row[0])
+    for row in readings_temp:
+        hour_temp.append(row[0])
         temp.append(row[1])
         average_temp+=row[1]
         qtd_val+=1
     average_temp/=qtd_val
     average_temp = round(average_temp, 2)
-    chart.add(row[3], temp )
+    chart_temp.add(row[3], temp )
     max_temp = int(max(temp)+10)
     min_temp = int(min(temp)-10)
-    chart.y_labels = map(int, range(min_temp, max_temp, +5))
-    chart.x_labels = hour
+    chart_temp.y_labels = map(int, range(min_temp, max_temp, +5))
+    chart_temp.x_labels = hour_temp
     
+    """ ---gráfico das leituras de humidade--- """
+    readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+    readings_humi.reverse()
+    chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+    chart_humi.title='Média de humidade'    
+    hour_temp = []
+    temp = []
+    qtd_val = 0
+    average_humi = 0
+    
+    for row in readings_humi:
+        hour_temp.append(row[0])
+        temp.append(row[1])
+        average_humi+=row[1]
+        qtd_val+=1
+    average_humi/=qtd_val
+    average_humi = round(average_humi, 2)
+    chart_humi.add(row[3], temp )
+    max_temp = int(max(temp)+10)
+    min_temp = int(min(temp)-10)
+    chart_humi.y_labels = map(int, range(min_temp, max_temp, +5))
+    chart_humi.x_labels = hour_temp
 
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
@@ -80,9 +102,10 @@ def home():
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
 
-    chart = chart.render_data_uri()
+    chart_temp = chart_temp.render_data_uri()
+    chart_humi = chart_humi.render_data_uri()
     if "id_user" in session:
-        return render_template("index.html", chart = chart, chart2=chart, average_temp=average_temp, environment_readings=environment_readings, last_temp=last_temp, last_humi=last_humi)
+        return render_template("index.html", chart_temp = chart_temp, chart_humi=chart_humi, average_temp=average_temp, average_humi=average_humi, environment_readings=environment_readings, last_temp=last_temp, last_humi=last_humi)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")
