@@ -76,7 +76,6 @@ def home():
 
         last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment='{}' ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
 
-    print (environment)
     
 
     """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
@@ -96,12 +95,11 @@ def home():
 # cadastro de usuario
 @app.route('/cadastro', methods=["POST"])
 def cadUser():
+
     login = request.form.get("login")
     password = request.form.get("password")
     password_repet = request.form.get("password_repet")
     conn = get_db_connection()
-
-
     try:
         conn.execute('SELECT * FROM users WHERE login=?', (login))
         flash('Login já existente, tente outro', 'ERRO! ')
@@ -148,22 +146,17 @@ def postLogUser():
     conn = get_db_connection()
     
     try:
-        password_db =  conn.execute('SELECT password FROM users WHERE login= ? ',(login,)).fetchall()
-        if (password == password_db[0][0]):
-            if "id_user" in session:
-                session.pop("id_user", None)
-                session.pop("name_user", None)
-                session.pop("role_user", None)
-            user = conn.execute('SELECT id_user, name, role FROM users WHERE login=?', (login,)).fetchall()
-            session["id_user"] = user[0][0]
-            session["name_user"] = user[0][1]
-            session["role_user"] = user[0][2]
-            conn.close
-            return redirect('home')
-        else:
-            flash('Senha incorreta tente outra!', 'ERRO! ')
-            conn.close
-            return redirect('login')
+        conn.execute('SELECT login, password FROM users WHERE login= ? AND password= ?',(login, password)).fetchall()
+        if "id_user" in session:
+            session.pop("id_user", None)
+            session.pop("name_user", None)
+            session.pop("role_user", None)
+        user = conn.execute('SELECT id_user, name, role FROM users WHERE login=?', (login,)).fetchall()
+        session["id_user"] = user[0][0]
+        session["name_user"] = user[0][1]
+        session["role_user"] = user[0][2]
+        conn.close
+        return redirect('home')
     except:
         flash('Usuário não existente!', 'ERRO! ')
         conn.close
