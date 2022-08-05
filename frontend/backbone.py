@@ -1,6 +1,7 @@
 from array import array
 from ast import For
 import itertools
+from os import environ
 import sqlite3
 from unicodedata import name
 import pygal
@@ -41,16 +42,16 @@ def base():
 @app.route('/home')
 def home():
     conn = get_db_connection()
-    """ ---gráfico das leituras de temperatura--- """
+    """ ---gráfico das leituras de temperatura--- """        
     readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
     readings_temp.reverse()
+    print (readings_temp)
     chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
-    chart_temp.title='Média de temperatura'    
     hour_temp = []
     temp = []
     qtd_val = 0
     average_temp = 0
-    
+
     for row in readings_temp:
         hour_temp.append(row[0])
         temp.append(row[1])
@@ -61,31 +62,37 @@ def home():
     chart_temp.add(row[3], temp )
     max_temp = int(max(temp)+10)
     min_temp = int(min(temp)-10)
+    chart_temp.title = 'Gráfico de temperatura'
     chart_temp.y_labels = map(int, range(min_temp, max_temp, +5))
     chart_temp.x_labels = hour_temp
-    
+        
+  
     """ ---gráfico das leituras de humidade--- """
     readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
     readings_humi.reverse()
     chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
-    chart_humi.title='Média de humidade'    
-    hour_temp = []
-    temp = []
+    chart_humi.title='Gráfico de umidade'    
+    hour_humi = []
+    humi = []
     qtd_val = 0
     average_humi = 0
     
     for row in readings_humi:
-        hour_temp.append(row[0])
-        temp.append(row[1])
+        hour_humi.append(row[0])
+        humi.append(row[1])
         average_humi+=row[1]
         qtd_val+=1
     average_humi/=qtd_val
     average_humi = round(average_humi, 2)
-    chart_humi.add(row[3], temp )
-    max_temp = int(max(temp)+10)
-    min_temp = int(min(temp)-10)
-    chart_humi.y_labels = map(int, range(min_temp, max_temp, +5))
-    chart_humi.x_labels = hour_temp
+    chart_humi.add(row[3], humi )
+    max_humi = int(max(humi)+10)
+    min_humi = int(min(humi)-10)
+
+    if (max_humi - min_humi >= 50):
+        chart_humi.y_labels = map(int, range(min_humi, max_humi, +10))
+    else:
+        chart_humi.y_labels = map(int, range(min_humi, max_humi, +5))
+    chart_humi.x_labels = hour_humi
 
     """ ---tabela da ultima leitura de cada ambiente--- """
     conn.row_factory = sqlite3.Row
@@ -96,7 +103,7 @@ def home():
         id_environment = environment['id_environment']
         last_temp.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
 
-        last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment='{}' ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+        last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
 
     
 
