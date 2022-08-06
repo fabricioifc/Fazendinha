@@ -1,0 +1,12 @@
+/* verde */
+
+
+.bg-0 { background-color: #E3FBDB }
+.bg-1 { background-color: #9AE583 }
+.bg-2 { background-color: #479030 }
+.bg-2:hover { background-color: #E3FBDB }
+.bg-3 { background-color: #1B6E00 }
+.bg-4 { background-color: #081504 }
+
+.bg-laranja { background-color: #FFA13E }
+.bg-laranja:hover { background-color: #FFC68A }
