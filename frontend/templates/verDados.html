@@ -16,8 +16,8 @@
 
         {% for environment in environment %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">ID: {{ environment['id_environment'] }}</p>
                     <p class="m-0 text-center">Nome: {{ environment['name'] }}</p>
                     <p class="m-0 text-center">
@@ -41,8 +41,8 @@
 
         {% for instance in instance %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">ID: {{ instance['id_instance'] }}</p>
                     <p class="m-0 text-center">Nome: {{ instance['name'] }}</p>
                     <p class="m-0 text-center">Número: {{ instance['number_instance'] }}</p>
@@ -68,8 +68,8 @@
 
         {% for resource in resource %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">ID: {{ resource['id_resource'] }}</p>
                     <p class="m-0 text-center">Nome: {{ resource['name'] }}</p>
                     <p class="m-0 text-center">Número: {{ resource['number_resource'] }}</p>
@@ -88,8 +88,8 @@
         </div>
         {% for instance_resource in instance_resource %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">ID: {{ instance_resource['id_instance_resource'] }}</p>
                     <p class="m-0 text-center">ID do recurso: {{ instance_resource['id_resource_FK'] }}</p>
                     <p class="m-0 text-center">ID da instancia: {{ instance_resource['id_instance_FK'] }}</p>
@@ -119,8 +119,8 @@
         </div>
         {% for user in user %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">ID: {{ user['id'] }}</p>
                     <p class="m-0 text-center">Nome: {{ user['name'] }}</p>
                     <p class="m-0 text-center">Login: {{ user['login'] }}</p>
@@ -140,8 +140,8 @@
         </div>
         {% for reading in reading %}
         <div class="col-3">
-            <div class="bg-info bg-opacity-25 p-3 rounded">
-                <div class="bg-white rounded border border-info p-3">
+            <div class="bg-1 p-3 rounded">
+                <div class="bg-white rounded border border-success p-3">
                     <p class="m-0 text-center">momento da leitura: {{ reading['hour_reading'] }}</p>
                     <p class="m-0 text-center">id da instancia pai: {{ reading['id_instance_FK'] }}</p>
                     <p class="m-0 text-center">número de recurso: {{ reading['number_resource'] }}</p>
