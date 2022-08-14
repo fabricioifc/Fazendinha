@@ -13,9 +13,11 @@
         <input type="text" class="form-control mb-3 me-3" id="numeroRecurso" onkeyup="filtroInstancia()"
           placeholder="Pesquisar por instância">
 
-
-        <input type="text" class="form-control mb-3 " id="data" onkeyup="filtroData()"
+        <input type="text" class="form-control mb-3 me-3 " id="data" onkeyup="filtroData()"
           placeholder="Pesquisar por data">
+
+        <input type="text" class="form-control mb-3 " id="parametro" onkeyup="filtroParametro()"
+        placeholder="Pesquisar por parâmetro">
 
       </div>
 
@@ -89,6 +91,28 @@
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function filtroParametro  () {
+    // Declare variables
+    var input, td, i, txtValue;
+    input = document.getElementById("parametro");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tabela");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[2];
       if (td) {
         txtValue = td.textContent || td.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
