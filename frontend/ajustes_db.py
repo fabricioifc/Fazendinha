@@ -5,7 +5,13 @@ cur=conn.cursor()
 
 
 cur.execute("""
-DROP TABLE instences_resources
+CREATE TABLE resources (
+    id_resource integer PRIMARY KEY AUTOINCREMENT,
+    name text NOT NULL,
+    number_resource integer NOT NULL,
+    val_start real NOT NULL,
+    val_end real NOT NULL
+)
 """)
 
 conn.commit()

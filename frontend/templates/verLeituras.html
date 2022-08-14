@@ -25,17 +25,24 @@
             <tr>
               <th scope="col">Id Instancia pai</th>
               <th scope="col">Momento da leitura</th>
-              <th scope="col">Número do recurso</th>
+              <th scope="col">Parâmetro</th>
               <th scope="col">Valor</th>
             </tr>
           </thead>
           <tbody>
             {% for leituras in leituras %}
             <tr>
-              <td class="fw-bold">{{leituras['id_instance_FK']}}</td>
+              <td class="fw-bold">{{leituras['i_name']}}</td>
               <td>{{leituras['hour_reading']}}</td>
-              <td>{{leituras['number_resource_FK']}}</td>
-              <td>{{leituras['value']}}</td>
+              <td>{{leituras['number_resource_fk']}} | {{leituras['r_name']}}</td>
+              {% if leituras['number_resource_fk']==3303 %}
+                <td>{{leituras['value']}}Cº</td>
+              {% elif leituras['number_resource_fk']==3304 %}
+                <td>{{leituras['value']}}%</td>
+              {% else %}
+                <td>{{leituras['value']}}</td>
+              {% endif %}
+                
             </tr>
             {% endfor %}
           </tbody>

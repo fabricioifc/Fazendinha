@@ -452,7 +452,7 @@ def getVerLeituras():
     if "id_user" in session:
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
-        leituras = conn.execute('SELECT * FROM readings ORDER BY hour_reading DESC LIMIT 50').fetchall()
+        leituras = conn.execute('SELECT readings.*, resources.name r_name, instances.name i_name FROM readings, resources, instances WHERE readings.number_resource_FK=resources.number_resource AND readings.id_instance_FK=instances.id_instance ORDER BY hour_reading DESC LIMIT 50').fetchall()
         return render_template('verLeituras.html', leituras=leituras)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
