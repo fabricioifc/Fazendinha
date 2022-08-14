@@ -42,11 +42,11 @@ def base():
 @app.route('/home')
 def home():
     conn = get_db_connection()
-    """ ---gráfico das leituras de temperatura--- """        
-    readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
-    readings_temp.reverse()
-    print (readings_temp)
+    """ ---gráfico das leituras de temperatura--- """
     chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+
+    readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings, instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+    readings_temp.reverse()
     hour_temp = []
     temp = []
     qtd_val = 0
@@ -60,6 +60,7 @@ def home():
     average_temp/=qtd_val
     average_temp = round(average_temp, 2)
     chart_temp.add(row[3], temp )
+
     max_temp = int(max(temp)+10)
     min_temp = int(min(temp)-10)
     chart_temp.title = 'Gráfico de temperatura'
@@ -445,23 +446,6 @@ def getInstanciaRecurso():
 
 
 # visualização de dados cadastrados
-
-@app.route('/verdados')
-def verDadosx():
-    if "id_user" in session:
-        conn = get_db_connection()
-        conn.row_factory = sqlite3.Row
-        environment = conn.execute('SELECT * FROM environment').fetchall()
-        instance = conn.execute('SELECT * FROM instances').fetchall()
-        resource = conn.execute('SELECT * FROM resources').fetchall()
-        instance_resource = conn.execute('SELECT * FROM instances_resources').fetchall()
-        users = conn.execute('SELECT * FROM users').fetchall()
-        reading = conn.execute('SELECT * FROM readings ORDER BY hour_reading DESC LIMIT 4').fetchall()
-        conn.close()
-        return render_template('verDados.html', environment=environment, instance=instance, resource=resource, instance_resource=instance_resource, user=users, reading=reading)
-    else:
-        flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
-        return redirect("login")
 
 @app.route('/verleituras', methods=["GET"])
 def getVerLeituras():
