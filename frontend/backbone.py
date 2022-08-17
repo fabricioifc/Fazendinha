@@ -41,78 +41,87 @@ def base():
 
 @app.route('/home')
 def home():
-    conn = get_db_connection()
-    """ ---gráfico das leituras de temperatura--- """
-    chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
-
-    readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings, instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
-    readings_temp.reverse()
-    hour_temp = []
-    temp = []
-    qtd_val = 0
-    average_temp = 0
-
-    for row in readings_temp:
-        hour_temp.append(row[0])
-        temp.append(row[1])
-        average_temp+=row[1]
-        qtd_val+=1
-    average_temp/=qtd_val
-    average_temp = round(average_temp, 2)
-    chart_temp.add(row[3], temp )
-
-    max_temp = int(max(temp)+10)
-    min_temp = int(min(temp)-10)
-    chart_temp.title = 'Gráfico de temperatura'
-    chart_temp.y_labels = map(int, range(min_temp, max_temp, +5))
-    chart_temp.x_labels = hour_temp
-        
-  
-    """ ---gráfico das leituras de humidade--- """
-    readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
-    readings_humi.reverse()
-    chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
-    chart_humi.title='Gráfico de umidade'    
-    hour_humi = []
-    humi = []
-    qtd_val = 0
-    average_humi = 0
-    
-    for row in readings_humi:
-        hour_humi.append(row[0])
-        humi.append(row[1])
-        average_humi+=row[1]
-        qtd_val+=1
-    average_humi/=qtd_val
-    average_humi = round(average_humi, 2)
-    chart_humi.add(row[3], humi )
-    max_humi = int(max(humi)+10)
-    min_humi = int(min(humi)-10)
-
-    if (max_humi - min_humi >= 50):
-        chart_humi.y_labels = map(int, range(min_humi, max_humi, +10))
-    else:
-        chart_humi.y_labels = map(int, range(min_humi, max_humi, +5))
-    chart_humi.x_labels = hour_humi
-
-    """ ---tabela da ultima leitura de cada ambiente--- """
-    conn.row_factory = sqlite3.Row
-    environment_readings = conn.execute("SELECT * FROM environment WHERE status=1").fetchall()
-    last_temp = list()
-    last_humi = list()
-    for environment in environment_readings:
-        id_environment = environment['id_environment']
-        last_temp.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
-
-        last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
-
-    
-
-    """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
-
-    chart_temp = chart_temp.render_data_uri()
-    chart_humi = chart_humi.render_data_uri()
     if "id_user" in session:
+        conn = get_db_connection()
+
+        chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+
+        """ ---gráfico das leituras de temperatura--- """
+        readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings, instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+        readings_temp.reverse()
+        hour_temp = []
+        temp = []
+        qtd_val = 0
+        average_temp = 0
+
+        for row in readings_temp:
+            hour_temp.append(row[0])
+            temp.append(row[1])
+            average_temp+=row[1]
+            qtd_val+=1
+        average_temp/=qtd_val
+        average_temp = round(average_temp, 2)
+        chart_temp.add(row[3], temp )
+
+        max_temp = int(max(temp)+10)
+        min_temp = int(min(temp)-10)
+        chart_temp.title = 'Gráfico de temperatura'
+        chart_temp.y_labels = map(int, range(min_temp, max_temp, +5))
+        chart_temp.x_labels = hour_temp
+            
+    
+        """ ---gráfico das leituras de temperatura com alternação de 5 min--- """
+
+        readings_temp = conn.execute(
+            "SELECT value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment ORDER BY hour_reading DESC LIMIT 50"
+            ).fetchall()
+       
+
+        """ ---gráfico das leituras de humidade--- """
+        readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
+        readings_humi.reverse()
+        chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_humi.title='Gráfico de umidade'    
+        hour_humi = []
+        humi = []
+        qtd_val = 0
+        average_humi = 0
+        
+        for row in readings_humi:
+            hour_humi.append(row[0])
+            humi.append(row[1])
+            average_humi+=row[1]
+            qtd_val+=1
+        average_humi/=qtd_val
+        average_humi = round(average_humi, 2)
+        chart_humi.add(row[3], humi )
+        max_humi = int(max(humi)+10)
+        min_humi = int(min(humi)-10)
+
+        if (max_humi - min_humi >= 50):
+            chart_humi.y_labels = map(int, range(min_humi, max_humi, +10))
+        else:
+            chart_humi.y_labels = map(int, range(min_humi, max_humi, +5))
+        chart_humi.x_labels = hour_humi
+
+        """ ---tabela da ultima leitura de cada ambiente--- """
+        conn.row_factory = sqlite3.Row
+        environment_readings = conn.execute("SELECT * FROM environment WHERE status=1").fetchall()
+        last_temp = list()
+        last_humi = list()
+        for environment in environment_readings:
+            id_environment = environment['id_environment']
+            last_temp.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3303 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+
+            last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
+
+        
+
+        """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
+
+        chart_temp = chart_temp.render_data_uri()
+        chart_humi = chart_humi.render_data_uri()
+
         return render_template("index.html", chart_temp = chart_temp, chart_humi=chart_humi, average_temp=average_temp, average_humi=average_humi, environment_readings=environment_readings, last_temp=last_temp, last_humi=last_humi)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
@@ -391,9 +400,7 @@ def cadInstanciaRecurso():
 def getInstanciaRecurso():
 
 
-    if "id_user" in session:
-
-        
+    if "id_user" in session: 
         try:
             id_ins = int(request.args.get('id_ins'))
         except:
@@ -417,7 +424,7 @@ def getInstanciaRecurso():
         id_res_data = None
         if id_res == None and id_ins != None:
             for instance_item in instance:
-                if instance_item['id_instance'] == id_res:
+                if instance_item['id_instance'] == id_ins:
                     id_ins_data = id_ins
                     break
             return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=id_ins_data, id_res=None)
@@ -429,7 +436,7 @@ def getInstanciaRecurso():
             return render_template('cadastroInstanciaRecurso.html', resource=resource, instance=instance, instance_resource=instance_resource, id_ins=None, id_res=id_res_data)
         elif id_res != None and id_ins != None:
             for instance_item in instance:
-                if instance_item['id_instance'] == id_res:
+                if instance_item['id_instance'] == id_ins:
                     id_ins_data = id_ins
             for resource_item in resource:
                 if resource_item['id_resource'] == id_res:
