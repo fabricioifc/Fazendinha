@@ -1,0 +1,31 @@
+{% extends "mainBase.html" %}
+{% block title %}C.E.I.F.A - Página Principal{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="p-3 bg-1 rounded shadow-sm">
+        <div class="p-3 bg-white rounded border border-success">
+            <div class="row row-cols-1 g-3">
+                <div class="col-12 col-lg-6">
+                    {% if chart_temp != null %}
+                    <embed type="image/svg+xml" src="{{ chart_temp|safe }}" />
+                    <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp }}Cº</h6>
+                    {% else %}
+                    <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                    {% endif %}
+                </div>
+                <div class="col-12 col-lg-6">
+                    {% if chart_humi != null %}
+                    <embed type="image/svg+xml" src="{{ chart_humi|safe }}" />
+                    <h6 class="m-0 text-center my-1">Média de umidade: {{ average_humi }}%</h6>
+                    {% else %}
+                    <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
