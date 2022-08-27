@@ -46,7 +46,7 @@ def home():
     if "id_user" in session:
 
         conn = get_db_connection()
-        chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
 
         """ ---gráfico das ultimas leituras de temperatura--- """
         readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings, instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
@@ -83,7 +83,7 @@ def home():
         average_temp_hour=0
         temp = []
 
-        chart_temp_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_temp_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chartDate = datetime.now().replace(microsecond=0, second=0) + timedelta(minutes= - (break_time * qtd_readings))
         for env in env: 
             reads = conn.execute("""
@@ -122,14 +122,13 @@ def home():
         print (temp)
         chart_temp_hours.title = 'Ultimas horas de temperatura'
         chart_temp_hours.add("teste", temp)
-        chart_temp_hours = chart_temp_hours.render_data_uri()
         del graph_date
        
 
         """ ---gráfico das leituras de humidade--- """
         readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
         readings_humi.reverse()
-        chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chart_humi.title='Gráfico de umidade'    
         hour_humi = []
         humi = []
@@ -164,7 +163,7 @@ def home():
         average_humi_hour=0
         humi = []
 
-        chart_humi_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_humi_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chartDate = datetime.now().replace(microsecond=0, second=0) + timedelta(minutes= - (break_time * qtd_readings))
         for env in env: 
             reads = conn.execute("""
@@ -203,7 +202,7 @@ def home():
         print (humi)
         chart_humi_hours.title = 'Ultimas horas de umidade'
         chart_humi_hours.add("teste", humi)
-        chart_humi_hours = chart_humi_hours.render_data_uri()
+        
         del graph_date
 
         """ ---tabela da ultima leitura de cada ambiente--- """
@@ -217,12 +216,14 @@ def home():
 
             last_humi.extend(conn.execute("SELECT hour_reading, id_instance_FK, number_resource_FK, value, id_instance, id_environment_FK, id_environment, environment.name FROM readings, instances, environment WHERE readings.number_resource_FK = 3304 AND readings.id_instance_FK = instances.id_instance AND instances.id_environment_FK = environment.id_environment AND environment.id_environment={} ORDER BY hour_reading DESC LIMIT 1".format(id_environment)).fetchall())
 
-        
 
-        """ ---avisos---{fazer um for para os avisos, principalmente para a bateria} """
+
+        """ ---renderizar graficos--- """
 
         chart_temp = chart_temp.render_data_uri()
+        chart_temp_hours = chart_temp_hours.render_data_uri()
         chart_humi = chart_humi.render_data_uri()
+        chart_humi_hours = chart_humi_hours.render_data_uri()
 
         return render_template("index.html", chart_temp = chart_temp, chart_temp_hours=chart_temp_hours, chart_humi=chart_humi,chart_humi_hours=chart_humi_hours, average_temp=average_temp, average_temp_hour=average_temp_hour, average_humi=average_humi, average_humi_hour=average_humi_hour, environment_readings=environment_readings, last_temp=last_temp, last_humi=last_humi)
     else:
