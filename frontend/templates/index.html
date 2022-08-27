@@ -9,19 +9,44 @@
             <div class="row row-cols-1 g-3">
                 <div class="col-12 col-lg-6">
                     {% if chart_temp != null %}
-                    <embed type="image/svg+xml" src="{{ chart_temp|safe }}" />
-                    <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp }}Cº</h6>
-                    {% else %}
-                    <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
-                    {% endif %}
+                    <div id="graphTempLastRead">
+                        <button onclick="hiddenTempLastReads()" id="butHiddenGraphTempLastRead" class="btn" style="background-color: #9AE583;">trocar</button>
+                        <embed type="image/svg+xml" src="{{ chart_temp|safe }}" />
+                        <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp }}Cº</h6>
+                        {% else %}
+                        <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                        {% endif %}
+                    </div>
+                    {% if chart_temp != null %}
+                    <div id="graphTempLastHour" style="display: none;">
+                        <button onclick="hiddenTempLastHours()" id="butHiddenGraphTempLastHour" class="btn" style="background-color: #9AE583;">trocar</button>
+                        <embed type="image/svg+xml" src="{{ chart_temp_hours|safe }}" />
+                        <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp_hour }}Cº</h6>
+                        {% else %}
+                        <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                        {% endif %}
+                    </div>
                 </div>
+
                 <div class="col-12 col-lg-6">
                     {% if chart_humi != null %}
-                    <embed type="image/svg+xml" src="{{ chart_humi|safe }}" />
-                    <h6 class="m-0 text-center my-1">Média de umidade: {{ average_humi }}%</h6>
-                    {% else %}
-                    <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
-                    {% endif %}
+                    <div id="graphHumiLastRead">
+                        <button onclick="hiddenHumiLastReads()" id="butHiddenGraphHumiLastRead" class="btn" style="background-color: #9AE583;">trocar</button>
+                        <embed type="image/svg+xml" src="{{ chart_humi|safe }}" />
+                        <h6 class="m-0 text-center my-1">Média de umidade: {{ average_humi }}%</h6>
+                        {% else %}
+                        <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                        {% endif %}
+                    </div>
+                    {% if chart_humi != null %}
+                    <div id="graphHumiLastHour" style="display: none;">
+                        <button onclick="hiddenHumiLastHours()" id="butHiddenGraphHumiLastHour" class="btn" style="background-color: #9AE583;">trocar</button>
+                        <embed type="image/svg+xml" src="{{ chart_humi_hours|safe }}" />
+                        <h6 class="m-0 text-center my-1">Média de umidade: {{ average_humi_hour }}%</h6>
+                        {% else %}
+                        <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="col-12 col-lg-6">
                     <h4 class="text-center">Ultima leitura de cada ambiente</h4>
@@ -68,7 +93,7 @@
                             </thead>
                             <tbody class="table-group-divider">
                                 <tr>
-                                    
+
                                 </tr>
                             </tbody>
                         </table>
@@ -79,5 +104,51 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function hiddenTempLastReads() {
+        var element = document.getElementById("graphTempLastRead");
+        element.style.display = "none";
+        var element = document.getElementById("butHiddenGraphTempLastRead");
+        element.style.display = "none";
+        var element = document.getElementById("graphTempLastHour");
+        element.style.display = "block";
+        var element = document.getElementById("butHiddenGraphTempLastHour");
+        element.style.display = "block";
+    }
+
+    function hiddenTempLastHours() {
+        var element = document.getElementById("graphTempLastHour");
+        element.style.display = "none";
+        var element = document.getElementById("butHiddenGraphTempLastHour");
+        element.style.display = "none";
+        var element = document.getElementById("graphTempLastRead");
+        element.style.display = "block";
+        var element = document.getElementById("butHiddenGraphTempLastRead");
+        element.style.display = "block";
+    }
+
+    function hiddenHumiLastReads() {
+        var element = document.getElementById("graphHumiLastRead");
+        element.style.display = "none";
+        var element = document.getElementById("butHiddenGraphHumiLastRead");
+        element.style.display = "none";
+        var element = document.getElementById("graphHumiLastHour");
+        element.style.display = "block";
+        var element = document.getElementById("butHiddenGraphHumiLastHour");
+        element.style.display = "block";
+    }
+
+    function hiddenHumiLastHours() {
+        var element = document.getElementById("graphHumiLastHour");
+        element.style.display = "none";
+        var element = document.getElementById("butHiddenGraphHumiLastHour");
+        element.style.display = "none";
+        var element = document.getElementById("graphHumiLastRead");
+        element.style.display = "block";
+        var element = document.getElementById("butHiddenGraphHumiLastRead");
+        element.style.display = "block";
+    }
+</script>
 
 {% endblock %}
