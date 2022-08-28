@@ -48,6 +48,7 @@ def home():
         conn = get_db_connection()
         chart_temp = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
 
+
         """ ---gráfico das ultimas leituras de temperatura--- """
         readings_temp = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings, instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3303 ORDER BY hour_reading DESC LIMIT 50").fetchall()
         readings_temp.reverse()
@@ -73,63 +74,57 @@ def home():
             
     
         """ ---gráfico das leituras de temperatura com alternação de 5 min--- """
-
         env = conn.execute("""
-        SELECT id_environment FROM environment WHERE status = 1
+        SELECT id_environment, name FROM environment WHERE status = 1
         """).fetchall()
-        id_env = 5
+        env_limit = 5
         qtd_readings = 5
         break_time = 5
-        average_temp_hour=0
-        temp = []
+        
 
         chart_temp_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chartDate = datetime.now().replace(microsecond=0, second=0) + timedelta(minutes= - (break_time * qtd_readings))
         for env in env: 
+            average_temp_hour=0
+            temp = []
             reads = conn.execute("""
-            SELECT hour_reading value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
+            SELECT hour_reading, value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
             ORDER BY hour_reading DESC LIMIT {}
-            """.format(env[0], id_env)).fetchall()
-            graph_date=[]
+            """.format(env[0], env_limit)).fetchall()
             if reads:
                 reads.reverse()
-                x = 1
+                x = 0
                 for read in reads:
                     hour_read = datetime.strptime(read[0], '%Y-%m-%d %H:%M:%S')
                     while x<qtd_readings:
                         if (hour_read >= chartDate and hour_read < (chartDate + timedelta(minutes= +break_time))):
                             """ adicionar esse horario no campo e colocar o valor dessa leitura na média que posteriormente sera colocada numa lista para então ele ser posto no gráfico """
-                            graph_date.append(read[1])
+                            temp.append(read[1])
                             x+=1
                             average_temp_hour+=read[1]
+                            chart_temp_hours.x_labels = chartDate
                             break
-                        
                         else:
                             """ adicionar mais 5 minutos no chartDate e adicionar um valor None na lista, ele dira que não há leituras de temperatura nesses 5 minutos """
                             chartDate = chartDate + timedelta(minutes= +break_time)
-                            graph_date.append(None)
+                            temp.append(None)
 
                             """ print (chartDate + timedelta(minutes= +break_time)) """
-                            if average_temp_hour:
-                                temp.append()
-                            temp.append(None)
                             average_temp_hour=0
                             x+=1
                 """ nesse momento adiciona o chart_date """
-
-            else:
-                pass
-        print (temp)
+            
+            chart_temp_hours.add(env[1], temp)
+            print (temp)
+            del temp
         chart_temp_hours.title = 'Ultimas horas de temperatura'
-        chart_temp_hours.add("teste", temp)
-        del graph_date
        
 
         """ ---gráfico das leituras de humidade--- """
         readings_humi = conn.execute("SELECT hour_reading, value, id_instance_FK, name FROM readings INNER JOIN instances WHERE readings.id_instance_FK=instances.id_instance AND number_resource_FK=3304 ORDER BY hour_reading DESC LIMIT 50").fetchall()
         readings_humi.reverse()
         chart_humi = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
-        chart_humi.title='Gráfico de umidade'    
+        chart_humi.title='Ultimas leituras de umidade'    
         hour_humi = []
         humi = []
         qtd_val = 0
@@ -155,55 +150,49 @@ def home():
         """ ---gráfico das leituras de humidade com alternação de 5 min--- """
 
         env = conn.execute("""
-        SELECT id_environment FROM environment WHERE status = 1
+        SELECT id_environment, name FROM environment WHERE status = 1
         """).fetchall()
-        id_env = 5
+        env_limit = 5
         qtd_readings = 5
         break_time = 5
-        average_humi_hour=0
-        humi = []
+        
 
         chart_humi_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chartDate = datetime.now().replace(microsecond=0, second=0) + timedelta(minutes= - (break_time * qtd_readings))
         for env in env: 
+            average_humi_hour=0
+            humi = []
             reads = conn.execute("""
-            SELECT hour_reading value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
+            SELECT hour_reading, value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
             ORDER BY hour_reading DESC LIMIT {}
-            """.format(env[0], id_env)).fetchall()
-            graph_date=[]
+            """.format(env[0], env_limit)).fetchall()
             if reads:
                 reads.reverse()
-                x = 1
+                x = 0
                 for read in reads:
                     hour_read = datetime.strptime(read[0], '%Y-%m-%d %H:%M:%S')
                     while x<qtd_readings:
                         if (hour_read >= chartDate and hour_read < (chartDate + timedelta(minutes= +break_time))):
                             """ adicionar esse horario no campo e colocar o valor dessa leitura na média que posteriormente sera colocada numa lista para então ele ser posto no gráfico """
-                            graph_date.append(read[1])
+                            humi.append(read[1])
                             x+=1
                             average_humi_hour+=read[1]
+                            chart_humi_hours.x_labels = chartDate
                             break
-                        
                         else:
                             """ adicionar mais 5 minutos no chartDate e adicionar um valor None na lista, ele dira que não há leituras de umidade nesses 5 minutos """
                             chartDate = chartDate + timedelta(minutes= +break_time)
-                            graph_date.append(None)
+                            humi.append(None)
 
                             """ print (chartDate + timedelta(minutes= +break_time)) """
-                            if average_humi_hour:
-                                humi.append()
-                            humi.append(None)
                             average_humi_hour=0
                             x+=1
                 """ nesse momento adiciona o chart_date """
-
-            else:
-                pass
-        print (humi)
+            
+            chart_humi_hours.add(env[1], humi)
+            print (humi)
+            del humi
         chart_humi_hours.title = 'Ultimas horas de umidade'
-        chart_humi_hours.add("teste", humi)
-        
-        del graph_date
 
         """ ---tabela da ultima leitura de cada ambiente--- """
         conn.row_factory = sqlite3.Row
@@ -576,56 +565,53 @@ def testegrafico():
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
         env = conn.execute("""
-        SELECT id_environment FROM environment WHERE status = 1
+        SELECT id_environment, name FROM environment WHERE status = 1
         """).fetchall()
-        id_env = 5
+        env_limit = 5
         qtd_readings = 5
         break_time = 5
-        average_temp=0
-        temp = []
+        
 
-        chart_temp_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False)
+        chart_temp_hours = pygal.Line(inner_radius=0, legend_at_bottom=True, style=custom_style, show_x_labels=False, no_data_text='Sem leituras')
         chartDate = datetime.now().replace(microsecond=0, second=0) + timedelta(minutes= - (break_time * qtd_readings))
         for env in env: 
+            average_temp_hour=0
+            temp = []
             reads = conn.execute("""
-            SELECT hour_reading value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
+            SELECT hour_reading, value, environment.name FROM readings, instances, environment WHERE number_resource_FK=3303 AND readings.id_instance_FK=instances.id_instance AND instances.id_environment_FK=environment.id_environment AND environment.id_environment={} 
             ORDER BY hour_reading DESC LIMIT {}
-            """.format(env[0], id_env)).fetchall()
-            graph_date=[]
+            """.format(env[0], env_limit)).fetchall()
             if reads:
                 reads.reverse()
-                x = 1
+                x = 0
                 for read in reads:
                     hour_read = datetime.strptime(read[0], '%Y-%m-%d %H:%M:%S')
                     while x<qtd_readings:
                         if (hour_read >= chartDate and hour_read < (chartDate + timedelta(minutes= +break_time))):
                             """ adicionar esse horario no campo e colocar o valor dessa leitura na média que posteriormente sera colocada numa lista para então ele ser posto no gráfico """
-                            graph_date.append(read[1])
+                            temp.append(read[1])
                             x+=1
-                            average_temp+=read[1]
+                            average_temp_hour+=read[1]
+                            chart_temp_hours.x_labels = chartDate
                             break
-                        
                         else:
                             """ adicionar mais 5 minutos no chartDate e adicionar um valor None na lista, ele dira que não há leituras de temperatura nesses 5 minutos """
                             chartDate = chartDate + timedelta(minutes= +break_time)
-                            graph_date.append(None)
+                            temp.append(None)
 
                             """ print (chartDate + timedelta(minutes= +break_time)) """
-                            if average_temp:
-                                temp.append()
-                            temp.append(None)
-                            average_temp=0
+                            average_temp_hour=0
                             x+=1
                 """ nesse momento adiciona o chart_date """
-
-            else:
-                pass
-        print (temp)
-        chart_temp_hours.add("teste", temp)
+            
+            chart_temp_hours.add(env[1], temp)
+            print (temp)
+            del temp
+        chart_temp_hours.title = 'Ultimas horas de temperatura'
         chart_temp_hours = chart_temp_hours.render_data_uri()
-        del graph_date
+        
 
-        return render_template('testegrafico.html', chart_temp_hours=chart_temp_hours)
+        return render_template('testegrafico.html', chart_temp_hours=chart_temp_hours, average_temp_hour=average_temp_hour)
     else:
         flash('Por favor insira suas credenciais','NENHUM USUÁRIO CONECTADO! ')
         return redirect("login")

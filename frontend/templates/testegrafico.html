@@ -8,9 +8,9 @@
         <div class="p-3 bg-white rounded border border-success">
             <div class="row row-cols-1 g-3">
                 <div class="col-12 col-lg-6">
-                    {% if chart_temp != null %}
-                    <embed type="image/svg+xml" src="{{ chart_temp|safe }}" />
-                    <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp }}Cº</h6>
+                    {% if chart_temp_hours != null %}
+                    <embed type="image/svg+xml" src="{{ chart_temp_hours|safe }}" />
+                    <h6 class="m-0 text-center my-1">Média de temperatura: {{ average_temp_hour }}Cº</h6>
                     {% else %}
                     <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
                     {% endif %}

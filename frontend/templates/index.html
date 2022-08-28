@@ -17,7 +17,7 @@
                         <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
                         {% endif %}
                     </div>
-                    {% if chart_temp != null %}
+                    {% if chart_temp_hours != null %}
                     <div id="graphTempLastHour" style="display: none;">
                         <button onclick="hiddenTempLastHours()" id="butHiddenGraphTempLastHour" class="btn" style="background-color: #9AE583;">trocar</button>
                         <embed type="image/svg+xml" src="{{ chart_temp_hours|safe }}" />
@@ -38,7 +38,7 @@
                         <h1 class="m-0 text-center my-3">Não foram encontrados dados.</h1>
                         {% endif %}
                     </div>
-                    {% if chart_humi != null %}
+                    {% if chart_humi_hours != null %}
                     <div id="graphHumiLastHour" style="display: none;">
                         <button onclick="hiddenHumiLastHours()" id="butHiddenGraphHumiLastHour" class="btn" style="background-color: #9AE583;">trocar</button>
                         <embed type="image/svg+xml" src="{{ chart_humi_hours|safe }}" />
