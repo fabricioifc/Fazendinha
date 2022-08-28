@@ -115,7 +115,6 @@ def home():
                 """ nesse momento adiciona o chart_date """
             
             chart_temp_hours.add(env[1], temp)
-            print (temp)
             del temp
         chart_temp_hours.title = 'Ultimas horas de temperatura'
        
@@ -190,7 +189,6 @@ def home():
                 """ nesse momento adiciona o chart_date """
             
             chart_humi_hours.add(env[1], humi)
-            print (humi)
             del humi
         chart_humi_hours.title = 'Ultimas horas de umidade'
 
@@ -605,7 +603,6 @@ def testegrafico():
                 """ nesse momento adiciona o chart_date """
             
             chart_temp_hours.add(env[1], temp)
-            print (temp)
             del temp
         chart_temp_hours.title = 'Ultimas horas de temperatura'
         chart_temp_hours = chart_temp_hours.render_data_uri()
