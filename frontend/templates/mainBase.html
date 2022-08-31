@@ -22,10 +22,10 @@
                         <img src="../static/img/logo.png" width="400px" alt="">
                 </div>
 
-                <div class="d-flex justify-content-evenly text-center align-items-center t50">
+                <div class="d-flex justify-content-between text-center align-items-center t35">
                     <a href="/user" class="btn textwhite bgbutton">Usuario</a>
-                    <a href="/logout" class="btn textwhite bgbutton">Logout</a>
                     <a href="/login" class="btn textwhite bgbutton">Login</a>
+                    <a href="/logout" class="btn textwhite bgbutton">Logout</a>
                     {% if session['role_user'] == 'ADMIN' %}
                     <a href="/cadastro" class="btn textwhite bgbutton">Cadastro</a>
                     {% endif %}
@@ -40,28 +40,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav w-100">
+                    <ul class="navbar-nav d-flex align-items-center t100">
+                        <li class="nav-item ">
+                            <a class="p-2 textgreen fw-bold" href="/home">Página Inicial</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="p-2 textgreen fw-bold" href="/cadastro/ambiente">Ambiente</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="p-2 textgreen fw-bold" href="/cadastro/instancias">Instâncias</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="p-2 textgreen fw-bold" href="/cadastro/recursos">Recursos</a>
+                        </li>
+                        <li class="nav-item ms-3">
+                            <a class="p-2 textgreen fw-bold" href="/cadastro/instancias_recursos">Instâncias_Recursos</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link ps-0" href="/home">Página Inicial</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link ps-0" href="/cadastro/ambiente">Ambiente</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link ps-0" href="/cadastro/instancias">Instâncias</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link ps-0" href="/cadastro/recursos">Recursos</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link ps-0" href="/cadastro/instancias_recursos">Instâncias_Recursos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link ps-0 ms-3" href="/verleituras">Visualização de leituras</a>
+                            <a class="p-2 textgreen fw-bold" href="/verleituras">Visualização de leituras</a>
                         </li>
 
-                        <li class="nav-item ms-auto">
-                            <a class="nav-link pe-0" href="/sobre">Sobre</a>
+                        <li class="nav-item ms-auto p-2">
+                            <a class=" textgreen fw-bold href="/sobre">Sobre</a>
                         </li>
                     </ul>
                 </div>

@@ -20,8 +20,12 @@
 .bordermain{border-color: #FB6800;}
 /*text*/
 .textwhite{color: #FFFFFF;}
-.text
+.textgreen{color: #165b00; text-decoration: none;}
 /*tamanho*/
 .t50{width: 50%;}
+.t100{width: 100%;}
+.t30{width: 30%;}
+.t35{width: 35%;}
+.t40{width: 40%;}
 /*button*/
 .bgbutton{background-color: #FB6800;}
