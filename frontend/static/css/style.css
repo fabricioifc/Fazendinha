@@ -10,3 +10,8 @@
 
 .bg-laranja { background-color: #FFA13E }
 .bg-laranja:hover { background-color: #FFC68A }
+
+/*background*/
+.bgbody{background-color: #FFF27E;}
+/*border*/
+.bordermain{border-color: #FB6800;}
