@@ -12,6 +12,16 @@
 .bg-laranja:hover { background-color: #FFC68A }
 
 /*background*/
-.bgbody{background-color: #FFF27E;}
+.bgBody{background-color: #fff27e32;}
+.bgNav{background-color: #FFFFFF32;}
+.bgHeader{background-color: #31CF31;}
+
 /*border*/
 .bordermain{border-color: #FB6800;}
+/*text*/
+.textwhite{color: #FFFFFF;}
+.text
+/*tamanho*/
+.t50{width: 50%;}
+/*button*/
+.bgbutton{background-color: #FB6800;}
