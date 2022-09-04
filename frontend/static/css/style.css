@@ -12,27 +12,40 @@
 .bg-laranja:hover { background-color: #FFC68A }
 
 /*background*/
-.bgBody{background-color: #fff27e32;}
+.bgBody{background-color: #fcf9e4;}
 .bgNav{background-color: #FFFFFF32;}
 .bgHeader{background-color: #31CF31;}
 .bgFooter{background-color: #31CF31;}
+.bgBorder{background-color: #9AE583;}
+.bgWhite{background-color: #fcf9e4;}
 
 /*border*/
 .bordermain{border-color: #FB6800;}
+.borderGreen{border-color: #165b00;}
+.borderStart{border-style: solid; border-color: #9AE583; border-bottom: 0px;border-top: 0px;border-right: 0px;}
 /*text*/
 p{margin: 0px;}
 .textwhite{color: #FFFFFF;}
 .textgreen{color: #165b00; text-decoration: none;}
+.textgreen:hover{color: #FFFFFF; text-decoration: none;}
 .pTextWidth{font-size: 100%;}
 
 /*tamanho*/
+.t1{width: 1%;}
 .t50{width: 50%;}
 .t100{width: 100%;}
 .t30{width: 30%;}
 .t35{width: 35%;}
 .t40{width: 40%;}
+.t45{width: 45%;}
+.t75{width: 75%;}
+.t25{width: 25%;}
 /*button*/
-.bgbutton{background-color: #FB6800;padding: 2.25%;border-radius: 10px;}
+.bgbutton{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00;}
 .bgbutton:hover{background-color: #FF8D3D;}
 .textbutton{text-decoration: none;font-size: 100%;}
 .textbutton:hover{text-decoration: none;color: #FFFFFF;}
+.bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
+.bgbuttonAccept{background-color: #FBE100;padding: 2.25%;border-radius: 10px;  border-color: #ffffff00;color: #FFFFFF; font-weight: bolder; }
+/*altura*/
+.hAmbiente{height: 500px;}
