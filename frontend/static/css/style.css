@@ -32,4 +32,7 @@ p{margin: 0px;}
 .t35{width: 35%;}
 .t40{width: 40%;}
 /*button*/
-.bgbutton{background-color: #FB6800;}
+.bgbutton{background-color: #FB6800;padding: 2.25%;border-radius: 10px;}
+.bgbutton:hover{background-color: #FF8D3D;}
+.textbutton{text-decoration: none;font-size: 100%;}
+.textbutton:hover{text-decoration: none;color: #FFFFFF;}
