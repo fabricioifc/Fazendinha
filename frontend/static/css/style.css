@@ -15,12 +15,16 @@
 .bgBody{background-color: #fff27e32;}
 .bgNav{background-color: #FFFFFF32;}
 .bgHeader{background-color: #31CF31;}
+.bgFooter{background-color: #31CF31;}
 
 /*border*/
 .bordermain{border-color: #FB6800;}
 /*text*/
+p{margin: 0px;}
 .textwhite{color: #FFFFFF;}
 .textgreen{color: #165b00; text-decoration: none;}
+.pTextWidth{font-size: 100%;}
+
 /*tamanho*/
 .t50{width: 50%;}
 .t100{width: 100%;}
