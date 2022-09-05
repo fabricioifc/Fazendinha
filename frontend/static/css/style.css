@@ -48,4 +48,4 @@ p{margin: 0px;}
 .bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
 .bgbuttonAccept{background-color: #FBE100;padding: 2.25%;border-radius: 10px;  border-color: #ffffff00;color: #FFFFFF; font-weight: bolder; }
 /*altura*/
-.hAmbiente{height: 500px;}
+.hAmbiente{height: calc(50vh);}
