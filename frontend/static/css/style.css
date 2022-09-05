@@ -46,6 +46,11 @@ p{margin: 0px;}
 .textbutton{text-decoration: none;font-size: 100%;}
 .textbutton:hover{text-decoration: none;color: #FFFFFF;}
 .bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
-.bgbuttonAccept{background-color: #FBE100;padding: 2.25%;border-radius: 10px;  border-color: #ffffff00;color: #FFFFFF; font-weight: bolder; }
+.bgbuttonAccept{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
 /*altura*/
 .hAmbiente{height: calc(50vh);}
+/*tema dark*/
+.absolut{position: absolute;right: 0; margin: 1.25%;}
+.temaWidth{width: 1%}
+.temaHeight{height: 2%;}
+.temabackground{background-image: url(../img/sun.svg);background-repeat: no-repeat;background-size:cover ;}
