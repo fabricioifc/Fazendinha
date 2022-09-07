@@ -1,6 +1,5 @@
 /* verde */
 
-
 .bg-0 { background-color: #E3FBDB }
 .bg-1 { background-color: #9AE583 }
 .bg-2 { background-color: #479030 }
@@ -12,17 +11,20 @@
 .bg-laranja:hover { background-color: #FFC68A }
 
 /*background*/
-.bgBody{background-color: #fcf9e4;}
+.bgBody{background-color: #f4f4f4;}
 .bgNav{background-color: #FFFFFF32;}
 .bgHeader{background-color: #31CF31;}
 .bgFooter{background-color: #31CF31;}
 .bgBorder{background-color: #9AE583;}
-.bgWhite{background-color: #fcf9e4;}
+.bgBlock{background-color: #f4f4f4;}
+.bgTransparent{background-color: transparent;}
 
 /*border*/
 .bordermain{border-color: #FB6800;}
 .borderGreen{border-color: #165b00;}
 .borderStart{border-style: solid; border-color: #9AE583; border-bottom: 0px;border-top: 0px;border-right: 0px;}
+.borderPgPrincipal{border-style: solid; border-color: #9AE583;}
+
 /*text*/
 p{margin: 0px;}
 .textwhite{color: #FFFFFF;}
@@ -30,7 +32,7 @@ p{margin: 0px;}
 .textgreen:hover{color: #FFFFFF; text-decoration: none;}
 .pTextWidth{font-size: 100%;}
 
-/*tamanho*/
+/*Width*/
 .t1{width: 1%;}
 .t50{width: 50%;}
 .t100{width: 100%;}
@@ -40,17 +42,26 @@ p{margin: 0px;}
 .t45{width: 45%;}
 .t75{width: 75%;}
 .t25{width: 25%;}
+.t49{width: 49%;}
+
 /*button*/
-.bgbutton{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00;}
-.bgbutton:hover{background-color: #FF8D3D;}
-.textbutton{text-decoration: none;font-size: 100%;}
-.textbutton:hover{text-decoration: none;color: #FFFFFF;}
+.bgButton{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00;width: 90px;}
+.bgButton:hover{background-color: #FF8D3D;}
+.textButton{text-decoration: none;font-size: 100%;}
+.textButton:hover{text-decoration: none;color: #FFFFFF;}
 .bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
-.bgbuttonAccept{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
+.bgButtonCancel:hover{background-color: #FF8D3D;}
+.bgButtonAccept{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
+.bgButtonAccept:hover{background-color: #FF8D3D;}
+
 /*altura*/
 .hAmbiente{height: calc(50vh);}
+.hPgB{height: 50vh;}
 /*tema dark*/
 .absolut{position: absolute;right: 0; margin: 1.25%;}
-.temaWidth{width: 1%}
-.temaHeight{height: 2%;}
-.temabackground{background-image: url(../img/sun.svg);background-repeat: no-repeat;background-size:cover ;}
+.themaWidth{width: 20px}
+.themaHeight{height: 20px;}
+.themabackground{background-image: url(../img/sun.svg);background-repeat: no-repeat;background-size:cover ;}
+/*overflow*/
+.overflowAuto{overflow: auto;}
+.overflowY{overflow-x: hidden;overflow-y: scroll;}

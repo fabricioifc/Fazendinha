@@ -21,20 +21,21 @@
     <header class="bgHeader">
 
 
-                <a type="button" id="" value="" onclick="" href="" class="absolut temaWidth temaHeight temabackground t100"></a>
-                
+                <a type="button" onclick="dark()" class="absolut themaWidth themaHeight themabackground t100"></a>
+
+                    <script src="../static/javascript/darkthema.js"></script>
 
             <div class="container d-flex justify-content-between d-flex py-3">
                 <div class="t30">
                         <img src="../static/img/logo.png" width="100%" alt="">
                 </div>
 
-                <div class="d-flex justify-content-between text-center align-items-center t35">
-                    <a href="/user" class="textwhite bgbutton textbutton">Usuario</a>
-                    <a href="/login" class="textwhite bgbutton textbutton">Login</a>
-                    <a href="/logout" class="textwhite bgbutton textbutton">Logout</a>
+                <div class="d-flex justify-content-between text-center align-items-center t35 flex-wrap">
+                    <a href="/user" class="textwhite bgButton textButton">Usuario</a>
+                    <a href="/login" class="textwhite bgButton textButton">Login</a>
+                    <a href="/logout" class="textwhite bgButton textButton">Logout</a>
                     {% if session['role_user'] == 'ADMIN' %}
-                    <a href="/cadastro" class="textwhite bgbutton textbutton">Cadastro</a>
+                    <a href="/cadastro" class="textwhite bgButton textButton">Cadastro</a>
                     {% endif %}
                 </div>
             </div>
@@ -109,7 +110,6 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
     -->
-    <link rel="stylesheet" href="../static/javascript/darktema.js">
 </body>
 
 </html>

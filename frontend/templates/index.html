@@ -3,11 +3,12 @@
 
 
 {% block content %}
-<div class="container">
-    <div class="p-3 bg-1 rounded shadow-sm">
-        <div class="p-3 bg-white rounded border border-success">
-            <div class="row row-cols-1 g-3">
-                <div class="col-12 col-lg-6">
+
+<div class="container bgBorder p-0 rounded shadow-sm mb-4">
+
+        <div class="bgTransparent p-2 d-flex flex-wrap justify-content-around align-items-center">
+
+                <div class="t49 p-2 bgBlock rounded mb-2">
                     {% if chart_temp != null %}
                     <div id="graphTempLastRead">
                         <button onclick="hiddenTempLastReads()" id="butHiddenGraphTempLastRead" class="btn" style="background-color: #9AE583;">trocar</button>
@@ -28,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6">
+                <div class="t49 p-2 bgBlock rounded mb-2">
                     {% if chart_humi != null %}
                     <div id="graphHumiLastRead">
                         <button onclick="hiddenHumiLastReads()" id="butHiddenGraphHumiLastRead" class="btn" style="background-color: #9AE583;">trocar</button>
@@ -48,61 +49,72 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-12 col-lg-6">
+
+                <div class="t49 p-2 bgBlock rounded overflowAuto hPgB">
+
                     <h4 class="text-center">Ultima leitura de cada ambiente</h4>
-                    <div style=" overflow-y:scroll; height: 20rem;">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Ambiente</th>
-                                    <th scope="col">Temperatura</th>
-                                    <th scope="col">Umidade</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                {% for environment_readings in environment_readings %}
-                                <tr>
-                                    <th>{{environment_readings['name']}}</th>
-                                    {% for last_temp in last_temp if last_temp['id_environment'] ==
-                                    environment_readings['id_environment'] %}
-                                    <th>{{last_temp['value']}} Cº</th>
-                                    {% else %}
-                                    <th>Nenhuma leitura</th>
-                                    {% endfor %}
-                                    {% for last_humi in last_humi if last_humi['id_environment'] ==
-                                    environment_readings['id_environment'] %}
-                                    <th>{{last_humi['value']}} %</th>
-                                    {% else %}
-                                    <th>Nenhuma leitura</th>
-                                    {% endfor %}
-                                </tr>
+
+                    <table class="table ">
+                        
+                        <thead>
+                            <tr>
+                                <th scope="col">Ambiente</th>
+                                <th scope="col">Temperatura</th>
+                                <th scope="col">Umidade</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="table-group-divider">
+
+                            {% for environment_readings in environment_readings %}
+                            <tr>
+                                <th>{{environment_readings['name']}}</th>
+                                {% for last_temp in last_temp if last_temp['id_environment'] ==
+                                environment_readings['id_environment'] %}
+                                <th>{{last_temp['value']}} Cº</th>
+                                {% else %}
+                                <th>Nenhuma leitura</th>
                                 {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                {% for last_humi in last_humi if last_humi['id_environment'] ==
+                                environment_readings['id_environment'] %}
+                                <th>{{last_humi['value']}} %</th>
+                                {% else %}
+                                <th>Nenhuma leitura</th>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                        
+                    </table>
+
                 </div>
-                <div class="col-12 col-lg-6">
+
+                <div class="t49 p-2 bgBlock rounded overflowAuto hPgB">
+
                     <h4 class="text-center">Avisos</h4>
-                    <div style=" overflow-y:scroll; height: 20rem;">
+
                         <table class="table">
+
                             <thead>
                                 <tr>
                                     <th scope="col">Ambiente</th>
                                     <th scope="col">Descrição</th>
                                 </tr>
                             </thead>
+                            
                             <tbody class="table-group-divider">
                                 <tr>
 
                                 </tr>
                             </tbody>
+
                         </table>
-                    </div>
+
                 </div>
 
-            </div>
         </div>
-    </div>
+
 </div>
 
 <script type="text/javascript">
