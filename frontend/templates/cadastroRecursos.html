@@ -4,12 +4,14 @@
 
 {% block content %}
 
-<section class="container mt-3">
-  <div class="bg-1 p-3 rounded shadow-sm">
-    <div class="bg-white border border-success rounded p-3">
-      <div class="row row-cols-1 g-3 align-items-center">
-        <div class="col-6 border-end border-dark pe-3">
-          <div>
+<section class="container mt-5 mb-5 bgBorder p-2 rounded shadow-sm">
+  <div class="bgBlock rounded">
+      <div class="d-flex justify-content-evenly align-items-center">
+
+        <div class="t50 p-2 hPaginaRecursos overflowhidden">
+
+          <div class="mt-5">
+
             <div class="text-center fs-4">
               <p class="m-0">Cadastrar um novo recurso</p>
               <hr class="w-100 m-0">
@@ -45,39 +47,41 @@
 
               <p class="my-3 text-danger text-center">{{aviso}}</p>
               <div class="d-flex">
-                <button type="submit" class="btn w-75 mt-3 bg-laranja">Cadastrar</button>
-                <input type="reset" class="btn w-25 ms-3 mt-3 bg-light">
+                <button type="submit" class="t75 bgButtonAccept">Cadastrar</button>
+                <input type="reset" class="t25 ms-3 bgButtonCancel">
               </div>
 
             </form>
+
           </div>
+
         </div>
 
 
-        <div class="col-6 pe-3">
-          <div class="w-100">
+        <div class="t50 p-2 borderStart hPaginaRecursos overflowhidden">
+
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Número do Recurso</th>
-                  <th scope="col">Valor Inicial</th>
-                  <th scope="col">Valor Final</th>
-                  <th scope="col" style="width: 10%;">Ferramentas</th>
+                  <th scope="col" style="width: 5%; text-align: center;">Id</th>
+                  <th scope="col" class="tTabelas">Name</th>
+                  <th scope="col" class="tTabelas">Número do Recurso</th>
+                  <th scope="col" class="tTabelas">Valor Inicial</th>
+                  <th scope="col" class="tTabelas">Valor Final</th>
+                  <th scope="col" class="tTabelas">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- id, name, resource_number, vlini, vlfim -->
                 {% for resource in resource %}
                 <tr>
-                  <th scope="row">{{resource['id_resource']}}</th>
-                  <td>{{resource['name']}}</td>
-                  <td>{{resource['number_resource']}}</td>
-                  <td>{{resource['val_start']}}</td>
-                  <td>{{resource['val_end']}}</td>
+                  <th scope="row" class="textALC">{{resource['id_resource']}}</th>
+                  <td class="textALC">{{resource['name']}}</td>
+                  <td class="textALC">{{resource['number_resource']}}</td>
+                  <td class="textALC">{{resource['val_start']}}</td>
+                  <td class="textALC">{{resource['val_end']}}</td>
                   <td>
-                    <a href="/cadastro/instancias_recursos?id_res={{resource['id_resource']}}">
+                    <a href="/cadastro/instancias_recursos?id_res={{resource['id_resource']}}" class="d-flex justify-content-center bgHammer me-3 ms-3">
                       <img src="../static/img/hammer.svg" alt="">
                     </a>
                   </td>
@@ -86,7 +90,6 @@
 
               </tbody>
             </table>
-          </div>
 
         </div>
 

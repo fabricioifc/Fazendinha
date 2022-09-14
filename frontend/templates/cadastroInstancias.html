@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<section class="container mt-5 bgBorder p-2 rounded shadow-sm">
+<section class="container mt-5 mb-5 bgBorder p-2 rounded shadow-sm">
   <div class="bgBlock rounded">
       <div class="d-flex justify-content-evenly align-items-center">
 
@@ -75,7 +75,7 @@
                 </div>
               </div>
 
-              <div class="d-flex">
+              <div class="d-flex align-items-center justify-content-evenly mt-3">
                 <button type="submit" class="t75 bgButtonAccept">Cadastrar</button>
                 <input type="reset" class="t25 bgButtonCancel ms-3">
               </div>
@@ -92,11 +92,11 @@
               <thead>
                 <tr>
                   <th scope="col" style="width: 5%; text-align: center;">Id</th>
-                  <th scope="col" style="width: 10%; text-align: center;">Nome</th>
-                  <th scope="col" style="width: 10%; text-align: center;">Ambiente_id</th>
-                  <th scope="col" style="width: 10%; text-align: center;">Instance_number</th>
-                  <th scope="col" style="width: 10%; text-align: center;">Status</th>
-                  <th scope="col" style="width: 10%; text-align: center;">Ferramentas</th>
+                  <th scope="col" class="tTabelas">Nome</th>
+                  <th scope="col" class="tTabelas">Ambiente_id</th>
+                  <th scope="col" class="tTabelas"">Instance_number</th>
+                  <th scope="col" class="tTabelas">Status</th>
+                  <th scope="col" class="tTabelas">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,17 +104,17 @@
                 {% for instance in instance %}
                 <tr>
                   <th scope="row">{{instance['id_instance']}}</th>
-                  <td style="text-align: center;">{{instance['name']}}</td>
-                  <td style="text-align: center;">{{instance['id_environment_FK']}}</td>
-                  <td style="text-align: center;">{{instance['number_instance']}}</td>
-                  <td style="text-align: center;">
+                  <td class="textALC">{{instance['name']}}</td>
+                  <td class="textALC">{{instance['id_environment_FK']}}</td>
+                  <td class="textALC">{{instance['number_instance']}}</td>
+                  <td class="textALC">
                     {% if instance['status']==1 %}
                     Ativo
                     {% elif instance['status']==0%}
                     Inativo
                     {% endif %}
                   </td>
-                  <td style="text-align: center;">
+                  <td>
                     {% if instance['status'] == 1%} 
                       <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}" class="d-flex justify-content-center bgHammer me-3 ms-3">
                         <img src="../static/img/hammer.svg" alt="">
