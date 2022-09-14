@@ -47,16 +47,22 @@ p{margin: 0px;}
 /*button*/
 .bgButton{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00;width: 90px;}
 .bgButton:hover{background-color: #FF8D3D;}
+
 .textButton{text-decoration: none;font-size: 100%;}
 .textButton:hover{text-decoration: none;color: #FFFFFF;}
+
 .bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
 .bgButtonCancel:hover{background-color: #FF8D3D;}
 .bgButtonAccept{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
 .bgButtonAccept:hover{background-color: #FF8D3D;}
 
+.buttonTrocar{background-color: #FB6800;padding: 1%;border-radius: 10px; border-color: #ffffff00;width: 70px;;}
+.buttonTrocar:hover{text-decoration: none;color: #FFFFFF;}
+
 /*altura*/
-.hAmbiente{height: calc(50vh);}
+.hAmbiente{height: 60vh;}
 .hPgB{height: 50vh;}
+.h100vh{height: 100vh;}
 /*tema dark*/
 .absolut{position: absolute;right: 0; margin: 1.25%;}
 .themaWidth{width: 20px}
@@ -65,3 +71,5 @@ p{margin: 0px;}
 /*overflow*/
 .overflowAuto{overflow: auto;}
 .overflowY{overflow-x: hidden;overflow-y: scroll;}
+.overflowhidden{overflow-x: hidden;overflow-y: hidden;}
+.overflowhidden:hover{overflow-x: auto;overflow-y: auto;}
