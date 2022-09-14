@@ -3,14 +3,13 @@
 
 
 {% block content %}
-<section class="container mt-3">
-  <div class="bg-1 p-3 rounded shadow-sm">
-    <div class="bg-white border border-success rounded p-3">
-      <div class="row row-cols-1 g-3 align-items-center">
+<section class="container mt-5 bgBorder p-2 rounded shadow-sm">
+  <div class="bgBlock rounded">
+      <div class="d-flex justify-content-evenly align-items-center">
 
-        <div class="col-6 border-end border-dark pe-3">
-          <div>
+        <div class="t50 p-2 overflowhidden hPaginaInstancia">
 
+          <div class="d-flex flex-column mt-5">
             <div class="text-center fs-4">
               <p class="m-0">Cadastrar uma nova instância</p>
               <hr class="w-100 m-0">
@@ -83,20 +82,21 @@
 
 
             </form>
-          </div>
+          </div>  
+
         </div>
 
-        <div class="col-6 pe-3">
-          <div class="w-100">
+        <div class="borderStart t50 p-2 overflowhidden hPaginaInstancia">
+
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Nome</th>
-                  <th scope="col">Ambiente_id</th>
-                  <th scope="col">Instance_number</th>
-                  <th scope="col">Status</th>
-                  <th scope="col" style="width: 10%;">Ferramentas</th>
+                  <th scope="col" style="width: 5%; text-align: center;">Id</th>
+                  <th scope="col" style="width: 10%; text-align: center;">Nome</th>
+                  <th scope="col" style="width: 10%; text-align: center;">Ambiente_id</th>
+                  <th scope="col" style="width: 10%; text-align: center;">Instance_number</th>
+                  <th scope="col" style="width: 10%; text-align: center;">Status</th>
+                  <th scope="col" style="width: 10%; text-align: center;">Ferramentas</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,24 +104,24 @@
                 {% for instance in instance %}
                 <tr>
                   <th scope="row">{{instance['id_instance']}}</th>
-                  <td>{{instance['name']}}</td>
-                  <td>{{instance['id_environment_FK']}}</td>
-                  <td>{{instance['number_instance']}}</td>
-                  <td>
+                  <td style="text-align: center;">{{instance['name']}}</td>
+                  <td style="text-align: center;">{{instance['id_environment_FK']}}</td>
+                  <td style="text-align: center;">{{instance['number_instance']}}</td>
+                  <td style="text-align: center;">
                     {% if instance['status']==1 %}
                     Ativo
                     {% elif instance['status']==0%}
                     Inativo
                     {% endif %}
                   </td>
-                  <td>
-                    {% if instance['status'] == 1%}
-                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}">
+                  <td style="text-align: center;">
+                    {% if instance['status'] == 1%} 
+                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}" class="d-flex justify-content-center bgHammer me-3 ms-3">
                         <img src="../static/img/hammer.svg" alt="">
                       </a>
                     {% else %}
-                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}" style="pointer-events: none">
-                        <img src="../static/img/hammer.svg" alt="" style="opacity: 0.4; filter: alpha(opacity=40);">
+                      <a href="/cadastro/instancias_recursos?id_ins={{instance['id_instance']}}" style="pointer-events: none" class="d-flex justify-content-center bgHammerBad me-3 ms-3">
+                        <img src="../static/img/hammer.svg" alt="">
                       </a>
                     {% endif %}
                   </td>
@@ -130,12 +130,10 @@
 
               </tbody>
             </table>
-          </div>
 
         </div>
 
       </div>
-    </div>
   </div>
 </section>
 

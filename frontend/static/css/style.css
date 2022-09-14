@@ -59,10 +59,14 @@ p{margin: 0px;}
 .buttonTrocar{background-color: #FB6800;padding: 1%;border-radius: 10px; border-color: #ffffff00;width: 70px;;}
 .buttonTrocar:hover{text-decoration: none;color: #FFFFFF;}
 
+.bgHammer{background-color: #31CF31; padding: 3%;border-radius: 10px; border-color:  #ffffff00;}
+.bgHammerBad{background-color: #FB6800; padding: 3%;border-radius: 10px; border-color:  #ffffff00;}
+
 /*altura*/
 .hAmbiente{height: 60vh;}
-.hPgB{height: 50vh;}
+.hPaginaBase{height: 50vh;}
 .h100vh{height: 100vh;}
+.hPaginaInstancia{height: 70vh;}
 /*tema dark*/
 .absolut{position: absolute;right: 0; margin: 1.25%;}
 .themaWidth{width: 20px}
