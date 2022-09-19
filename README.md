@@ -27,3 +27,5 @@ Angelina's Farm
    - [x] vlini (REAL) - required
    - [x] vlfim (REAL) - required (deve ser maior que o inicial)
 > Exemplos: [(3304, 'Umidade do Ar', 0, 100), (3304, 'Temperatura', 0, 40)]
+
+# Link para o site de IPSO numbers <https://techlibrary.hpe.com/docs/otlink-wo/IPSO-Object-Reference-Guide.html>
