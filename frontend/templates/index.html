@@ -6,9 +6,10 @@
 
 <div class="container bgBorder p-0 rounded shadow-sm mb-4">
 
-        <div class="bgTransparent p-2 d-flex flex-wrap justify-content-around align-items-center">
+        <div class="bgTransparent p-2 d-flex flex-wrap justify-content-between align-items-center">
 
-                <div class="t49 p-2 bgBlock rounded mb-2">
+                <!--ultimas leituras de temperatura-->
+                <div class="t49half p-2 bgBlock rounded mb-2">
                     {% if chart_temp != null %}
                     <div id="graphTempLastRead">
                         <button onclick="hiddenTempLastReads()" id="butHiddenGraphTempLastRead" class="buttonTrocar">trocar</button>
@@ -29,7 +30,8 @@
                     </div>
                 </div>
 
-                <div class="t49 p-2 bgBlock rounded mb-2">
+                <!--ultimas leituras de umidade-->
+                <div class="t49half p-2 bgBlock rounded mb-2">
                     {% if chart_humi != null %}
                     <div id="graphHumiLastRead">
                         <button onclick="hiddenHumiLastReads()" id="butHiddenGraphHumiLastRead" class="buttonTrocar">trocar</button>
@@ -50,7 +52,8 @@
                     </div>
                 </div>
 
-                <div class="t49 p-2 bgBlock rounded overflowAuto hPaginaBase">
+                <!--ultimas leituras de ambiente-->
+                <div class="t49half p-2 bgBlock rounded overflowAuto hPaginaBase">
 
                     <h4 class="text-center">Ultima leitura de cada ambiente</h4>
 
@@ -89,8 +92,9 @@
                     </table>
 
                 </div>
-
-                <div class="t49 p-2 bgBlock rounded overflowAuto hPaginaBase">
+                
+                <!--avisos-->
+                <div class="t49half p-2 bgBlock rounded overflowAuto hPaginaBase">
 
                     <h4 class="text-center">Avisos</h4>
 
