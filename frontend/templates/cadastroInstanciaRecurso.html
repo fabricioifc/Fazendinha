@@ -4,40 +4,20 @@
 
 {% block content %}
 
-<section class="container mt-3">
-  <div class="bg-1 p-3 rounded shadow-sm">
-    <div class="bg-white border border-success rounded p-3">
-      <div class="row row-cols-1 g-3 align-items-center">
-        <div class="col-12 col-lg-6 border-lg-end border-lg-dark pe-3">
-          <div>
+<section class="container mt-5 mb-5 bgBorder p-2 rounded shadow-sm">
+  <div class="d-flex justify-content-between align-items-center">
+
+        <!--Cadastrar uma nova instância_recurso-->
+        <div class="t49HalfQuarter hPaginaInstânciaRecurso p-2 overflowhidden bgBlock rounded">
+
             <div class="text-center fs-4">
               <p class="m-0">Cadastrar uma nova instância_recurso</p>
               <hr class="w-100 m-0">
             </div>
 
             <form class="form-floating mt-3" action="#" method="post">
-              <!-- status, resource_id, instance_id, normal -->
-              <div class="mt-3 w-100 d-flex">
-                <p class="m-0">Status do instância_recurso</p>
-                <div class="ms-auto">
-                  <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
 
-                    <label class="form-check-label" for="statusTrue">
-                      Ativo
-                    </label>
-                  </div>
-
-
-                  <div class="form-check-inline me-0">
-                    <input class="form-check-input" type="radio" name="status" id="statusFalse" value="inativo">
-                    <label class="form-check-label" for="statusFalse">
-                      Inativo
-                    </label>
-                  </div>
-                </div>
-              </div>
-
+              <!--nome pai recurso-->
               <div class="form-floating mt-3">
 
                 <select class="form-select py-3" aria-label="Default select example" name="id_resource_fk" id="resource_fk_id" required>
@@ -60,6 +40,7 @@
 
               </div>
 
+              <!--nome pai recurso instancia-->
               <div class="form-floating mt-3">
 
                 <select class="form-select py-3" aria-label="Default select example" name="id_instance_fk"
@@ -85,66 +66,78 @@
 
               </div>
 
-              <div class="mt-3 w-100 d-flex">
-                <p class="m-0">Situação do instância_recurso</p>
-                <div class="ms-auto">
-                  <div class="form-check-inline">
+              <!--Situação do instância_recurso-->
+              <div class="mt-3 w-100 d-flex justify-content-between">
+                <p class="t45">Situação do instância_recurso</p>
+
+                  <div class="form-check-inline t20">
                     <input class="form-check-input" type="radio" name="normal" id="normalTrue" value="ativo" checked>
-
-                    <label class="form-check-label" for="normalTrue">
-                      normal
-                    </label>
+                    <label class="form-check-label" for="normalTrue">normal</label>
                   </div>
 
 
-                  <div class="form-check-inline me-0">
+                  <div class="form-check-inline t20">
                     <input class="form-check-input" type="radio" name="normal" id="normalFalse" value="inativo">
-                    <label class="form-check-label" for="normalFalse">
-                      defeituoso
-                    </label>
+                    <label class="form-check-label" for="normalFalse">defeituoso</label>
                   </div>
-                </div>
+
               </div>
 
+              <!-- status, resource_id, instance_id, normal -->
+              <div class="mt-3 w-100 d-flex justify-content-between">
+                <p class="t45">Status do instância_recurso</p>
 
-              <div class="d-flex">
-                <button type="submit" class="btn w-75 mt-3 bg-laranja">Cadastrar</button>
-                <input type="reset" class="btn w-25 ms-3 mt-3 bg-light">
+                  <div class="form-check-inline t20">
+                    <input class="form-check-input" type="radio" name="status" id="statusTrue" value="ativo" checked>
+                    <label class="form-check-label" for="statusTrue">Ativo</label>
+                  </div>
+
+                  <div class="form-check-inline t20">
+                    <input class="form-check-input" type="radio" name="status" id="statusFalse" value="inativo">
+                    <label class="form-check-label" for="statusFalse">Inativo</label>
+                  </div>
+
+              </div>
+
+              <!--button-->
+              <div class="d-flex align-items-center justify-content-evenly mt-3">
+                <button type="submit" class="t75 bgButtonAccept">Cadastrar</button>
+                <input type="reset" class="t25 bgButtonCancel ms-3">
               </div>
 
             </form>
-          </div>
 
 
         </div>
 
-        <div class="col-12 col-lg-6 border-start border-dark pe-3">
+        <!--lista-->
+        <div class="t49HalfQuarter hPaginaInstânciaRecurso p-2 overflowhidden bgBlock rounded">
           <div class="w-100">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Resource_id</th>
-                  <th scope="col">Instance_id</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Normalidade</th>
+                  <th scope="col" style="width: 5%; text-align: center;">Id</th>
+                  <th scope="col" class="tTabelas">Resource_id</th>
+                  <th scope="col" class="tTabelas">Instance_id</th>
+                  <th scope="col" class="tTabelas">Status</th>
+                  <th scope="col" class="tTabelas">Normalidade</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- id, resouce_id, instance_id, status, normal -->
                 {% for instance_resource in instance_resource %}
                 <tr>
-                  <th scope="row">{{instance_resource['id_instance_resource']}}</th>
-                  <td>{{instance_resource['id_resource_FK']}}</td>
-                  <td>{{instance_resource['id_instance_FK']}}</td>
-                  <td>
+                  <th scope="row" style="width: 5%; text-align: center;">{{instance_resource['id_instance_resource']}}</th>
+                  <td class="tTabelas">{{instance_resource['id_resource_FK']}}</td>
+                  <td class="tTabelas">{{instance_resource['id_instance_FK']}}</td>
+                  <td class="tTabelas">
                     {% if instance_resource['status']==1 %}
                     Ativo
                     {% elif instance_resource['status']==0 %}
                     Desativo
                     {% endif %}
                   </td>
-                  <td>
+                  <td class="tTabelas">
                     {% if instance_resource['normal']==1 %}
                     Funcional
                     {% elif instance_resource['normal']==0 %}
@@ -160,8 +153,6 @@
 
         </div>
 
-      </div>
-    </div>
   </div>
 </section>
 {% endblock %}

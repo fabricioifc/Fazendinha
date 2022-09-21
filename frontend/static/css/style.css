@@ -38,6 +38,7 @@ p{margin: 0px;}
 .t50{width: 50%;}
 .t100{width: 100%;}
 .t30{width: 30%;}
+.t20{width: 20%;}
 .t35{width: 35%;}
 .t40{width: 40%;}
 .t45{width: 45%;}
@@ -67,11 +68,12 @@ p{margin: 0px;}
 .bgHammerBad:hover{opacity: 75%;}
 
 /*altura*/
-.hAmbiente{height: 60vh;}
+.hPaginaAmbiente{height: 60vh;}
 .hPaginaBase{height: 50vh;}
 .h100vh{height: 100vh;}
 .hPaginaInstancia{height: 70vh;}
 .hPaginaRecursos{height: 70vh;}
+.hPaginaInstânciaRecurso{height: 60vh;}
 /*tema dark*/
 .absolut{position: absolute;right: 0; margin: 1.25%;}
 .themaWidth{width: 20px}
