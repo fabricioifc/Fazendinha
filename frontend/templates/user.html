@@ -3,26 +3,26 @@
 
 {% block content %}
 
-<main>
-    <div class="container w-50">
-        <div class="bg-1 p-3 rounded shadow-sm">
-            <div class="bg-white border border-success p-3 rounded">
-                <p class="m-0 fs-4 text-center">Informações do Usuário</p>
-                <hr class="my-3 ">
-                {% for user in user %}
-                <div class="mb-3">
-                    <p>Nome: {{ user['name'] }}</p>
-                    <p>Login: {{ user['login'] }}</p>
-                    <p>E-mail: {{ user['email'] }}</p>
-                    <p>Contato: {{ user['contact'] }}</p>
-                    <p>Papel: {{ user['role'] }}</p>
-                </div>
-                {% endfor %}
+<section class="d-flex justify-content-center align-items-center flex-wrap" style="height: 80vh!important;">
+    <div class="bgBorder p-2 rounded shadow-sm t50">
+
+        <div class="bgBlock p-2 rounded overflowAuto" style="height: 70vh!important;">
+            <p class="fs-4 text-center">Informações do Usuário</p>
+            <hr class="my-3 ">
+            {% for user in user %}
+            <div class="h80">
+                <p class="t100 borderBottomGray"><b>Nome:</b> {{ user['name'] }}</p>
+                <p class="t100 borderBottomGray"><b>Login:</b> {{ user['login'] }}</p>
+                <p class="t100 borderBottomGray"><b>E-mail:</b> {{ user['email'] }}</p>
+                <p class="t100 borderBottomGray"><b>Contato:</b> {{ user['contact'] }}</p>
+                <p class="t100 borderBottomGray"><b>Papel:</b> {{ user['role'] }}</p>
             </div>
+            {% endfor %}
         </div>
-        
+
     </div>
-</main>
+        
+</section>
 
 
 {% endblock %}

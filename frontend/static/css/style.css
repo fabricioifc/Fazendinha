@@ -24,6 +24,7 @@
 .borderGreen{border-color: #165b00;}
 .borderStart{border-style: solid; border-color: #9AE583; border-bottom: 0px;border-top: 0px;border-right: 0px;}
 .borderPgPrincipal{border-style: solid; border-color: #9AE583;}
+.borderBottomGray{border-style: double; border-top: 0px;border-right: 0px; border-left: 0px; border-color: #C0C1C2;}
 
 /*text*/
 p{margin: 0px;}
@@ -68,6 +69,8 @@ p{margin: 0px;}
 .bgHammerBad:hover{opacity: 75%;}
 
 /*altura*/
+.h100{height: 100%;}
+.h80{height: 80%;}
 .hPaginaAmbiente{height: 60vh;}
 .hPaginaBase{height: 50vh;}
 .h100vh{height: 100vh;}
