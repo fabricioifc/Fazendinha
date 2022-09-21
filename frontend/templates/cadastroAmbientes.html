@@ -5,11 +5,12 @@
 {% block content %}
 
 <section class="container mt-5 mb-5 bgBorder p-2 rounded shadow-sm">
-    <div class="bgBlock rounded">
+    <div class="">
       
-      <div class="d-flex justify-content-evenly align-items-center hAmbiente">
+      <div class="d-flex justify-content-between align-items-center hAmbiente bgTransparent">
 
-        <div class="t50 p-3 hAmbiente overflowhidden">
+        <!--cadastrar um novo ambinete-->
+        <div class="t49HalfQuarter p-3 hAmbiente bgBlock rounded overflowhidden">
           <div>
             <div class="text-center fs-4">
               <p class="m-0">Cadastrar um novo ambiente</p>
@@ -54,7 +55,8 @@
           </div>
         </div>
 
-        <div class="t50 p-3 borderStart hAmbiente overflowhidden">
+        <!--lista de ambiente-->
+        <div class="t49HalfQuarter p-3 hAmbiente bgBlock rounded overflowhidden">
 
             <table class="table table-striped">
               <thead>
@@ -79,12 +81,12 @@
                   </td>
                   <td>
                     {% if environment['status'] == 1%}
-                      <a href="/cadastro/instancias?id={{environment['id_environment']}}">
+                      <a href="/cadastro/instancias?id={{environment['id_environment']}}" class="d-flex justify-content-center bgHammer me-3 ms-3">
                         <img src="../static/img/hammer.svg" alt="">
                       </a>
                     {% else %}
-                      <a href="/cadastro/instancias?id={{environment['id_environment']}}" style="pointer-events: none">
-                        <img src="../static/img/hammer.svg" alt="" style="opacity: 0.4; filter: alpha(opacity=40);">
+                      <a href="/cadastro/instancias?id={{environment['id_environment']}}" style="pointer-events: none" class="d-flex justify-content-center bgHammerBad me-3 ms-3">
+                        <img src="../static/img/hammer.svg" alt="">
                       </a>
                     {% endif %}
                   </td>
