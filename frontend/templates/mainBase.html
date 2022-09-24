@@ -18,37 +18,37 @@
 </head>
 
 <body class="bgBody">
-    <header class="bgHeader">
+    <header class="bgHeader" style="height: auto;">
 
+        <!--
+            <a type="button" onclick="dark()" class="absolut themaWidth themaHeight themabackground t100"></a>
 
-                <!--
-                    <a type="button" onclick="dark()" class="absolut themaWidth themaHeight themabackground t100"></a>
+            <script src="../static/javascript/darkthema.js"></script>
+        -->
 
-                    <script src="../static/javascript/darkthema.js"></script>
-                -->
-            <div class="container d-flex justify-content-between align-items-center flex-wrap p-2" style="height: 12vh;">
+        <div class="container d-flex justify-content-between align-items-center flex-nowrap p-2">
                 
-                        <img src="../static/img/logo.png" width="30%" alt="">
+            <img src="../static/img/logo.png" width="30%" alt="">
 
-                        <div class="t35"></div>
 
-                        <a href="/user" class="bgButton textButton textALC">Usuario</a>
-                        <a href="/login" class="bgButton textButton textALC">Login</a>
-                        {% if session['role_user'] == 'ADMIN' %}
-                        <a href="/cadastro" class="bgButton textButton textALC">Cadastro</a>
-                        {% endif %}
-                        <a href="/logout" class="bgButton textButton textALC">Logout</a>
-                        
+            <div id="buttons" class="d-flex justify-content-end align-items-center t70 my-3 flex-wrap">
+
+                <a href="/user" class="bgButton textButton textALC mgHeaderBt mt-1">Usuario</a>
+                <a href="/login" class="bgButton textButton textALC mgHeaderBt mt-1">Login</a>
+                {% if session['role_user'] == 'ADMIN' %}
+                <a href="/cadastro" class="bgButton textButton textALC mgHeaderBt mt-1">Cadastro</a>
+                {% endif %}
+                <a href="/logout" class="bgButton textButton textALC mgHeaderBt mt-1">Logout</a>
 
             </div>
+        </div>
 
-        <nav class="navbar navbar-expand-lg bgNav py-1 shadow-sm">
+        <nav class="navbar navbar-expand-lg bgNav py-1 shadow-sm t100">
             <div class="container">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav d-flex align-items-center t100">
                         <li class="nav-item ">
@@ -66,12 +66,12 @@
                         <li class="nav-item ms-3">
                             <a class="p-2 textgreen fw-bold" href="/cadastro/instancias_recursos">Instâncias_Recursos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ms-3">
                             <a class="p-2 textgreen fw-bold" href="/verleituras">Visualização de leituras</a>
                         </li>
 
-                        <li class="nav-item ms-auto p-2">
-                            <a href="/sobre" class=" textgreen fw-bold">Sobre</a>
+                        <li class="nav-item ms-auto">
+                            <a href="/sobre" class="p-2 textgreen fw-bold">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -91,13 +91,13 @@
     </header>
 
     <!--<main style="min-height: calc(100vh - 205.843px);" class="py-3">-->
-    <main style="min-height: calc(80vh);" class="py-3">
+    <main style="min-height: calc(80vh);" class="py-3 mt-2">
 
         {% block content %}{% endblock %}
     </main>
 
 
-    <footer class="bgFooter">
+    <footer class="bgFooter"  style="height: 20vh;">
         <div class="d-flex p-4 justify-content-between align-items-center">
 
                 <img src="../static/img/logo.png" alt="" class="t20">
@@ -109,11 +109,10 @@
         </div>
     </footer>
 
-    <!--
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-    -->
+
 </body>
 
 </html>

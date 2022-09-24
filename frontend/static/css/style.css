@@ -12,8 +12,7 @@
 */
 
 /*scroollbar style*/
-
-    /*the scrollbar*/::-webkit-scrollbar{width: 1.5vh; background-color: #d0d0d0DD}
+    /*the scrollbar*/::-webkit-scrollbar{width: 0.75vw; background-color: #d0d0d0DD}
     /*the draggable scrolling handle.*/::-webkit-scrollbar-thumb{background-color: #59d859; border-width: 1px;border-style: solid; border-color: #1ebd1e; border-radius: 10px;}
     /*(progress bar) of the scrollbar, where there is a gray bar on top of a white bar.*/::-webkit-scrollbar-track{background-color: transparent;}
     /*the buttons on the scrollbar (arrows pointing upwards and downwards).*/
@@ -44,26 +43,29 @@
 p{margin: 0px;}
 .textwhite{color: #FFFFFF;}
 .textgreen{color: #165b00; text-decoration: none;}
+.textDropDown{color: #f4f4f4; text-decoration: none; background-color: #FB6800; margin: 3px 0px 3px 0px;}
+.textDropDown:hover{color: #FFFFFF; text-decoration: none; background-color: #FF8D3D;}
 .textgreen:hover{color: #FFFFFF; text-decoration: none;}
 .pTextWidth{font-size: 100%;}
 .textALC{text-align: center;}
 
 /*Width*/
 .t1{width: 1%;}
-.t50{width: 50%;}
-.t100{width: 100%;}
-.t30{width: 30%;}
 .t20{width: 20%;}
+.t25{width: 25%;}
+.t30{width: 30%;}
 .t35{width: 35%;}
 .t40{width: 40%;}
 .t45{width: 45%;}
-.t75{width: 75%;}
-.t25{width: 25%;}
 .t49{width: 49%;}
 .t49HalfQuarter{width:49.75%}
+.t50{width: 50%;}
+.t70{width: 70%;}
+.t75{width: 75%;}
+.t100{width: 100%;}
 
 /*button*/
-.bgButton{background-color: #FB6800;padding: 0.75%;border-radius: 10px; border-color: #ffffff00; width: 90px;}
+.bgButton{background-color: #FB6800;padding: 0.75%;border-radius: 10px; border-style: solid; border-color: #e25e00; width: 80px;}
 .bgButton:hover{background-color: #FF8D3D;}
 
 .textButton{color: #FFFFFF; text-decoration: none;font-size: 100%;}
@@ -98,11 +100,13 @@ p{margin: 0px;}
 .hPaginaInstancia{height: 70vh;}
 .hPaginaRecursos{height: 70vh;}
 .hPaginaInstânciaRecurso{height: 60vh;}
-/*tema dark*/
+/*thema dark*/
 .absolut{position: absolute;right: 0; margin: 1.25%;}
 .themaWidth{width: 20px}
 .themaHeight{height: 20px;}
 .themabackground{background-image: url(../img/sun.svg);background-repeat: no-repeat;background-size:cover ;}
+/*margin*/
+.mgHeaderBt{margin-left: 2%; margin-right: 2%;}
 /*overflow*/
 .overflowAuto{overflow: auto;}
 .overflowY{overflow-x: hidden;overflow-y: scroll;}
