@@ -1,5 +1,5 @@
 /* verde */
-
+/*
 .bg-0 { background-color: #E3FBDB }
 .bg-1 { background-color: #9AE583 }
 .bg-2 { background-color: #479030 }
@@ -9,14 +9,27 @@
 
 .bg-laranja { background-color: #FFA13E }
 .bg-laranja:hover { background-color: #FFC68A }
+*/
+
+/*scroollbar style*/
+
+    /*the scrollbar*/::-webkit-scrollbar{width: 1.5vh; background-color: #d0d0d0DD}
+    /*the draggable scrolling handle.*/::-webkit-scrollbar-thumb{background-color: #59d859; border-width: 1px;border-style: solid; border-color: #1ebd1e; border-radius: 10px;}
+    /*(progress bar) of the scrollbar, where there is a gray bar on top of a white bar.*/::-webkit-scrollbar-track{background-color: transparent;}
+    /*the buttons on the scrollbar (arrows pointing upwards and downwards).*/
+        /* Buttons */::-webkit-scrollbar-button:single-button {background-color: #d0d0d0DD; background-repeat: no-repeat; background-size: contain;}
+            /* Up */::-webkit-scrollbar-button:single-button:vertical:decrement {background-image: url(../img/arrowTop.svg);}
+            /* Down */::-webkit-scrollbar-button:single-button:vertical:increment {background-image: url(../img/arrowBottom.svg);}
+            /* Right */::-webkit-scrollbar-button:single-button:horizontal:end {background-image: url(../img/arrowRight.svg);}
+            /* Left */::-webkit-scrollbar-button:single-button:horizontal:start {background-image: url(../img/arrowLeft.svg);}
 
 /* background of border*/
-.bgBorder{background-color: #9AE583; border-style: solid; border-width: 1px; border-color: #00C800;}
-.bgBlock{background-color: #f4f4f4; border-style: solid; border-width: 1px; border-color: #00C800;}
+.bgBorder{background-color: #59d859; border-style: solid; border-width: 1px; border-color: #1ebd1e;}
+.bgBlock{background-color: #f4f4f4; border-style: solid; border-width: 1px; border-color: #1ebd1e;}
 
 /*background*/
 .bgBody{background-color: #f4f4f4;}
-.bgNav{background-color: #FFFFFF32;}
+.bgNav{background-color: #59d859;}
 .bgHeader{background-color: #31CF31;}
 .bgFooter{background-color: #31CF31;}
 .bgTransparent{background-color: transparent;}
@@ -95,5 +108,9 @@ p{margin: 0px;}
 .overflowY{overflow-x: hidden;overflow-y: scroll;}
 .overflowhidden{overflow-x: hidden;overflow-y: hidden;}
 .overflowhidden:hover{overflow-x: auto;overflow-y: auto;}
+
+
+
 /*table*/
 .tTabelas{width: 10%; text-align: center; font-size: 0.9rem;}
+    
