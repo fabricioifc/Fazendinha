@@ -34,10 +34,11 @@
 
                         <a href="/user" class="bgButton textButton textALC">Usuario</a>
                         <a href="/login" class="bgButton textButton textALC">Login</a>
-                        <a href="/logout" class="bgButton textButton textALC">Logout</a>
                         {% if session['role_user'] == 'ADMIN' %}
                         <a href="/cadastro" class="bgButton textButton textALC">Cadastro</a>
                         {% endif %}
+                        <a href="/logout" class="bgButton textButton textALC">Logout</a>
+                        
 
             </div>
 
