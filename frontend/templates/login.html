@@ -3,11 +3,14 @@
 
 {% block content %}
 
-<div class="bg-1 p-3 shadow-sm rounded">
-    <div class="p-3 bg-white border border-success rounded">
+<div class="bgBorder p-2 shadow-sm rounded">
+    <div class="p-3 bgBlock rounded">
+
         <form class="row g-3 needs-validation align-items-center" method="post" novalidate>
+            
+            <!-- login -->
             <div class="col-3">
-                <label for="login_id" class="form-label m-0">Login</label>
+                <label for="login_id" class="form-label m-0">Login:</label>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" name="login" id="login_id" required>
@@ -15,9 +18,9 @@
                     Insira um login.
                 </div>
             </div>
-
+            <!-- senha -->
             <div class="col-3">
-                <label for="password_id" class="form-label m-0">Senha</label>
+                <label for="password_id" class="form-label m-0">Senha:</label>
             </div>
             <div class="col-9">
                 <input type="password" class="form-control" name="password" id="password_id" required>
@@ -25,6 +28,7 @@
                     ####
                 </div>
             </div>
+            <!-- verificacao -->
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             <div class="alert alert-primary" style="background-color: rgba(255, 0, 0, 0.10); " role="alert">
@@ -34,10 +38,11 @@
             </div>
             {% endif %}
             {% endwith %}
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">Logar</button>
-                <button class="btn btn-light"><a href="/home" class="text-decoration-none">Cancelar</a></button>
-                <button class="btn btn-danger" type="reset">Limpar</button>
+            <!-- button -->
+            <div class="text-center d-flex align-items-center justify-content-evenly">
+                <button class="bgButtonLgAccept t20" type="submit">Logar</button>
+                <button class="buttonBgWhite t20"><a href="/home" class="text-decoration-none">Cancelar</a></button>
+                <button class="bgButtonLgLimpar t20" type="reset">Limpar</button>
             </div>
 
 

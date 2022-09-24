@@ -10,19 +10,20 @@
 .bg-laranja { background-color: #FFA13E }
 .bg-laranja:hover { background-color: #FFC68A }
 
+/* background of border*/
+.bgBorder{background-color: #9AE583; border-style: solid; border-width: 1px; border-color: #00C800;}
+.bgBlock{background-color: #f4f4f4; border-style: solid; border-width: 1px; border-color: #00C800;}
+
 /*background*/
 .bgBody{background-color: #f4f4f4;}
 .bgNav{background-color: #FFFFFF32;}
 .bgHeader{background-color: #31CF31;}
 .bgFooter{background-color: #31CF31;}
-.bgBorder{background-color: #9AE583;}
-.bgBlock{background-color: #f4f4f4;}
 .bgTransparent{background-color: transparent;}
 
 /*border*/
 .bordermain{border-color: #FB6800;}
 .borderGreen{border-color: #165b00;}
-.borderStart{border-style: solid; border-color: #9AE583; border-bottom: 0px;border-top: 0px;border-right: 0px;}
 .borderPgPrincipal{border-style: solid; border-color: #9AE583;}
 .borderBottomGray{border-style: double; border-top: 0px;border-right: 0px; border-left: 0px; border-color: #C0C1C2;}
 
@@ -55,16 +56,23 @@ p{margin: 0px;}
 .textButton{color: #FFFFFF; text-decoration: none;font-size: 100%;}
 .textButton:hover{color: #f4f4f4;}
 
-.bgButtonCancel{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
-.bgButtonCancel:hover{background-color: #FF8D3D;}
-.bgButtonAccept{background-color: #FB6800;padding: 2.25%;border-radius: 10px; border-color: #ffffff00; color: #FFFFFF; font-weight: bolder;}
-.bgButtonAccept:hover{background-color: #FF8D3D;}
+.bgButtonCancel{background-color: #FB6800;padding: 2%;border-radius: 10px; border-style: solid; border-color: #e25e00; color: #FFFFFF; font-weight: bolder;}
+.bgButtonCancel:hover{background-color: #FB6800DD;}
+.bgButtonAccept{background-color: #FB6800;padding: 2%;border-radius: 10px; border-style: solid; border-color: #e25e00; color: #FFFFFF; font-weight: bolder;}
+.bgButtonAccept:hover{background-color: #FB6800DD;}
+
+.bgButtonLgLimpar{background-color: #FB6800;padding: 1.25%;border-radius: 10px; border-style: solid; border-color: #e25e00; color: #FFFFFF; font-weight: bolder;}
+.bgButtonLgLimpar:hover{background-color: #FB6800DD;}
+.bgButtonLgAccept{background-color: #31CF31;padding: 1.25%;border-radius: 10px;border-style: solid; border-color: #1bc71b; color: #FFFFFF; font-weight: bolder;}
+.bgButtonLgAccept:hover{background-color: #31CF31DD;}
+.buttonBgWhite{background-color: #f4f4f4; padding: 1.25%;border-radius: 10px;border-style: solid; border-color: #0d6efd; color: #0d6efd; font-weight: bolder;}
+.buttonBgWhite:hover{background-color: #f4f4f4; color: #035de4;}
 
 .buttonTrocar{background-color: #FB6800;padding: 1%;border-radius: 10px; border-color: #ffffff00;width: 70px; color: #FFFFFF;}
 .buttonTrocar:hover{text-decoration: none;color: #f4f4f4; background-color: #FF8D3D;}
 
 .bgHammer{background-color: #31CF31; padding: 3%;border-radius: 10px; border-color:  #ffffff00;}
-.bgHammer:hover{opacity: 75%;}
+.bgHammer:hover{background-color: #31CF31BB}
 .bgHammerBad{background-color: #FB6800; padding: 3%;border-radius: 10px; border-color:  #ffffff00;}
 .bgHammerBad:hover{opacity: 75%;}
 

@@ -3,12 +3,12 @@
 
 {% block content %}
 
-<div class="bg-1 p-3 shadow-sm rounded">
-    <div class="p-3 bg-white border border-success rounded">
+<div class="bgBorder p-2 shadow-sm rounded">
+    <div class="p-3 bgBlock rounded">
         <form class="row g-3 needs-validation align-items-center" method="post" novalidate>
             <!-- nome -->
             <div class="col-2">
-                <label for="name_id" class="form-label m-0">Nome</label>
+                <label for="name_id" class="form-label m-0">Nome:</label>
             </div>
             <div class="col-10">
                 <input type="text" class="form-control" name="name" id="name_id" required>
@@ -19,7 +19,7 @@
 
             <!-- login -->
             <div class="col-2">
-                <label for="login_id" class="form-label m-0">Login</label>
+                <label for="login_id" class="form-label m-0">Login:</label>
             </div>
             <div class="col-10">
                 <input type="text" class="form-control" name="login" id="login_id" required>
@@ -30,7 +30,7 @@
 
             <!-- e-mail -->
             <div class="col-2">
-                <label for="email_id" class="form-label m-0">E-mail</label>
+                <label for="email_id" class="form-label m-0">E-mail:</label>
             </div>
             <div class="col-10">
                 <input type="email" class="form-control" name="email" id="email_id" required>
@@ -41,7 +41,7 @@
 
             <!-- contato -->
             <div class="col-2">
-                <label for="contact_id" class="form-label m-0">Contato</label>
+                <label for="contact_id" class="form-label m-0">Contato:</label>
             </div>
             <div class="col-10">
                 <input type="text" class="form-control" name="contact" id="contact_id" required>
@@ -52,7 +52,7 @@
 
             <!-- senha -->
             <div class="col-2">
-                <label for="password_id" class="form-label m-0">Senha</label>
+                <label for="password_id" class="form-label m-0">Senha:</label>
             </div>
             <div class="col-4">
                 <input type="password" class="form-control" name="password" id="password_id" required>
@@ -64,7 +64,7 @@
             <!-- repita a senha -->
 
             <div class="col-2 text-center">
-                <label for="password_repet_id" class="form-label m-0">Repita-a</label>
+                <label for="password_repet_id" class="form-label m-0">Repita-a:</label>
             </div>
             <div class="col-4">
                 <input type="password" class="form-control" name="password_repet" id="password_repet_id" required>
@@ -74,7 +74,7 @@
             </div>
             
             <div class="col-2">
-                <label for="role_id" class="form-label m-0">Insira o papel</label>
+                <label for="role_id" class="form-label m-0">Insira o papel:</label>
             </div>
             <div class="col-10">
                 <select class="form-select" name="role" id="role_id" aria-label="Default select example">
@@ -96,10 +96,10 @@
             {% endif %}
             {% endwith %}
 
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">Cadastrar</button>
-                <button class="btn btn-light"><a href="/home" class="text-decoration-none">Cancelar</a></button>
-                <button class="btn btn-danger" type="reset">Limpar</button>
+            <div class="text-center d-flex align-items-center justify-content-evenly">
+                <button class="bgButtonLgAccept t20" type="submit">Cadastrar</button>
+                <button class="buttonBgWhite t20"><a href="/home" class="text-decoration-none">Cancelar</a></button>
+                <button class="bgButtonLgLimpar t20" type="reset">Limpar</button>
             </div>
 
 
