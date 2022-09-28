@@ -100,20 +100,15 @@ p{margin: 0px;}
 .hPaginaInstancia{height: 70vh;}
 .hPaginaRecursos{height: 70vh;}
 .hPaginaInstânciaRecurso{height: 60vh;}
-/*thema dark*/
-.absolut{position: absolute;right: 0; margin: 1.25%;}
-.themaWidth{width: 20px}
-.themaHeight{height: 20px;}
-.themabackground{background-image: url(../img/sun.svg);background-repeat: no-repeat;background-size:cover ;}
+
 /*margin*/
 .mgHeaderBt{margin-left: 2%; margin-right: 2%;}
+
 /*overflow*/
 .overflowAuto{overflow: auto;}
 .overflowY{overflow-x: hidden;overflow-y: scroll;}
 .overflowhidden{overflow-x: hidden;overflow-y: hidden;}
 .overflowhidden:hover{overflow-x: auto;overflow-y: auto;}
-
-
 
 /*table*/
 .tTabelas{width: 10%; text-align: center; font-size: 0.9rem;}
